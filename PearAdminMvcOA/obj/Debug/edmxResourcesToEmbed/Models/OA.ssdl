@@ -218,7 +218,6 @@
     <Property Name="WordId" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="PassWord" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="DepartId" Type="int" Nullable="false" />
     <Property Name="Gender" Type="int" Nullable="false" />
     <Property Name="RoleId" Type="int" Nullable="false" />
     <Property Name="UserState" Type="int" Nullable="false" />
@@ -431,18 +430,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_UserInfo_DepartInfo">
-    <End Role="DepartInfo" Type="Self.DepartInfo" Multiplicity="1" />
-    <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="DepartInfo">
-        <PropertyRef Name="DepartId" />
-      </Principal>
-      <Dependent Role="UserInfo">
-        <PropertyRef Name="DepartId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_UserInfo_UserState">
     <End Role="UserState" Type="Self.UserState" Multiplicity="1" />
     <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="*" />
@@ -550,10 +537,6 @@
     <AssociationSet Name="FK_Schedule_MeetingInfo" Association="Self.FK_Schedule_MeetingInfo">
       <End Role="MeetingInfo" EntitySet="MeetingInfo" />
       <End Role="Schedule" EntitySet="Schedule" />
-    </AssociationSet>
-    <AssociationSet Name="FK_UserInfo_DepartInfo" Association="Self.FK_UserInfo_DepartInfo">
-      <End Role="DepartInfo" EntitySet="DepartInfo" />
-      <End Role="UserInfo" EntitySet="UserInfo" />
     </AssociationSet>
     <AssociationSet Name="FK_UserInfo_UserState" Association="Self.FK_UserInfo_UserState">
       <End Role="UserState" EntitySet="UserState" />

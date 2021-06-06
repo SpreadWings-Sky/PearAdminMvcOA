@@ -222,7 +222,6 @@
           <ScalarProperty Name="WordId" ColumnName="WordId" />
           <ScalarProperty Name="UserName" ColumnName="UserName" />
           <ScalarProperty Name="PassWord" ColumnName="PassWord" />
-          <ScalarProperty Name="DepartId" ColumnName="DepartId" />
           <ScalarProperty Name="Gender" ColumnName="Gender" />
           <ScalarProperty Name="RoleId" ColumnName="RoleId" />
           <ScalarProperty Name="UserState" ColumnName="UserState" />

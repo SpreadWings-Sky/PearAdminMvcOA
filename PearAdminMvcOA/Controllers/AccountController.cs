@@ -26,10 +26,11 @@ namespace PearAdminMvcOA.Controllers
         {
             if (!string.IsNullOrEmpty(WorkId) && !string.IsNullOrEmpty(pwd))
             {
-                pwd = CommonBLL.HashEncoding(pwd);
+                pwd = CommonBLL.Md5Encoding(pwd);
                 using (OAEntities db = new OAEntities())
                 {
                     UserInfo us = db.UserInfo.FirstOrDefault(n => n.WordId == WorkId && n.PassWord == pwd);
+                    Session["User"] = us;
                     return us == null ? Json(new { code = 500 }) : Json(new { code = 200 });
                 }
             }

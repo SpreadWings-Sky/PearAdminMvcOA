@@ -223,7 +223,6 @@
           <Property Name="WordId" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="PassWord" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="DepartId" Type="int" Nullable="false" />
           <Property Name="Gender" Type="int" Nullable="false" />
           <Property Name="RoleId" Type="int" Nullable="false" />
           <Property Name="UserState" Type="int" Nullable="false" />
@@ -436,18 +435,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_UserInfo_DepartInfo">
-          <End Role="DepartInfo" Type="Self.DepartInfo" Multiplicity="1" />
-          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DepartInfo">
-              <PropertyRef Name="DepartId" />
-            </Principal>
-            <Dependent Role="UserInfo">
-              <PropertyRef Name="DepartId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_UserInfo_UserState">
           <End Role="UserState" Type="Self.UserState" Multiplicity="1" />
           <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="*" />
@@ -556,10 +543,6 @@
             <End Role="MeetingInfo" EntitySet="MeetingInfo" />
             <End Role="Schedule" EntitySet="Schedule" />
           </AssociationSet>
-          <AssociationSet Name="FK_UserInfo_DepartInfo" Association="Self.FK_UserInfo_DepartInfo">
-            <End Role="DepartInfo" EntitySet="DepartInfo" />
-            <End Role="UserInfo" EntitySet="UserInfo" />
-          </AssociationSet>
           <AssociationSet Name="FK_UserInfo_UserState" Association="Self.FK_UserInfo_UserState">
             <End Role="UserState" EntitySet="UserState" />
             <End Role="UserInfo" EntitySet="UserInfo" />
@@ -604,7 +587,6 @@
           <Property Name="Faxes" Type="Int64" />
           <Property Name="BranchId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="UserInfo" Relationship="Self.FK_DepartInfo_UserInfo" FromRole="DepartInfo" ToRole="UserInfo" />
-          <NavigationProperty Name="UserInfo1" Relationship="Self.FK_UserInfo_DepartInfo" FromRole="DepartInfo" ToRole="UserInfo" />
         </EntityType>
         <EntityType Name="FileInfo">
           <Key>
@@ -799,12 +781,10 @@
           <Property Name="WordId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="PassWord" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="DepartId" Type="Int32" Nullable="false" />
           <Property Name="Gender" Type="Int32" Nullable="false" />
           <Property Name="RoleId" Type="Int32" Nullable="false" />
           <Property Name="UserState" Type="Int32" Nullable="false" />
           <NavigationProperty Name="DepartInfo" Relationship="Self.FK_DepartInfo_UserInfo" FromRole="UserInfo" ToRole="DepartInfo" />
-          <NavigationProperty Name="DepartInfo1" Relationship="Self.FK_UserInfo_DepartInfo" FromRole="UserInfo" ToRole="DepartInfo" />
           <NavigationProperty Name="LoginLog" Relationship="Self.FK_LoginLog_UserInfo" FromRole="UserInfo" ToRole="LoginLog" />
           <NavigationProperty Name="ManualSign" Relationship="Self.FK_ManualSign_ManualSign" FromRole="UserInfo" ToRole="ManualSign" />
           <NavigationProperty Name="MessageToUser" Relationship="Self.FK_MessageToUser_UserInfo" FromRole="UserInfo" ToRole="MessageToUser" />
@@ -876,18 +856,6 @@
             </Principal>
             <Dependent Role="DepartInfo">
               <PropertyRef Name="PrincipalUser" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_UserInfo_DepartInfo">
-          <End Role="DepartInfo" Type="Self.DepartInfo" Multiplicity="1" />
-          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DepartInfo">
-              <PropertyRef Name="DepartId" />
-            </Principal>
-            <Dependent Role="UserInfo">
-              <PropertyRef Name="DepartId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1094,10 +1062,6 @@
           <AssociationSet Name="FK_DepartInfo_UserInfo" Association="Self.FK_DepartInfo_UserInfo">
             <End Role="UserInfo" EntitySet="UserInfo" />
             <End Role="DepartInfo" EntitySet="DepartInfo" />
-          </AssociationSet>
-          <AssociationSet Name="FK_UserInfo_DepartInfo" Association="Self.FK_UserInfo_DepartInfo">
-            <End Role="DepartInfo" EntitySet="DepartInfo" />
-            <End Role="UserInfo" EntitySet="UserInfo" />
           </AssociationSet>
           <AssociationSet Name="FK_FileInfo_FileTypeInfo" Association="Self.FK_FileInfo_FileTypeInfo">
             <End Role="FileTypeInfo" EntitySet="FileTypeInfo" />
@@ -1383,7 +1347,6 @@
                 <ScalarProperty Name="WordId" ColumnName="WordId" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="PassWord" ColumnName="PassWord" />
-                <ScalarProperty Name="DepartId" ColumnName="DepartId" />
                 <ScalarProperty Name="Gender" ColumnName="Gender" />
                 <ScalarProperty Name="RoleId" ColumnName="RoleId" />
                 <ScalarProperty Name="UserState" ColumnName="UserState" />

@@ -30,14 +30,12 @@ namespace PearAdminMvcOA.Models
         public string WordId { get; set; }
         public string UserName { get; set; }
         public string PassWord { get; set; }
-        public int DepartId { get; set; }
         public int Gender { get; set; }
         public int RoleId { get; set; }
         public int UserState { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DepartInfo> DepartInfo { get; set; }
-        public virtual DepartInfo DepartInfo1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LoginLog> LoginLog { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

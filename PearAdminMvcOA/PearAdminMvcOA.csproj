@@ -492,6 +492,7 @@
     <Content Include="libs\view\system\space.html" />
     <Content Include="libs\view\system\theme.html" />
     <Content Include="libs\view\system\user.html" />
+    <Content Include="libs\Vue\vue.min.js" />
     <Content Include="Models\OA.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>OA.edmx</DependentUpon>

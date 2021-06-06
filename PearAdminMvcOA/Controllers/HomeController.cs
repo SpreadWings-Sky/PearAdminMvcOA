@@ -11,6 +11,8 @@ namespace PearAdminMvcOA.Controllers
         // GET: Home
         public ActionResult Index()
         {
+            if (Session["User"] == null) 
+                return RedirectToAction("Login", "Account");
             return View();
         }
         //主界面

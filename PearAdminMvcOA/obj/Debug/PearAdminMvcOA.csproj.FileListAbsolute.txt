@@ -71,7 +71,6 @@ J:\PearAdminMvcOA\PearAdminMvcOA\bin\zh-Hans\System.Web.Webpages.Deployment.reso
 J:\PearAdminMvcOA\PearAdminMvcOA\bin\zh-Hans\System.Web.Webpages.Razor.resources.dll
 J:\PearAdminMvcOA\PearAdminMvcOA\bin\zh-Hans\System.Web.Helpers.resources.dll
 J:\PearAdminMvcOA\PearAdminMvcOA\bin\zh-Hans\System.Web.Mvc.resources.dll
-J:\PearAdminMvcOA\PearAdminMvcOA\obj\Debug\PearAdminMvcOA.csprojAssemblyReference.cache
 J:\PearAdminMvcOA\PearAdminMvcOA\obj\Debug\PearAdminMvcOA.csproj.CoreCompileInputs.cache
 J:\PearAdminMvcOA\PearAdminMvcOA\obj\Debug\PearAdminMvcOA.csproj.CopyComplete
 J:\PearAdminMvcOA\PearAdminMvcOA\obj\Debug\PearAdminMvcOA.dll
@@ -236,3 +235,9 @@ K:\作业\卓越项目（）大三\OA办公系统\PearAdminMvcOA\PearAdminMvcOA\
 K:\作业\卓越项目（）大三\OA办公系统\PearAdminMvcOA\PearAdminMvcOA\bin\EntityFramework.xml
 K:\作业\卓越项目（）大三\OA办公系统\PearAdminMvcOA\PearAdminMvcOA\bin\EntityFramework.SqlServer.xml
 K:\作业\卓越项目（）大三\OA办公系统\PearAdminMvcOA\PearAdminMvcOA\bin\zh-Hans\EntityFramework.resources.dll
+J:\PearAdminMvcOA\PearAdminMvcOA\bin\EntityFramework.dll
+J:\PearAdminMvcOA\PearAdminMvcOA\bin\EntityFramework.SqlServer.dll
+J:\PearAdminMvcOA\PearAdminMvcOA\bin\EntityFramework.xml
+J:\PearAdminMvcOA\PearAdminMvcOA\bin\EntityFramework.SqlServer.xml
+J:\PearAdminMvcOA\PearAdminMvcOA\bin\zh-Hans\EntityFramework.resources.dll
+J:\PearAdminMvcOA\PearAdminMvcOA\obj\Debug\PearAdminMvcOA.csprojAssemblyReference.cache
