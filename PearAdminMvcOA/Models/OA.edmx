@@ -1,0 +1,1445 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="OAModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AccessoryFile">
+          <Key>
+            <PropertyRef Name="AccessoryId" />
+          </Key>
+          <Property Name="AccessoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FileId" Type="int" Nullable="false" />
+          <Property Name="AccessoryName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="AccessorySize" Type="int" Nullable="false" />
+          <Property Name="AccessoryType" Type="int" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="AccessoryPath" Type="text" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BranchInfo">
+          <Key>
+            <PropertyRef Name="BranchId" />
+          </Key>
+          <Property Name="BranchId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BranchName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="BranchShortName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DepartInfo">
+          <Key>
+            <PropertyRef Name="DepartId" />
+          </Key>
+          <Property Name="DepartId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DepartName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PrincipalUser" Type="int" Nullable="false" />
+          <Property Name="ConnectTelNo" Type="nvarchar" MaxLength="11" />
+          <Property Name="ConnectMobileTelNo" Type="bigint" />
+          <Property Name="Faxes" Type="bigint" />
+          <Property Name="BranchId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FileInfo">
+          <Key>
+            <PropertyRef Name="FileId" />
+          </Key>
+          <Property Name="FileId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FileName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="FileType" Type="int" Nullable="false" />
+          <Property Name="Remark" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="FileOwner" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="ParentId" Type="int" Nullable="false" />
+          <Property Name="FilePath" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IfDelete" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FileTypeInfo">
+          <Key>
+            <PropertyRef Name="FileTypeId" />
+          </Key>
+          <Property Name="FileTypeId" Type="int" Nullable="false" />
+          <Property Name="FileTypeName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="FileTypeImage" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="FileTypeSuffix" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="LoginLog">
+          <Key>
+            <PropertyRef Name="LoginId" />
+          </Key>
+          <Property Name="LoginId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="LoginTime" Type="datetime" Nullable="false" />
+          <Property Name="IfSuccess" Type="int" Nullable="false" />
+          <Property Name="LoginUserIp" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="LoginDesc" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="ManualSign">
+          <Key>
+            <PropertyRef Name="SignId" />
+          </Key>
+          <Property Name="SignId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="SignTime" Type="datetime" Nullable="false" />
+          <Property Name="SignDesc" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="SignTag" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MeetingInfo">
+          <Key>
+            <PropertyRef Name="MeetingId" />
+          </Key>
+          <Property Name="MeetingId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MeetingName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Menu">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MenuText" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="ParentMenuId" Type="bigint" />
+          <Property Name="MenuTypeId" Type="bigint" Nullable="false" />
+          <Property Name="IcoString" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Url" Type="nvarchar" MaxLength="150" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Message">
+          <Key>
+            <PropertyRef Name="MessageId" />
+          </Key>
+          <Property Name="MessageId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Content" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Type" Type="int" Nullable="false" />
+          <Property Name="BeginTime" Type="datetime" Nullable="false" />
+          <Property Name="EndTime" Type="datetime" Nullable="false" />
+          <Property Name="FromUserId" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IfPublish" Type="int" Nullable="false" />
+          <Property Name="RecordTime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MessageToUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MessageId" Type="int" Nullable="false" />
+          <Property Name="ToUserId" Type="int" Nullable="false" />
+          <Property Name="IfRead" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MessageType">
+          <Key>
+            <PropertyRef Name="MessageTypeId" />
+          </Key>
+          <Property Name="MessageTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MessageTypeName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="MessageDesc" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="MyNote">
+          <Key>
+            <PropertyRef Name="NoteId" />
+          </Key>
+          <Property Name="NoteId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NoteTitle" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="NoteContent" Type="text" />
+          <Property Name="CreateTime" Type="datetime" Nullable="false" />
+          <Property Name="CreateUser" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OperateLog">
+          <Key>
+            <PropertyRef Name="OperateId" />
+          </Key>
+          <Property Name="OperateId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="OperateName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ObjectId" Type="int" Nullable="false" />
+          <Property Name="OperateDesc" Type="nvarchar" MaxLength="200" />
+          <Property Name="OperateTime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PreContract">
+          <Key>
+            <PropertyRef Name="PreContractId" />
+          </Key>
+          <Property Name="PreContractId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ScheduleId" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ReadCommonMessage">
+          <Key>
+            <PropertyRef Name="ReadId" />
+          </Key>
+          <Property Name="ReadId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MessageId" Type="int" />
+          <Property Name="UserId" Type="int" />
+        </EntityType>
+        <EntityType Name="RoleInfo">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="RoleDesc" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Schedule">
+          <Key>
+            <PropertyRef Name="ScheduleId" />
+          </Key>
+          <Property Name="ScheduleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Address" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="MeetingId" Type="int" Nullable="false" />
+          <Property Name="BeginTime" Type="datetime" Nullable="false" />
+          <Property Name="EndTime" Type="datetime" Nullable="false" />
+          <Property Name="SchContent" Type="text" Nullable="false" />
+          <Property Name="CreateUser" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreateTime" Type="datetime" Nullable="false" />
+          <Property Name="IfPrivate" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“OA.dbo.SysFun”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="SysFun">
+          <Key>
+            <PropertyRef Name="NodeId" />
+            <PropertyRef Name="DisplayName" />
+            <PropertyRef Name="DisplayOrder" />
+            <PropertyRef Name="ParentNodeId" />
+          </Key>
+          <Property Name="NodeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DisplayName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="NodeURL" Type="nvarchar" MaxLength="50" />
+          <Property Name="DisplayOrder" Type="int" Nullable="false" />
+          <Property Name="ParentNodeId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserInfo">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="WordId" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PassWord" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="DepartId" Type="int" Nullable="false" />
+          <Property Name="Gender" Type="int" Nullable="false" />
+          <Property Name="RoleId" Type="int" Nullable="false" />
+          <Property Name="UserState" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserState">
+          <Key>
+            <PropertyRef Name="UserStateId" />
+          </Key>
+          <Property Name="UserStateId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserStateName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WorkTime">
+          <Key>
+            <PropertyRef Name="WorkTimeId" />
+          </Key>
+          <Property Name="WorkTimeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="WordName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="OnDutyTime" Type="datetime" Nullable="false" />
+          <Property Name="OffDutyTime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_AccessoryFile_FileInfo">
+          <End Role="FileInfo" Type="Self.FileInfo" Multiplicity="1" />
+          <End Role="AccessoryFile" Type="Self.AccessoryFile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FileInfo">
+              <PropertyRef Name="FileId" />
+            </Principal>
+            <Dependent Role="AccessoryFile">
+              <PropertyRef Name="FileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AccessoryFile_FileTypeInfo">
+          <End Role="FileTypeInfo" Type="Self.FileTypeInfo" Multiplicity="1" />
+          <End Role="AccessoryFile" Type="Self.AccessoryFile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FileTypeInfo">
+              <PropertyRef Name="FileTypeId" />
+            </Principal>
+            <Dependent Role="AccessoryFile">
+              <PropertyRef Name="AccessoryType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DepartInfo_UserInfo">
+          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
+          <End Role="DepartInfo" Type="Self.DepartInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="DepartInfo">
+              <PropertyRef Name="PrincipalUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FileInfo_FileTypeInfo">
+          <End Role="FileTypeInfo" Type="Self.FileTypeInfo" Multiplicity="1" />
+          <End Role="FileInfo" Type="Self.FileInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FileTypeInfo">
+              <PropertyRef Name="FileTypeId" />
+            </Principal>
+            <Dependent Role="FileInfo">
+              <PropertyRef Name="FileType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LoginLog_UserInfo">
+          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
+          <End Role="LoginLog" Type="Self.LoginLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="LoginLog">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ManualSign_ManualSign">
+          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
+          <End Role="ManualSign" Type="Self.ManualSign" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="ManualSign">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Menu_Menu">
+          <End Role="Menu" Type="Self.Menu" Multiplicity="0..1" />
+          <End Role="Menu1" Type="Self.Menu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Menu">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Menu1">
+              <PropertyRef Name="ParentMenuId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Message_MessageType">
+          <End Role="MessageType" Type="Self.MessageType" Multiplicity="1" />
+          <End Role="Message" Type="Self.Message" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MessageType">
+              <PropertyRef Name="MessageTypeId" />
+            </Principal>
+            <Dependent Role="Message">
+              <PropertyRef Name="Type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MessageToUser_Message">
+          <End Role="Message" Type="Self.Message" Multiplicity="1" />
+          <End Role="MessageToUser" Type="Self.MessageToUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Message">
+              <PropertyRef Name="MessageId" />
+            </Principal>
+            <Dependent Role="MessageToUser">
+              <PropertyRef Name="MessageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MessageToUser_UserInfo">
+          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
+          <End Role="MessageToUser" Type="Self.MessageToUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="MessageToUser">
+              <PropertyRef Name="ToUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OperateLog_UserInfo">
+          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
+          <End Role="OperateLog" Type="Self.OperateLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="OperateLog">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PreContract_Schedule">
+          <End Role="Schedule" Type="Self.Schedule" Multiplicity="1" />
+          <End Role="PreContract" Type="Self.PreContract" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Schedule">
+              <PropertyRef Name="ScheduleId" />
+            </Principal>
+            <Dependent Role="PreContract">
+              <PropertyRef Name="ScheduleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PreContract_UserInfo">
+          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
+          <End Role="PreContract" Type="Self.PreContract" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="PreContract">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ReadCommonMessage_Message">
+          <End Role="Message" Type="Self.Message" Multiplicity="0..1" />
+          <End Role="ReadCommonMessage" Type="Self.ReadCommonMessage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Message">
+              <PropertyRef Name="MessageId" />
+            </Principal>
+            <Dependent Role="ReadCommonMessage">
+              <PropertyRef Name="MessageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ReadCommonMessage_UserInfo">
+          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="0..1" />
+          <End Role="ReadCommonMessage" Type="Self.ReadCommonMessage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="ReadCommonMessage">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Schedule_MeetingInfo">
+          <End Role="MeetingInfo" Type="Self.MeetingInfo" Multiplicity="1" />
+          <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MeetingInfo">
+              <PropertyRef Name="MeetingId" />
+            </Principal>
+            <Dependent Role="Schedule">
+              <PropertyRef Name="MeetingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserInfo_DepartInfo">
+          <End Role="DepartInfo" Type="Self.DepartInfo" Multiplicity="1" />
+          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DepartInfo">
+              <PropertyRef Name="DepartId" />
+            </Principal>
+            <Dependent Role="UserInfo">
+              <PropertyRef Name="DepartId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserInfo_UserState">
+          <End Role="UserState" Type="Self.UserState" Multiplicity="1" />
+          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserState">
+              <PropertyRef Name="UserStateId" />
+            </Principal>
+            <Dependent Role="UserInfo">
+              <PropertyRef Name="UserState" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="OAModelStoreContainer">
+          <EntitySet Name="AccessoryFile" EntityType="Self.AccessoryFile" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BranchInfo" EntityType="Self.BranchInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DepartInfo" EntityType="Self.DepartInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FileInfo" EntityType="Self.FileInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FileTypeInfo" EntityType="Self.FileTypeInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LoginLog" EntityType="Self.LoginLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ManualSign" EntityType="Self.ManualSign" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MeetingInfo" EntityType="Self.MeetingInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Menu" EntityType="Self.Menu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Message" EntityType="Self.Message" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MessageToUser" EntityType="Self.MessageToUser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MessageType" EntityType="Self.MessageType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MyNote" EntityType="Self.MyNote" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OperateLog" EntityType="Self.OperateLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PreContract" EntityType="Self.PreContract" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ReadCommonMessage" EntityType="Self.ReadCommonMessage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RoleInfo" EntityType="Self.RoleInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Schedule" EntityType="Self.Schedule" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserInfo" EntityType="Self.UserInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserState" EntityType="Self.UserState" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WorkTime" EntityType="Self.WorkTime" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SysFun" EntityType="Self.SysFun" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [SysFun].[NodeId] AS [NodeId], 
+    [SysFun].[DisplayName] AS [DisplayName], 
+    [SysFun].[NodeURL] AS [NodeURL], 
+    [SysFun].[DisplayOrder] AS [DisplayOrder], 
+    [SysFun].[ParentNodeId] AS [ParentNodeId]
+    FROM [dbo].[SysFun] AS [SysFun]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_AccessoryFile_FileInfo" Association="Self.FK_AccessoryFile_FileInfo">
+            <End Role="FileInfo" EntitySet="FileInfo" />
+            <End Role="AccessoryFile" EntitySet="AccessoryFile" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AccessoryFile_FileTypeInfo" Association="Self.FK_AccessoryFile_FileTypeInfo">
+            <End Role="FileTypeInfo" EntitySet="FileTypeInfo" />
+            <End Role="AccessoryFile" EntitySet="AccessoryFile" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DepartInfo_UserInfo" Association="Self.FK_DepartInfo_UserInfo">
+            <End Role="UserInfo" EntitySet="UserInfo" />
+            <End Role="DepartInfo" EntitySet="DepartInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FileInfo_FileTypeInfo" Association="Self.FK_FileInfo_FileTypeInfo">
+            <End Role="FileTypeInfo" EntitySet="FileTypeInfo" />
+            <End Role="FileInfo" EntitySet="FileInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LoginLog_UserInfo" Association="Self.FK_LoginLog_UserInfo">
+            <End Role="UserInfo" EntitySet="UserInfo" />
+            <End Role="LoginLog" EntitySet="LoginLog" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ManualSign_ManualSign" Association="Self.FK_ManualSign_ManualSign">
+            <End Role="UserInfo" EntitySet="UserInfo" />
+            <End Role="ManualSign" EntitySet="ManualSign" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Menu_Menu" Association="Self.FK_Menu_Menu">
+            <End Role="Menu" EntitySet="Menu" />
+            <End Role="Menu1" EntitySet="Menu" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Message_MessageType" Association="Self.FK_Message_MessageType">
+            <End Role="MessageType" EntitySet="MessageType" />
+            <End Role="Message" EntitySet="Message" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MessageToUser_Message" Association="Self.FK_MessageToUser_Message">
+            <End Role="Message" EntitySet="Message" />
+            <End Role="MessageToUser" EntitySet="MessageToUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MessageToUser_UserInfo" Association="Self.FK_MessageToUser_UserInfo">
+            <End Role="UserInfo" EntitySet="UserInfo" />
+            <End Role="MessageToUser" EntitySet="MessageToUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OperateLog_UserInfo" Association="Self.FK_OperateLog_UserInfo">
+            <End Role="UserInfo" EntitySet="UserInfo" />
+            <End Role="OperateLog" EntitySet="OperateLog" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PreContract_Schedule" Association="Self.FK_PreContract_Schedule">
+            <End Role="Schedule" EntitySet="Schedule" />
+            <End Role="PreContract" EntitySet="PreContract" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PreContract_UserInfo" Association="Self.FK_PreContract_UserInfo">
+            <End Role="UserInfo" EntitySet="UserInfo" />
+            <End Role="PreContract" EntitySet="PreContract" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReadCommonMessage_Message" Association="Self.FK_ReadCommonMessage_Message">
+            <End Role="Message" EntitySet="Message" />
+            <End Role="ReadCommonMessage" EntitySet="ReadCommonMessage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReadCommonMessage_UserInfo" Association="Self.FK_ReadCommonMessage_UserInfo">
+            <End Role="UserInfo" EntitySet="UserInfo" />
+            <End Role="ReadCommonMessage" EntitySet="ReadCommonMessage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Schedule_MeetingInfo" Association="Self.FK_Schedule_MeetingInfo">
+            <End Role="MeetingInfo" EntitySet="MeetingInfo" />
+            <End Role="Schedule" EntitySet="Schedule" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserInfo_DepartInfo" Association="Self.FK_UserInfo_DepartInfo">
+            <End Role="DepartInfo" EntitySet="DepartInfo" />
+            <End Role="UserInfo" EntitySet="UserInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserInfo_UserState" Association="Self.FK_UserInfo_UserState">
+            <End Role="UserState" EntitySet="UserState" />
+            <End Role="UserInfo" EntitySet="UserInfo" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="OAModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AccessoryFile">
+          <Key>
+            <PropertyRef Name="AccessoryId" />
+          </Key>
+          <Property Name="AccessoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FileId" Type="Int32" Nullable="false" />
+          <Property Name="AccessoryName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AccessorySize" Type="Int32" Nullable="false" />
+          <Property Name="AccessoryType" Type="Int32" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="AccessoryPath" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="FileInfo" Relationship="Self.FK_AccessoryFile_FileInfo" FromRole="AccessoryFile" ToRole="FileInfo" />
+          <NavigationProperty Name="FileTypeInfo" Relationship="Self.FK_AccessoryFile_FileTypeInfo" FromRole="AccessoryFile" ToRole="FileTypeInfo" />
+        </EntityType>
+        <EntityType Name="BranchInfo">
+          <Key>
+            <PropertyRef Name="BranchId" />
+          </Key>
+          <Property Name="BranchId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BranchName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="BranchShortName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DepartInfo">
+          <Key>
+            <PropertyRef Name="DepartId" />
+          </Key>
+          <Property Name="DepartId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DepartName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PrincipalUser" Type="Int32" Nullable="false" />
+          <Property Name="ConnectTelNo" Type="String" MaxLength="11" FixedLength="false" Unicode="true" />
+          <Property Name="ConnectMobileTelNo" Type="Int64" />
+          <Property Name="Faxes" Type="Int64" />
+          <Property Name="BranchId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="UserInfo" Relationship="Self.FK_DepartInfo_UserInfo" FromRole="DepartInfo" ToRole="UserInfo" />
+          <NavigationProperty Name="UserInfo1" Relationship="Self.FK_UserInfo_DepartInfo" FromRole="DepartInfo" ToRole="UserInfo" />
+        </EntityType>
+        <EntityType Name="FileInfo">
+          <Key>
+            <PropertyRef Name="FileId" />
+          </Key>
+          <Property Name="FileId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FileName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FileType" Type="Int32" Nullable="false" />
+          <Property Name="Remark" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FileOwner" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ParentId" Type="Int32" Nullable="false" />
+          <Property Name="FilePath" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IfDelete" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AccessoryFile" Relationship="Self.FK_AccessoryFile_FileInfo" FromRole="FileInfo" ToRole="AccessoryFile" />
+          <NavigationProperty Name="FileTypeInfo" Relationship="Self.FK_FileInfo_FileTypeInfo" FromRole="FileInfo" ToRole="FileTypeInfo" />
+        </EntityType>
+        <EntityType Name="FileTypeInfo">
+          <Key>
+            <PropertyRef Name="FileTypeId" />
+          </Key>
+          <Property Name="FileTypeId" Type="Int32" Nullable="false" />
+          <Property Name="FileTypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FileTypeImage" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FileTypeSuffix" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AccessoryFile" Relationship="Self.FK_AccessoryFile_FileTypeInfo" FromRole="FileTypeInfo" ToRole="AccessoryFile" />
+          <NavigationProperty Name="FileInfo" Relationship="Self.FK_FileInfo_FileTypeInfo" FromRole="FileTypeInfo" ToRole="FileInfo" />
+        </EntityType>
+        <EntityType Name="LoginLog">
+          <Key>
+            <PropertyRef Name="LoginId" />
+          </Key>
+          <Property Name="LoginId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="LoginTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IfSuccess" Type="Int32" Nullable="false" />
+          <Property Name="LoginUserIp" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LoginDesc" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="UserInfo" Relationship="Self.FK_LoginLog_UserInfo" FromRole="LoginLog" ToRole="UserInfo" />
+        </EntityType>
+        <EntityType Name="ManualSign">
+          <Key>
+            <PropertyRef Name="SignId" />
+          </Key>
+          <Property Name="SignId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="SignTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="SignDesc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SignTag" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="UserInfo" Relationship="Self.FK_ManualSign_ManualSign" FromRole="ManualSign" ToRole="UserInfo" />
+        </EntityType>
+        <EntityType Name="MeetingInfo">
+          <Key>
+            <PropertyRef Name="MeetingId" />
+          </Key>
+          <Property Name="MeetingId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MeetingName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Schedule" Relationship="Self.FK_Schedule_MeetingInfo" FromRole="MeetingInfo" ToRole="Schedule" />
+        </EntityType>
+        <EntityType Name="Menu">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MenuText" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ParentMenuId" Type="Int64" />
+          <Property Name="MenuTypeId" Type="Int64" Nullable="false" />
+          <Property Name="IcoString" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Url" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Menu1" Relationship="Self.FK_Menu_Menu" FromRole="Menu" ToRole="Menu1" />
+          <NavigationProperty Name="Menu2" Relationship="Self.FK_Menu_Menu" FromRole="Menu1" ToRole="Menu" />
+        </EntityType>
+        <EntityType Name="Message">
+          <Key>
+            <PropertyRef Name="MessageId" />
+          </Key>
+          <Property Name="MessageId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Content" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Type" Type="Int32" Nullable="false" />
+          <Property Name="BeginTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EndTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="FromUserId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IfPublish" Type="Int32" Nullable="false" />
+          <Property Name="RecordTime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="MessageType" Relationship="Self.FK_Message_MessageType" FromRole="Message" ToRole="MessageType" />
+          <NavigationProperty Name="MessageToUser" Relationship="Self.FK_MessageToUser_Message" FromRole="Message" ToRole="MessageToUser" />
+          <NavigationProperty Name="ReadCommonMessage" Relationship="Self.FK_ReadCommonMessage_Message" FromRole="Message" ToRole="ReadCommonMessage" />
+        </EntityType>
+        <EntityType Name="MessageToUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MessageId" Type="Int32" Nullable="false" />
+          <Property Name="ToUserId" Type="Int32" Nullable="false" />
+          <Property Name="IfRead" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Message" Relationship="Self.FK_MessageToUser_Message" FromRole="MessageToUser" ToRole="Message" />
+          <NavigationProperty Name="UserInfo" Relationship="Self.FK_MessageToUser_UserInfo" FromRole="MessageToUser" ToRole="UserInfo" />
+        </EntityType>
+        <EntityType Name="MessageType">
+          <Key>
+            <PropertyRef Name="MessageTypeId" />
+          </Key>
+          <Property Name="MessageTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MessageTypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MessageDesc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Message" Relationship="Self.FK_Message_MessageType" FromRole="MessageType" ToRole="Message" />
+        </EntityType>
+        <EntityType Name="MyNote">
+          <Key>
+            <PropertyRef Name="NoteId" />
+          </Key>
+          <Property Name="NoteId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NoteTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="NoteContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreateUser" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OperateLog">
+          <Key>
+            <PropertyRef Name="OperateId" />
+          </Key>
+          <Property Name="OperateId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="OperateName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ObjectId" Type="Int32" Nullable="false" />
+          <Property Name="OperateDesc" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="OperateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="UserInfo" Relationship="Self.FK_OperateLog_UserInfo" FromRole="OperateLog" ToRole="UserInfo" />
+        </EntityType>
+        <EntityType Name="PreContract">
+          <Key>
+            <PropertyRef Name="PreContractId" />
+          </Key>
+          <Property Name="PreContractId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ScheduleId" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Schedule" Relationship="Self.FK_PreContract_Schedule" FromRole="PreContract" ToRole="Schedule" />
+          <NavigationProperty Name="UserInfo" Relationship="Self.FK_PreContract_UserInfo" FromRole="PreContract" ToRole="UserInfo" />
+        </EntityType>
+        <EntityType Name="ReadCommonMessage">
+          <Key>
+            <PropertyRef Name="ReadId" />
+          </Key>
+          <Property Name="ReadId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MessageId" Type="Int32" />
+          <Property Name="UserId" Type="Int32" />
+          <NavigationProperty Name="Message" Relationship="Self.FK_ReadCommonMessage_Message" FromRole="ReadCommonMessage" ToRole="Message" />
+          <NavigationProperty Name="UserInfo" Relationship="Self.FK_ReadCommonMessage_UserInfo" FromRole="ReadCommonMessage" ToRole="UserInfo" />
+        </EntityType>
+        <EntityType Name="RoleInfo">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RoleDesc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Schedule">
+          <Key>
+            <PropertyRef Name="ScheduleId" />
+          </Key>
+          <Property Name="ScheduleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MeetingId" Type="Int32" Nullable="false" />
+          <Property Name="BeginTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EndTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="SchContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreateUser" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IfPrivate" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="MeetingInfo" Relationship="Self.FK_Schedule_MeetingInfo" FromRole="Schedule" ToRole="MeetingInfo" />
+          <NavigationProperty Name="PreContract" Relationship="Self.FK_PreContract_Schedule" FromRole="Schedule" ToRole="PreContract" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="UserInfo">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="WordId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PassWord" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DepartId" Type="Int32" Nullable="false" />
+          <Property Name="Gender" Type="Int32" Nullable="false" />
+          <Property Name="RoleId" Type="Int32" Nullable="false" />
+          <Property Name="UserState" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="DepartInfo" Relationship="Self.FK_DepartInfo_UserInfo" FromRole="UserInfo" ToRole="DepartInfo" />
+          <NavigationProperty Name="DepartInfo1" Relationship="Self.FK_UserInfo_DepartInfo" FromRole="UserInfo" ToRole="DepartInfo" />
+          <NavigationProperty Name="LoginLog" Relationship="Self.FK_LoginLog_UserInfo" FromRole="UserInfo" ToRole="LoginLog" />
+          <NavigationProperty Name="ManualSign" Relationship="Self.FK_ManualSign_ManualSign" FromRole="UserInfo" ToRole="ManualSign" />
+          <NavigationProperty Name="MessageToUser" Relationship="Self.FK_MessageToUser_UserInfo" FromRole="UserInfo" ToRole="MessageToUser" />
+          <NavigationProperty Name="OperateLog" Relationship="Self.FK_OperateLog_UserInfo" FromRole="UserInfo" ToRole="OperateLog" />
+          <NavigationProperty Name="PreContract" Relationship="Self.FK_PreContract_UserInfo" FromRole="UserInfo" ToRole="PreContract" />
+          <NavigationProperty Name="ReadCommonMessage" Relationship="Self.FK_ReadCommonMessage_UserInfo" FromRole="UserInfo" ToRole="ReadCommonMessage" />
+          <NavigationProperty Name="UserState1" Relationship="Self.FK_UserInfo_UserState" FromRole="UserInfo" ToRole="UserState" />
+        </EntityType>
+        <EntityType Name="UserState">
+          <Key>
+            <PropertyRef Name="UserStateId" />
+          </Key>
+          <Property Name="UserStateId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserStateName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="UserInfo" Relationship="Self.FK_UserInfo_UserState" FromRole="UserState" ToRole="UserInfo" />
+        </EntityType>
+        <EntityType Name="WorkTime">
+          <Key>
+            <PropertyRef Name="WorkTimeId" />
+          </Key>
+          <Property Name="WorkTimeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="WordName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="OnDutyTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="OffDutyTime" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="SysFun">
+          <Key>
+            <PropertyRef Name="NodeId" />
+            <PropertyRef Name="DisplayName" />
+            <PropertyRef Name="DisplayOrder" />
+            <PropertyRef Name="ParentNodeId" />
+          </Key>
+          <Property Name="NodeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DisplayName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="NodeURL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DisplayOrder" Type="Int32" Nullable="false" />
+          <Property Name="ParentNodeId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_AccessoryFile_FileInfo">
+          <End Role="FileInfo" Type="Self.FileInfo" Multiplicity="1" />
+          <End Role="AccessoryFile" Type="Self.AccessoryFile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FileInfo">
+              <PropertyRef Name="FileId" />
+            </Principal>
+            <Dependent Role="AccessoryFile">
+              <PropertyRef Name="FileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AccessoryFile_FileTypeInfo">
+          <End Role="FileTypeInfo" Type="Self.FileTypeInfo" Multiplicity="1" />
+          <End Role="AccessoryFile" Type="Self.AccessoryFile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FileTypeInfo">
+              <PropertyRef Name="FileTypeId" />
+            </Principal>
+            <Dependent Role="AccessoryFile">
+              <PropertyRef Name="AccessoryType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DepartInfo_UserInfo">
+          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
+          <End Role="DepartInfo" Type="Self.DepartInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="DepartInfo">
+              <PropertyRef Name="PrincipalUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserInfo_DepartInfo">
+          <End Role="DepartInfo" Type="Self.DepartInfo" Multiplicity="1" />
+          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DepartInfo">
+              <PropertyRef Name="DepartId" />
+            </Principal>
+            <Dependent Role="UserInfo">
+              <PropertyRef Name="DepartId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FileInfo_FileTypeInfo">
+          <End Role="FileTypeInfo" Type="Self.FileTypeInfo" Multiplicity="1" />
+          <End Role="FileInfo" Type="Self.FileInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FileTypeInfo">
+              <PropertyRef Name="FileTypeId" />
+            </Principal>
+            <Dependent Role="FileInfo">
+              <PropertyRef Name="FileType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LoginLog_UserInfo">
+          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
+          <End Role="LoginLog" Type="Self.LoginLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="LoginLog">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ManualSign_ManualSign">
+          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
+          <End Role="ManualSign" Type="Self.ManualSign" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="ManualSign">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Schedule_MeetingInfo">
+          <End Role="MeetingInfo" Type="Self.MeetingInfo" Multiplicity="1" />
+          <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MeetingInfo">
+              <PropertyRef Name="MeetingId" />
+            </Principal>
+            <Dependent Role="Schedule">
+              <PropertyRef Name="MeetingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Menu_Menu">
+          <End Role="Menu" Type="Self.Menu" Multiplicity="0..1" />
+          <End Role="Menu1" Type="Self.Menu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Menu">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Menu1">
+              <PropertyRef Name="ParentMenuId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Message_MessageType">
+          <End Role="MessageType" Type="Self.MessageType" Multiplicity="1" />
+          <End Role="Message" Type="Self.Message" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MessageType">
+              <PropertyRef Name="MessageTypeId" />
+            </Principal>
+            <Dependent Role="Message">
+              <PropertyRef Name="Type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MessageToUser_Message">
+          <End Role="Message" Type="Self.Message" Multiplicity="1" />
+          <End Role="MessageToUser" Type="Self.MessageToUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Message">
+              <PropertyRef Name="MessageId" />
+            </Principal>
+            <Dependent Role="MessageToUser">
+              <PropertyRef Name="MessageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ReadCommonMessage_Message">
+          <End Role="Message" Type="Self.Message" Multiplicity="0..1" />
+          <End Role="ReadCommonMessage" Type="Self.ReadCommonMessage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Message">
+              <PropertyRef Name="MessageId" />
+            </Principal>
+            <Dependent Role="ReadCommonMessage">
+              <PropertyRef Name="MessageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MessageToUser_UserInfo">
+          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
+          <End Role="MessageToUser" Type="Self.MessageToUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="MessageToUser">
+              <PropertyRef Name="ToUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OperateLog_UserInfo">
+          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
+          <End Role="OperateLog" Type="Self.OperateLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="OperateLog">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PreContract_Schedule">
+          <End Role="Schedule" Type="Self.Schedule" Multiplicity="1" />
+          <End Role="PreContract" Type="Self.PreContract" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Schedule">
+              <PropertyRef Name="ScheduleId" />
+            </Principal>
+            <Dependent Role="PreContract">
+              <PropertyRef Name="ScheduleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PreContract_UserInfo">
+          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
+          <End Role="PreContract" Type="Self.PreContract" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="PreContract">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ReadCommonMessage_UserInfo">
+          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="0..1" />
+          <End Role="ReadCommonMessage" Type="Self.ReadCommonMessage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="ReadCommonMessage">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserInfo_UserState">
+          <End Role="UserState" Type="Self.UserState" Multiplicity="1" />
+          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserState">
+              <PropertyRef Name="UserStateId" />
+            </Principal>
+            <Dependent Role="UserInfo">
+              <PropertyRef Name="UserState" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="OAEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AccessoryFile" EntityType="Self.AccessoryFile" />
+          <EntitySet Name="BranchInfo" EntityType="Self.BranchInfo" />
+          <EntitySet Name="DepartInfo" EntityType="Self.DepartInfo" />
+          <EntitySet Name="FileInfo" EntityType="Self.FileInfo" />
+          <EntitySet Name="FileTypeInfo" EntityType="Self.FileTypeInfo" />
+          <EntitySet Name="LoginLog" EntityType="Self.LoginLog" />
+          <EntitySet Name="ManualSign" EntityType="Self.ManualSign" />
+          <EntitySet Name="MeetingInfo" EntityType="Self.MeetingInfo" />
+          <EntitySet Name="Menu" EntityType="Self.Menu" />
+          <EntitySet Name="Message" EntityType="Self.Message" />
+          <EntitySet Name="MessageToUser" EntityType="Self.MessageToUser" />
+          <EntitySet Name="MessageType" EntityType="Self.MessageType" />
+          <EntitySet Name="MyNote" EntityType="Self.MyNote" />
+          <EntitySet Name="OperateLog" EntityType="Self.OperateLog" />
+          <EntitySet Name="PreContract" EntityType="Self.PreContract" />
+          <EntitySet Name="ReadCommonMessage" EntityType="Self.ReadCommonMessage" />
+          <EntitySet Name="RoleInfo" EntityType="Self.RoleInfo" />
+          <EntitySet Name="Schedule" EntityType="Self.Schedule" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="UserInfo" EntityType="Self.UserInfo" />
+          <EntitySet Name="UserState" EntityType="Self.UserState" />
+          <EntitySet Name="WorkTime" EntityType="Self.WorkTime" />
+          <EntitySet Name="SysFun" EntityType="Self.SysFun" />
+          <AssociationSet Name="FK_AccessoryFile_FileInfo" Association="Self.FK_AccessoryFile_FileInfo">
+            <End Role="FileInfo" EntitySet="FileInfo" />
+            <End Role="AccessoryFile" EntitySet="AccessoryFile" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AccessoryFile_FileTypeInfo" Association="Self.FK_AccessoryFile_FileTypeInfo">
+            <End Role="FileTypeInfo" EntitySet="FileTypeInfo" />
+            <End Role="AccessoryFile" EntitySet="AccessoryFile" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DepartInfo_UserInfo" Association="Self.FK_DepartInfo_UserInfo">
+            <End Role="UserInfo" EntitySet="UserInfo" />
+            <End Role="DepartInfo" EntitySet="DepartInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserInfo_DepartInfo" Association="Self.FK_UserInfo_DepartInfo">
+            <End Role="DepartInfo" EntitySet="DepartInfo" />
+            <End Role="UserInfo" EntitySet="UserInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FileInfo_FileTypeInfo" Association="Self.FK_FileInfo_FileTypeInfo">
+            <End Role="FileTypeInfo" EntitySet="FileTypeInfo" />
+            <End Role="FileInfo" EntitySet="FileInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LoginLog_UserInfo" Association="Self.FK_LoginLog_UserInfo">
+            <End Role="UserInfo" EntitySet="UserInfo" />
+            <End Role="LoginLog" EntitySet="LoginLog" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ManualSign_ManualSign" Association="Self.FK_ManualSign_ManualSign">
+            <End Role="UserInfo" EntitySet="UserInfo" />
+            <End Role="ManualSign" EntitySet="ManualSign" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Schedule_MeetingInfo" Association="Self.FK_Schedule_MeetingInfo">
+            <End Role="MeetingInfo" EntitySet="MeetingInfo" />
+            <End Role="Schedule" EntitySet="Schedule" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Menu_Menu" Association="Self.FK_Menu_Menu">
+            <End Role="Menu" EntitySet="Menu" />
+            <End Role="Menu1" EntitySet="Menu" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Message_MessageType" Association="Self.FK_Message_MessageType">
+            <End Role="MessageType" EntitySet="MessageType" />
+            <End Role="Message" EntitySet="Message" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MessageToUser_Message" Association="Self.FK_MessageToUser_Message">
+            <End Role="Message" EntitySet="Message" />
+            <End Role="MessageToUser" EntitySet="MessageToUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReadCommonMessage_Message" Association="Self.FK_ReadCommonMessage_Message">
+            <End Role="Message" EntitySet="Message" />
+            <End Role="ReadCommonMessage" EntitySet="ReadCommonMessage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MessageToUser_UserInfo" Association="Self.FK_MessageToUser_UserInfo">
+            <End Role="UserInfo" EntitySet="UserInfo" />
+            <End Role="MessageToUser" EntitySet="MessageToUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OperateLog_UserInfo" Association="Self.FK_OperateLog_UserInfo">
+            <End Role="UserInfo" EntitySet="UserInfo" />
+            <End Role="OperateLog" EntitySet="OperateLog" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PreContract_Schedule" Association="Self.FK_PreContract_Schedule">
+            <End Role="Schedule" EntitySet="Schedule" />
+            <End Role="PreContract" EntitySet="PreContract" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PreContract_UserInfo" Association="Self.FK_PreContract_UserInfo">
+            <End Role="UserInfo" EntitySet="UserInfo" />
+            <End Role="PreContract" EntitySet="PreContract" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReadCommonMessage_UserInfo" Association="Self.FK_ReadCommonMessage_UserInfo">
+            <End Role="UserInfo" EntitySet="UserInfo" />
+            <End Role="ReadCommonMessage" EntitySet="ReadCommonMessage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserInfo_UserState" Association="Self.FK_UserInfo_UserState">
+            <End Role="UserState" EntitySet="UserState" />
+            <End Role="UserInfo" EntitySet="UserInfo" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="OAModelStoreContainer" CdmEntityContainer="OAEntities">
+          <EntitySetMapping Name="AccessoryFile">
+            <EntityTypeMapping TypeName="OAModel.AccessoryFile">
+              <MappingFragment StoreEntitySet="AccessoryFile">
+                <ScalarProperty Name="AccessoryId" ColumnName="AccessoryId" />
+                <ScalarProperty Name="FileId" ColumnName="FileId" />
+                <ScalarProperty Name="AccessoryName" ColumnName="AccessoryName" />
+                <ScalarProperty Name="AccessorySize" ColumnName="AccessorySize" />
+                <ScalarProperty Name="AccessoryType" ColumnName="AccessoryType" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="AccessoryPath" ColumnName="AccessoryPath" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BranchInfo">
+            <EntityTypeMapping TypeName="OAModel.BranchInfo">
+              <MappingFragment StoreEntitySet="BranchInfo">
+                <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+                <ScalarProperty Name="BranchName" ColumnName="BranchName" />
+                <ScalarProperty Name="BranchShortName" ColumnName="BranchShortName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DepartInfo">
+            <EntityTypeMapping TypeName="OAModel.DepartInfo">
+              <MappingFragment StoreEntitySet="DepartInfo">
+                <ScalarProperty Name="DepartId" ColumnName="DepartId" />
+                <ScalarProperty Name="DepartName" ColumnName="DepartName" />
+                <ScalarProperty Name="PrincipalUser" ColumnName="PrincipalUser" />
+                <ScalarProperty Name="ConnectTelNo" ColumnName="ConnectTelNo" />
+                <ScalarProperty Name="ConnectMobileTelNo" ColumnName="ConnectMobileTelNo" />
+                <ScalarProperty Name="Faxes" ColumnName="Faxes" />
+                <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FileInfo">
+            <EntityTypeMapping TypeName="OAModel.FileInfo">
+              <MappingFragment StoreEntitySet="FileInfo">
+                <ScalarProperty Name="FileId" ColumnName="FileId" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="FileType" ColumnName="FileType" />
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="FileOwner" ColumnName="FileOwner" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+                <ScalarProperty Name="FilePath" ColumnName="FilePath" />
+                <ScalarProperty Name="IfDelete" ColumnName="IfDelete" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FileTypeInfo">
+            <EntityTypeMapping TypeName="OAModel.FileTypeInfo">
+              <MappingFragment StoreEntitySet="FileTypeInfo">
+                <ScalarProperty Name="FileTypeId" ColumnName="FileTypeId" />
+                <ScalarProperty Name="FileTypeName" ColumnName="FileTypeName" />
+                <ScalarProperty Name="FileTypeImage" ColumnName="FileTypeImage" />
+                <ScalarProperty Name="FileTypeSuffix" ColumnName="FileTypeSuffix" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LoginLog">
+            <EntityTypeMapping TypeName="OAModel.LoginLog">
+              <MappingFragment StoreEntitySet="LoginLog">
+                <ScalarProperty Name="LoginId" ColumnName="LoginId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="LoginTime" ColumnName="LoginTime" />
+                <ScalarProperty Name="IfSuccess" ColumnName="IfSuccess" />
+                <ScalarProperty Name="LoginUserIp" ColumnName="LoginUserIp" />
+                <ScalarProperty Name="LoginDesc" ColumnName="LoginDesc" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ManualSign">
+            <EntityTypeMapping TypeName="OAModel.ManualSign">
+              <MappingFragment StoreEntitySet="ManualSign">
+                <ScalarProperty Name="SignId" ColumnName="SignId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="SignTime" ColumnName="SignTime" />
+                <ScalarProperty Name="SignDesc" ColumnName="SignDesc" />
+                <ScalarProperty Name="SignTag" ColumnName="SignTag" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MeetingInfo">
+            <EntityTypeMapping TypeName="OAModel.MeetingInfo">
+              <MappingFragment StoreEntitySet="MeetingInfo">
+                <ScalarProperty Name="MeetingId" ColumnName="MeetingId" />
+                <ScalarProperty Name="MeetingName" ColumnName="MeetingName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Menu">
+            <EntityTypeMapping TypeName="OAModel.Menu">
+              <MappingFragment StoreEntitySet="Menu">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="MenuText" ColumnName="MenuText" />
+                <ScalarProperty Name="ParentMenuId" ColumnName="ParentMenuId" />
+                <ScalarProperty Name="MenuTypeId" ColumnName="MenuTypeId" />
+                <ScalarProperty Name="IcoString" ColumnName="IcoString" />
+                <ScalarProperty Name="Url" ColumnName="Url" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Message">
+            <EntityTypeMapping TypeName="OAModel.Message">
+              <MappingFragment StoreEntitySet="Message">
+                <ScalarProperty Name="MessageId" ColumnName="MessageId" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="BeginTime" ColumnName="BeginTime" />
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+                <ScalarProperty Name="FromUserId" ColumnName="FromUserId" />
+                <ScalarProperty Name="IfPublish" ColumnName="IfPublish" />
+                <ScalarProperty Name="RecordTime" ColumnName="RecordTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MessageToUser">
+            <EntityTypeMapping TypeName="OAModel.MessageToUser">
+              <MappingFragment StoreEntitySet="MessageToUser">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="MessageId" ColumnName="MessageId" />
+                <ScalarProperty Name="ToUserId" ColumnName="ToUserId" />
+                <ScalarProperty Name="IfRead" ColumnName="IfRead" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MessageType">
+            <EntityTypeMapping TypeName="OAModel.MessageType">
+              <MappingFragment StoreEntitySet="MessageType">
+                <ScalarProperty Name="MessageTypeId" ColumnName="MessageTypeId" />
+                <ScalarProperty Name="MessageTypeName" ColumnName="MessageTypeName" />
+                <ScalarProperty Name="MessageDesc" ColumnName="MessageDesc" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MyNote">
+            <EntityTypeMapping TypeName="OAModel.MyNote">
+              <MappingFragment StoreEntitySet="MyNote">
+                <ScalarProperty Name="NoteId" ColumnName="NoteId" />
+                <ScalarProperty Name="NoteTitle" ColumnName="NoteTitle" />
+                <ScalarProperty Name="NoteContent" ColumnName="NoteContent" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OperateLog">
+            <EntityTypeMapping TypeName="OAModel.OperateLog">
+              <MappingFragment StoreEntitySet="OperateLog">
+                <ScalarProperty Name="OperateId" ColumnName="OperateId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="OperateName" ColumnName="OperateName" />
+                <ScalarProperty Name="ObjectId" ColumnName="ObjectId" />
+                <ScalarProperty Name="OperateDesc" ColumnName="OperateDesc" />
+                <ScalarProperty Name="OperateTime" ColumnName="OperateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PreContract">
+            <EntityTypeMapping TypeName="OAModel.PreContract">
+              <MappingFragment StoreEntitySet="PreContract">
+                <ScalarProperty Name="PreContractId" ColumnName="PreContractId" />
+                <ScalarProperty Name="ScheduleId" ColumnName="ScheduleId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReadCommonMessage">
+            <EntityTypeMapping TypeName="OAModel.ReadCommonMessage">
+              <MappingFragment StoreEntitySet="ReadCommonMessage">
+                <ScalarProperty Name="ReadId" ColumnName="ReadId" />
+                <ScalarProperty Name="MessageId" ColumnName="MessageId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RoleInfo">
+            <EntityTypeMapping TypeName="OAModel.RoleInfo">
+              <MappingFragment StoreEntitySet="RoleInfo">
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="RoleDesc" ColumnName="RoleDesc" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Schedule">
+            <EntityTypeMapping TypeName="OAModel.Schedule">
+              <MappingFragment StoreEntitySet="Schedule">
+                <ScalarProperty Name="ScheduleId" ColumnName="ScheduleId" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="MeetingId" ColumnName="MeetingId" />
+                <ScalarProperty Name="BeginTime" ColumnName="BeginTime" />
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+                <ScalarProperty Name="SchContent" ColumnName="SchContent" />
+                <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="IfPrivate" ColumnName="IfPrivate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="OAModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserInfo">
+            <EntityTypeMapping TypeName="OAModel.UserInfo">
+              <MappingFragment StoreEntitySet="UserInfo">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="WordId" ColumnName="WordId" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="PassWord" ColumnName="PassWord" />
+                <ScalarProperty Name="DepartId" ColumnName="DepartId" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="UserState" ColumnName="UserState" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserState">
+            <EntityTypeMapping TypeName="OAModel.UserState">
+              <MappingFragment StoreEntitySet="UserState">
+                <ScalarProperty Name="UserStateId" ColumnName="UserStateId" />
+                <ScalarProperty Name="UserStateName" ColumnName="UserStateName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WorkTime">
+            <EntityTypeMapping TypeName="OAModel.WorkTime">
+              <MappingFragment StoreEntitySet="WorkTime">
+                <ScalarProperty Name="WorkTimeId" ColumnName="WorkTimeId" />
+                <ScalarProperty Name="WordName" ColumnName="WordName" />
+                <ScalarProperty Name="OnDutyTime" ColumnName="OnDutyTime" />
+                <ScalarProperty Name="OffDutyTime" ColumnName="OffDutyTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SysFun">
+            <EntityTypeMapping TypeName="OAModel.SysFun">
+              <MappingFragment StoreEntitySet="SysFun">
+                <ScalarProperty Name="NodeId" ColumnName="NodeId" />
+                <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+                <ScalarProperty Name="NodeURL" ColumnName="NodeURL" />
+                <ScalarProperty Name="DisplayOrder" ColumnName="DisplayOrder" />
+                <ScalarProperty Name="ParentNodeId" ColumnName="ParentNodeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
