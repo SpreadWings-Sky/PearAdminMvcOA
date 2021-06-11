@@ -43,10 +43,7 @@ namespace PearAdminMvcOA.Models
         public virtual DbSet<ReadCommonMessage> ReadCommonMessage { get; set; }
         public virtual DbSet<RoleInfo> RoleInfo { get; set; }
         public virtual DbSet<Schedule> Schedule { get; set; }
-        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<UserInfo> UserInfo { get; set; }
-        public virtual DbSet<UserState> UserState { get; set; }
         public virtual DbSet<WorkTime> WorkTime { get; set; }
-        public virtual DbSet<SysFun> SysFun { get; set; }
     }
 }

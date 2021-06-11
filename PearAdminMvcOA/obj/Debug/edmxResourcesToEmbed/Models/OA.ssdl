@@ -185,31 +185,6 @@
     <Property Name="CreateTime" Type="datetime" Nullable="false" />
     <Property Name="IfPrivate" Type="int" Nullable="false" />
   </EntityType>
-  <EntityType Name="sysdiagrams">
-    <Key>
-      <PropertyRef Name="diagram_id" />
-    </Key>
-    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-    <Property Name="principal_id" Type="int" Nullable="false" />
-    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="version" Type="int" />
-    <Property Name="definition" Type="varbinary(max)" />
-  </EntityType>
-  <!--生成过程中发现错误:
-警告 6002: 表/视图“OA.dbo.SysFun”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
-  <EntityType Name="SysFun">
-    <Key>
-      <PropertyRef Name="NodeId" />
-      <PropertyRef Name="DisplayName" />
-      <PropertyRef Name="DisplayOrder" />
-      <PropertyRef Name="ParentNodeId" />
-    </Key>
-    <Property Name="NodeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="DisplayName" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="NodeURL" Type="nvarchar" MaxLength="50" />
-    <Property Name="DisplayOrder" Type="int" Nullable="false" />
-    <Property Name="ParentNodeId" Type="int" Nullable="false" />
-  </EntityType>
   <EntityType Name="UserInfo">
     <Key>
       <PropertyRef Name="UserId" />
@@ -220,14 +195,11 @@
     <Property Name="PassWord" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="Gender" Type="int" Nullable="false" />
     <Property Name="RoleId" Type="int" Nullable="false" />
+    <Property Name="Phone" Type="nvarchar" MaxLength="11" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="CreateTime" Type="varchar" MaxLength="120" Nullable="false" />
+    <Property Name="Avatar" Type="varchar" MaxLength="60" />
     <Property Name="UserState" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="UserState">
-    <Key>
-      <PropertyRef Name="UserStateId" />
-    </Key>
-    <Property Name="UserStateId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="UserStateName" Type="nvarchar" MaxLength="50" Nullable="false" />
   </EntityType>
   <EntityType Name="WorkTime">
     <Key>
@@ -430,18 +402,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_UserInfo_UserState">
-    <End Role="UserState" Type="Self.UserState" Multiplicity="1" />
-    <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="UserState">
-        <PropertyRef Name="UserStateId" />
-      </Principal>
-      <Dependent Role="UserInfo">
-        <PropertyRef Name="UserState" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <EntityContainer Name="OAModelStoreContainer">
     <EntitySet Name="AccessoryFile" EntityType="Self.AccessoryFile" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BranchInfo" EntityType="Self.BranchInfo" Schema="dbo" store:Type="Tables" />
@@ -461,19 +421,8 @@
     <EntitySet Name="ReadCommonMessage" EntityType="Self.ReadCommonMessage" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="RoleInfo" EntityType="Self.RoleInfo" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Schedule" EntityType="Self.Schedule" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UserInfo" EntityType="Self.UserInfo" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="UserState" EntityType="Self.UserState" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="WorkTime" EntityType="Self.WorkTime" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="SysFun" EntityType="Self.SysFun" store:Type="Tables" store:Schema="dbo">
-      <DefiningQuery>SELECT 
-    [SysFun].[NodeId] AS [NodeId], 
-    [SysFun].[DisplayName] AS [DisplayName], 
-    [SysFun].[NodeURL] AS [NodeURL], 
-    [SysFun].[DisplayOrder] AS [DisplayOrder], 
-    [SysFun].[ParentNodeId] AS [ParentNodeId]
-    FROM [dbo].[SysFun] AS [SysFun]</DefiningQuery>
-    </EntitySet>
     <AssociationSet Name="FK_AccessoryFile_FileInfo" Association="Self.FK_AccessoryFile_FileInfo">
       <End Role="FileInfo" EntitySet="FileInfo" />
       <End Role="AccessoryFile" EntitySet="AccessoryFile" />
@@ -537,10 +486,6 @@
     <AssociationSet Name="FK_Schedule_MeetingInfo" Association="Self.FK_Schedule_MeetingInfo">
       <End Role="MeetingInfo" EntitySet="MeetingInfo" />
       <End Role="Schedule" EntitySet="Schedule" />
-    </AssociationSet>
-    <AssociationSet Name="FK_UserInfo_UserState" Association="Self.FK_UserInfo_UserState">
-      <End Role="UserState" EntitySet="UserState" />
-      <End Role="UserInfo" EntitySet="UserInfo" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

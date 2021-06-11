@@ -1,19 +1,19 @@
-﻿using PearAdminMvcOA.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using System.Web.Script.Serialization;
+using System.Net;
+using System.Net.Http;
+using System.Web.Http;
+using PearAdminMvcOA.Models;
 
 namespace PearAdminMvcOA.Controllers
 {
-    public class SysSettingController : Controller
+    public class SysSettingController : ApiController
     {
         //定义枚举
         enum MeunType
         {
-            Menu,Page
+            Menu, Page
         }
         //定义菜单类
         class PearMeun
@@ -30,7 +30,9 @@ namespace PearAdminMvcOA.Controllers
         ///菜单数据
         /// </summary>
         /// <returns></returns>
-        public ActionResult PearMenuData()
+        /// 
+        [HttpGet]
+        public IHttpActionResult PearMenuData()
         {
             using (OAEntities db = new OAEntities())
             {
@@ -43,7 +45,7 @@ namespace PearAdminMvcOA.Controllers
                     href = m.Url,
                     title = m.MenuText,
                     icon = m.IcoString,
-                    type = m.MenuTypeId == 1?MeunType.Menu:MeunType.Page
+                    type = m.MenuTypeId == 1 ? MeunType.Menu : MeunType.Page
                 }).ToList();
                 //查找二级菜单
                 for (int i = 0; i < data.Count(); i++)
@@ -58,7 +60,7 @@ namespace PearAdminMvcOA.Controllers
                     }).ToList();
                     data[i].children = Menu;
                 }
-                return Json(data.ToList(),JsonRequestBehavior.AllowGet);
+                return Json(data.ToList());
             }
         }
     }

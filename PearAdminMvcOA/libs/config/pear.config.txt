@@ -8,7 +8,7 @@ logo:
 ## 菜单配置
 menu: 
   ## 菜单数据来源
-  data: "/SysSetting/PearMenuData"
+  data: "/api/SysSetting/PearMenuData"
   ## 菜单接口的请求方式 GET / POST
   method: "GET" 
   ## 是否同时只打开一个菜单目录
@@ -16,7 +16,7 @@ menu:
   ## 是否开启多系统菜单模式
   control: false
   ## 默认选中的菜单项
-  select: "10"
+  select: "6"
   ## 是否开启异步菜单，false 时 data 属性设置为菜单数据，false 时为 json 文件或后端接口
   async: true
 ## 视图内容配置
@@ -32,7 +32,7 @@ tab:
   ## 默认选项卡数据
   index: 
     id: "6" ## 标识 ID , 建议与菜单项中的 ID 一致
-    href: "/Home/Page" ## 页面地址
+    href: "/Home/IndexPage" ## 页面地址
     title: "首页" ## 标题
 ## 主题配置
 theme: 

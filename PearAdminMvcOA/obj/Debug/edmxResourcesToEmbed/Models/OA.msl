@@ -204,17 +204,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="sysdiagrams">
-      <EntityTypeMapping TypeName="OAModel.sysdiagrams">
-        <MappingFragment StoreEntitySet="sysdiagrams">
-          <ScalarProperty Name="name" ColumnName="name" />
-          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-          <ScalarProperty Name="version" ColumnName="version" />
-          <ScalarProperty Name="definition" ColumnName="definition" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="UserInfo">
       <EntityTypeMapping TypeName="OAModel.UserInfo">
         <MappingFragment StoreEntitySet="UserInfo">
@@ -224,15 +213,11 @@
           <ScalarProperty Name="PassWord" ColumnName="PassWord" />
           <ScalarProperty Name="Gender" ColumnName="Gender" />
           <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+          <ScalarProperty Name="Avatar" ColumnName="Avatar" />
           <ScalarProperty Name="UserState" ColumnName="UserState" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="UserState">
-      <EntityTypeMapping TypeName="OAModel.UserState">
-        <MappingFragment StoreEntitySet="UserState">
-          <ScalarProperty Name="UserStateId" ColumnName="UserStateId" />
-          <ScalarProperty Name="UserStateName" ColumnName="UserStateName" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -243,17 +228,6 @@
           <ScalarProperty Name="WordName" ColumnName="WordName" />
           <ScalarProperty Name="OnDutyTime" ColumnName="OnDutyTime" />
           <ScalarProperty Name="OffDutyTime" ColumnName="OffDutyTime" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="SysFun">
-      <EntityTypeMapping TypeName="OAModel.SysFun">
-        <MappingFragment StoreEntitySet="SysFun">
-          <ScalarProperty Name="NodeId" ColumnName="NodeId" />
-          <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
-          <ScalarProperty Name="NodeURL" ColumnName="NodeURL" />
-          <ScalarProperty Name="DisplayOrder" ColumnName="DisplayOrder" />
-          <ScalarProperty Name="ParentNodeId" ColumnName="ParentNodeId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

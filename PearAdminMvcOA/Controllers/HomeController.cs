@@ -11,20 +11,12 @@ namespace PearAdminMvcOA.Controllers
         // GET: Home
         public ActionResult Index()
         {
-            if (Session["User"] == null) 
+            if (Session["User"] == null)
                 return RedirectToAction("Login", "Account");
             return View();
         }
-        //主界面
-        public ActionResult Page()
+        public ActionResult IndexPage()
         {
-            return View();
-        }
-        //返回404界面
-        public ActionResult NotFound()
-        {
-            Response.Status = "404 Not Found";
-            Response.StatusCode = 404;
             return View();
         }
     }

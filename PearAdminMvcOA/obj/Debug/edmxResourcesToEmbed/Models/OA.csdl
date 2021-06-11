@@ -210,16 +210,6 @@
     <NavigationProperty Name="MeetingInfo" Relationship="Self.FK_Schedule_MeetingInfo" FromRole="Schedule" ToRole="MeetingInfo" />
     <NavigationProperty Name="PreContract" Relationship="Self.FK_PreContract_Schedule" FromRole="Schedule" ToRole="PreContract" />
   </EntityType>
-  <EntityType Name="sysdiagrams">
-    <Key>
-      <PropertyRef Name="diagram_id" />
-    </Key>
-    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="principal_id" Type="Int32" Nullable="false" />
-    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="version" Type="Int32" />
-    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-  </EntityType>
   <EntityType Name="UserInfo">
     <Key>
       <PropertyRef Name="UserId" />
@@ -230,6 +220,10 @@
     <Property Name="PassWord" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="Gender" Type="Int32" Nullable="false" />
     <Property Name="RoleId" Type="Int32" Nullable="false" />
+    <Property Name="Phone" Type="String" MaxLength="11" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="CreateTime" Type="String" MaxLength="120" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Avatar" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
     <Property Name="UserState" Type="Int32" Nullable="false" />
     <NavigationProperty Name="DepartInfo" Relationship="Self.FK_DepartInfo_UserInfo" FromRole="UserInfo" ToRole="DepartInfo" />
     <NavigationProperty Name="LoginLog" Relationship="Self.FK_LoginLog_UserInfo" FromRole="UserInfo" ToRole="LoginLog" />
@@ -238,15 +232,6 @@
     <NavigationProperty Name="OperateLog" Relationship="Self.FK_OperateLog_UserInfo" FromRole="UserInfo" ToRole="OperateLog" />
     <NavigationProperty Name="PreContract" Relationship="Self.FK_PreContract_UserInfo" FromRole="UserInfo" ToRole="PreContract" />
     <NavigationProperty Name="ReadCommonMessage" Relationship="Self.FK_ReadCommonMessage_UserInfo" FromRole="UserInfo" ToRole="ReadCommonMessage" />
-    <NavigationProperty Name="UserState1" Relationship="Self.FK_UserInfo_UserState" FromRole="UserInfo" ToRole="UserState" />
-  </EntityType>
-  <EntityType Name="UserState">
-    <Key>
-      <PropertyRef Name="UserStateId" />
-    </Key>
-    <Property Name="UserStateId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="UserStateName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-    <NavigationProperty Name="UserInfo" Relationship="Self.FK_UserInfo_UserState" FromRole="UserState" ToRole="UserInfo" />
   </EntityType>
   <EntityType Name="WorkTime">
     <Key>
@@ -256,19 +241,6 @@
     <Property Name="WordName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="OnDutyTime" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="OffDutyTime" Type="DateTime" Nullable="false" Precision="3" />
-  </EntityType>
-  <EntityType Name="SysFun">
-    <Key>
-      <PropertyRef Name="NodeId" />
-      <PropertyRef Name="DisplayName" />
-      <PropertyRef Name="DisplayOrder" />
-      <PropertyRef Name="ParentNodeId" />
-    </Key>
-    <Property Name="NodeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="DisplayName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="NodeURL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="DisplayOrder" Type="Int32" Nullable="false" />
-    <Property Name="ParentNodeId" Type="Int32" Nullable="false" />
   </EntityType>
   <Association Name="FK_AccessoryFile_FileInfo">
     <End Role="FileInfo" Type="Self.FileInfo" Multiplicity="1" />
@@ -462,18 +434,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_UserInfo_UserState">
-    <End Role="UserState" Type="Self.UserState" Multiplicity="1" />
-    <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="UserState">
-        <PropertyRef Name="UserStateId" />
-      </Principal>
-      <Dependent Role="UserInfo">
-        <PropertyRef Name="UserState" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <EntityContainer Name="OAEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="AccessoryFile" EntityType="Self.AccessoryFile" />
     <EntitySet Name="BranchInfo" EntityType="Self.BranchInfo" />
@@ -493,11 +453,8 @@
     <EntitySet Name="ReadCommonMessage" EntityType="Self.ReadCommonMessage" />
     <EntitySet Name="RoleInfo" EntityType="Self.RoleInfo" />
     <EntitySet Name="Schedule" EntityType="Self.Schedule" />
-    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
     <EntitySet Name="UserInfo" EntityType="Self.UserInfo" />
-    <EntitySet Name="UserState" EntityType="Self.UserState" />
     <EntitySet Name="WorkTime" EntityType="Self.WorkTime" />
-    <EntitySet Name="SysFun" EntityType="Self.SysFun" />
     <AssociationSet Name="FK_AccessoryFile_FileInfo" Association="Self.FK_AccessoryFile_FileInfo">
       <End Role="FileInfo" EntitySet="FileInfo" />
       <End Role="AccessoryFile" EntitySet="AccessoryFile" />
@@ -561,10 +518,6 @@
     <AssociationSet Name="FK_ReadCommonMessage_UserInfo" Association="Self.FK_ReadCommonMessage_UserInfo">
       <End Role="UserInfo" EntitySet="UserInfo" />
       <End Role="ReadCommonMessage" EntitySet="ReadCommonMessage" />
-    </AssociationSet>
-    <AssociationSet Name="FK_UserInfo_UserState" Association="Self.FK_UserInfo_UserState">
-      <End Role="UserState" EntitySet="UserState" />
-      <End Role="UserInfo" EntitySet="UserInfo" />
     </AssociationSet>
   </EntityContainer>
 </Schema>
