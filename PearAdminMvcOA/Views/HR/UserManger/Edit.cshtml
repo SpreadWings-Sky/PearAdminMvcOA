@@ -1,0 +1,105 @@
+﻿@model PearAdminMvcOA.Models.UserInfo
+@using PearAdminMvcOA.Tools
+@{ 
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+    @Html.Partial("_Head")
+</head>
+<body>
+    <form class="layui-form" action="">
+        <input type="hidden" name="UserId" required value="@Model.UserId">
+        <div class="mainBox">
+            <div class="main-container">
+                <div class="main-container">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">工号</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="WordId" required value="@Model.WordId" lay-verify="title" autocomplete="off" placeholder="请输入工号" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">姓名</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="UserName" required value="@Model.UserName" lay-verify="title" autocomplete="off" placeholder="请输入姓名" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">性别</label>
+                        <div class="layui-input-block">
+                            <input type="radio" name="Gender" value="1" title="男" @(Model.Gender.ToString() == "1" ? "checked" : "")>
+                            <input type="radio" name="Gender" value="2" title="女">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">邮箱</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="Email" value="@Model.Email" lay-verify="title" autocomplete="off" placeholder="请输入邮箱" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">电话</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="Phone" value="@Model.Phone" lay-verify="title" autocomplete="off" placeholder="请输入手机号" class="layui-input">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bottom">
+            <div class="button-container">
+                <button type="submit" class="pear-btn pear-btn-primar
+                        y pear-btn-sm" lay-submit="" lay-filter="user-save">
+                    <i class="layui-icon layui-icon-ok"></i>
+                    提交
+                </button>
+                <button type="reset" class="pear-btn pear-btn-sm">
+                    <i class="layui-icon layui-icon-refresh"></i>
+                    重置
+                </button>
+            </div>
+        </div>
+    </form>
+    @Html.Partial("_Jsp")
+    <script>
+        layui.use(['form', 'jquery'], function () {
+            let form = layui.form;
+            let $ = layui.jquery;
+
+            form.on('submit(user-save)', function (data) {
+                //let roleIds = "";
+                //$('input[type=checkbox]:checked').each(function () {
+                //    roleIds += $(this).val() + ",";
+                //});
+                //roleIds = roleIds.substr(0, roleIds.length - 1);
+                //data.field.roleIds = roleIds;
+
+                $.ajax({
+                    url: '/api/HRData/EditUser',
+                    data: JSON.stringify(data.field),
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    type: 'put',
+                    success: function (result) {
+                        if (result.success) {
+                            layer.msg(result.msg, { icon: 1, time: 1000 }, function () {
+                                parent.layer.close(parent.layer.getFrameIndex(window.name));//关闭当前页
+                                parent.layui.table.reload("user-table");
+                            });
+                        } else {
+                            layer.msg(result.msg, { icon: 2, time: 1000 });
+                        }
+                    }
+                })
+                return false;
+            });
+        })
+    </script>
+</body>
+</html>

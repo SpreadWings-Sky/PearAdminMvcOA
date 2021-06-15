@@ -108,7 +108,7 @@ namespace PearAdminMvcOA.Tools
         /// <param name="width">宽度可以使用百分比或者px</param>
         /// <param name="type">弹出类型，可以是modal和抽屉</param>
         /// <returns></returns>
-        public static HtmlString PearOpen(this HtmlHelper helper, string urlOrSearch, string width="500px",string height="",bool isFlush = true, PearOpenType type = PearOpenType.Modal)
+        public static HtmlString PearOpen(this HtmlHelper helper, string urlOrSearch, string title = "信息", string width="500px",string height="",bool isFlush = true, PearOpenType type = PearOpenType.Modal)
         {
             var area = "";
             if (string.IsNullOrEmpty(height))
@@ -127,6 +127,7 @@ namespace PearAdminMvcOA.Tools
                     type:2,
                     content: "+urlOrSearch+@" ,
                     area:"+area+$@",
+                    title:'"+title+$@"',
                     success: function(layer, index) {{
                        "+ flushStr +$@"
                     }}

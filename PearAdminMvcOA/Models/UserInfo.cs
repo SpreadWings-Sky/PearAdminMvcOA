@@ -11,6 +11,7 @@ namespace PearAdminMvcOA.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using Newtonsoft.Json;
     public partial class UserInfo
     {
@@ -27,15 +28,23 @@ namespace PearAdminMvcOA.Models
         }
     
         public int UserId { get; set; }
+        [Display(Name = "工号")]
         public string WordId { get; set; }
+        [Display(Name = "名称")]
         public string UserName { get; set; }
         public string PassWord { get; set; }
+        [Display(Name = "性别")]
         public int Gender { get; set; }
+        [Display(Name = "身份")]
         public int RoleId { get; set; }
+        [Display(Name = "手机")]
         public string Phone { get; set; }
+        [Display(Name = "邮箱")]
         public string Email { get; set; }
         public string CreateTime { get; set; }
+        [Display(Name = "头像")]
         public string Avatar { get; set; }
+        [Display(Name = "状态")]
         public int UserState { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -5,9 +5,11 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using PearAdminMvcOA.Models;
+using PearAdminMvcOA.Tools;
 
 namespace PearAdminMvcOA.Controllers
 {
+    [Authorize]
     public class SysSettingController : ApiController
     {
         //定义枚举

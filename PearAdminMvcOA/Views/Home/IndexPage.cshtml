@@ -228,7 +228,7 @@
     </div>
     <script src="/libs/component/layui/layui.js"></script>
     <script src="/libs/component/pear/pear.js"></script>
-    @*<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-nightly@5.1.2-dev.20210512/dist/echarts.min.js"></script>*@
+    <script type="text/javascript" src="/libs/echarts.min.js"></script>
     <script type="text/javascript" src="/libs/Vue/vue.min.js"></script>
     <script>
         layui.use('laydate', function () {
@@ -282,7 +282,6 @@
             }
             return (zero + num).slice(-digit);
         }
-
         var dom = document.getElementById("container");
         var myChart = echarts.init(dom);
         var app = {};

@@ -6,15 +6,16 @@ using System.Web.Mvc;
 
 namespace PearAdminMvcOA.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         // GET: Home
+        //菜单
         public ActionResult Index()
         {
-            if (Session["User"] == null)
-                return RedirectToAction("Login", "Account");
             return View();
         }
+        //首页
         public ActionResult IndexPage()
         {
             return View();
