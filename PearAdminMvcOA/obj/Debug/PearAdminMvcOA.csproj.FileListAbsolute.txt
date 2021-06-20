@@ -361,3 +361,4 @@ K:\作业\卓越项目（OA办公系统）大三\OA办公系统\new PearAdminMvc
 K:\作业\卓越项目（OA办公系统）大三\OA办公系统\new PearAdminMvcOA\PearAdminMvcOA\PearAdminMvcOA\obj\Debug\PearAdminMvcOA.csproj.CopyComplete
 K:\作业\卓越项目（OA办公系统）大三\OA办公系统\new PearAdminMvcOA\PearAdminMvcOA\PearAdminMvcOA\obj\Debug\PearAdminMvcOA.dll
 K:\作业\卓越项目（OA办公系统）大三\OA办公系统\new PearAdminMvcOA\PearAdminMvcOA\PearAdminMvcOA\obj\Debug\PearAdminMvcOA.pdb
+K:\作业\卓越项目（OA办公系统）大三\OA办公系统\new PearAdminMvcOA\PearAdminMvcOA\PearAdminMvcOA\obj\Debug\PearAdminMvcOA.csprojAssemblyReference.cache

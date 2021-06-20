@@ -1,0 +1,117 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+    @Html.Partial("_Head")
+</head>
+<body>
+    <form class="layui-form" action="">
+        <div class="mainBox">
+            <div class="main-container">
+                <div class="main-container">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">序号</label>
+                        <div class="layui-input-block">
+                            <label class="layui-form-label">@ViewBag.SignId</label>
+                            <input type="hidden" name="SignId" value="@ViewBag.SignId">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">姓名</label>
+                        <div class="layui-input-block">
+                            <label class="layui-form-label">@ViewBag.UserName</label>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">打卡时间</label>
+                        <div class="layui-input-block">
+                            <label class="layui-form-label">@ViewBag.SignTime</label>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">情况</label>
+                        <div class="layui-input-block">
+                            <select name="SignDesc" class="Desc" lay-verify="" lay-event="sel">
+                                <option value="">全部</option>
+                                <option value="1">已签到</option>
+                                <option value="2">未签到</option>
+                                <option value="3">迟到</option>
+                                <option value="4">缺勤</option>
+                                <option value="5">请假</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">备注</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="SignText" value="@ViewBag.SignText" lay-verify="title" autocomplete="off" placeholder="备注" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">职位</label>
+                        <div class="layui-input-block">
+                            <label class="layui-form-label">@ViewBag.RoleId</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bottom">
+            <div class="button-container">
+                <button type="submit" class="pear-btn pear-btn-primar
+                        y pear-btn-sm" lay-submit="" lay-filter="user-save">
+                    <i class="layui-icon layui-icon-ok"></i>
+                    提交
+                </button>
+                <button type="reset" class="pear-btn pear-btn-sm">
+                    <i class="layui-icon layui-icon-refresh"></i>
+                    重置
+                </button>
+            </div>
+        </div>
+    </form>
+    @Html.Partial("_Jsp")
+<script>
+        layui.use(['form', 'jquery'], function () {
+            let form = layui.form;
+            let $ = layui.jquery;
+            $(".Desc").val(@ViewBag.SignDesc)
+            layui.form.render("select");
+            form.on('submit(user-save)', function (data) {
+                //let roleIds = "";
+                //$('input[type=checkbox]:checked').each(function () {
+                //    roleIds += $(this).val() + ",";
+                //});
+                //roleIds = roleIds.substr(0, roleIds.length - 1);
+                //data.field.roleIds = roleIds;
+
+                $.ajax({
+                    url: '/api/CheckData/EditSign',
+                    data: JSON.stringify(data.field),
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    type: 'put',
+                    success: function (result) {
+                        if (result.success) {
+                            layer.msg(result.msg, { icon: 1, time: 1000 }, function () {
+                                parent.layer.close(parent.layer.getFrameIndex(window.name));//关闭当前页
+                                parent.layui.table.reload("user-table");
+                            });
+                        } else {
+                            layer.msg(result.msg, { icon: 2, time: 1000 });
+                        }
+                    }
+                })
+                return false;
+            });
+        })
+</script>
+</body>
+</html>
