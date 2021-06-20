@@ -1,0 +1,78 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+    @Html.Partial("_Head")
+</head>
+<body>
+    <form class="layui-form" action="">
+        <div class="mainBox">
+            <div class="main-container">
+                <div class="main-container">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">标题：</label>
+                        <div class="layui-input-block">
+                            <label class="layui-form-label Title"></label>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">类型：</label>
+                        <div class="layui-input-block">
+                            <label class="layui-form-label Type"></label>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">状态：</label>
+                        <div class="layui-input-block">
+                            <label class="layui-form-label State"></label>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">内容：</label>
+                        <div class="layui-input-block">
+                            <label class="layui-form-label Desc"></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <style>
+                .Title, .Type, .State, .Desc, .Time {
+                    text-align: left;
+                }
+
+                .Time {
+                    text-overflow: inherit !important;
+                    white-space: initial !important;
+                }
+            </style>
+        </div>
+    </form>
+    @Html.Partial("_Jsp")
+    <script>
+        layui.use(['jquery'], function () {
+            let $ = layui.jquery;
+              $.ajax({
+                url: '/api/BulletinData/GetFirstBull',
+                dataType: 'json',
+                contentType: 'application/json',
+                type: 'get',
+                data: { BID:@ViewBag.BID},
+                  success: function (result) {
+                    $(".Title").text( result.data.BTitle);
+                    $(".Type").text(result.data.BType==1?"通知":"公告");
+                    $(".State").text(result.data.BState==10?"正常":"隐藏");
+                    $(".Desc").text(result.data.BDesc);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+

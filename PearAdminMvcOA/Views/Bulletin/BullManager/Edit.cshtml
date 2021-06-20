@@ -1,0 +1,130 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+    @Html.Partial("_Head")
+</head>
+<body>
+    <form class="layui-form" action="">
+        <div class="mainBox">
+            <div class="main-container">
+                <div class="main-container">
+                    <input type="hidden" name="BID" value="" />
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">标题</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="BTitle" required value="" lay-verify="required" autocomplete="off" placeholder="请输入公告标题" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">类型</label>
+                        <div class="layui-input-block">
+                            <select class="Btype" name="Btype" lay-verify="required" lay-search>
+                                <option value="">请选择</option>
+                                <option value="1">通知</option>
+                                <option value="2">公告</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">内容</label>
+                        <div class="layui-input-block">
+                            <textarea name="BDesc" style="min-width:100%;max-width:100%;min-height:160px;max-height:160px" required value="" lay-verify="required" autocomplete="off" placeholder="请输入公告内容" class="layui-input"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bottom">
+            <div class="button-container">
+                <button type="submit" class="pear-btn pear-btn-primary pear-btn-sm" lay-submit="" lay-filter="user-save">
+                    <i class="layui-icon layui-icon-ok"></i>
+                    提交
+                </button>
+                <button type="button" class="pear-btn pear-btn-sm">
+                    <i class="layui-icon layui-icon-refresh"></i>
+                    重置
+                </button>
+            </div>
+        </div>
+    </form>
+    @Html.Partial("_Jsp")
+<script>
+        function getCookie(cookieName) {
+            var cookieValue = "";
+            if (document.cookie && document.cookie != '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = cookies[i];
+                    if (cookie.substring(0, cookieName.length + 2).trim() == cookieName.trim() + "=") {
+                        cookieValue = cookie.substring(cookieName.length + 2, cookie.length);
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+        layui.use(['form', 'jquery'], function () {
+            let form = layui.form;
+            let $ = layui.jquery;
+
+            function GetData() {
+                $.ajax({
+                    url: '/api/BulletinData/GetFirstBull',
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    type: 'get',
+                    data: { BID:@ViewBag.BID},
+                    success: function (result) {
+                        $("[name='BTitle']").attr("value", result.data.BTitle);
+                        $("[name='BID']").attr("value", result.data.BID);
+                        $(".Btype").val(result.data.BType);
+                        $("[name='BDesc']").val(result.data.BDesc);
+                        layui.form.render("select");
+                    }
+                });
+            };
+            GetData();
+            $("button[type='button']").click(function () {
+                GetData();
+            });
+           
+            form.on('submit(user-save)', function (data) {
+                var id = getCookie("UserId");
+                if (id == null) {
+                    layer.msg("用户未登录", { icon: 2, time: 1000 });
+                } else {
+                    data.field.BCreateUser = id;
+                    $.ajax({
+                        url: '/api/BulletinData/EditBulletin',
+                        data: JSON.stringify(data.field),
+                        dataType: 'json',
+                        contentType: 'application/json',
+                        type: 'put',
+                        success: function (result) {
+                            if (result.success) {
+                                layer.msg(result.msg, { icon: 1, time: 1000 }, function () {
+                                    parent.layer.close(parent.layer.getFrameIndex(window.name));//关闭当前页
+                                    parent.layui.table.reload("role-table");
+                                });
+                            } else {
+                                layer.msg(result.msg, { icon: 2, time: 1000 });
+                            }
+                        }
+                    })
+                }
+                return false;
+            });
+        })
+</script>
+</body>
+</html>
+

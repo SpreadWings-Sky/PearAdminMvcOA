@@ -23,6 +23,19 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="BulletinInfo">
+      <EntityTypeMapping TypeName="OAModel.BulletinInfo">
+        <MappingFragment StoreEntitySet="BulletinInfo">
+          <ScalarProperty Name="BID" ColumnName="BID" />
+          <ScalarProperty Name="BTitle" ColumnName="BTitle" />
+          <ScalarProperty Name="BType" ColumnName="BType" />
+          <ScalarProperty Name="BState" ColumnName="BState" />
+          <ScalarProperty Name="BCreateUser" ColumnName="BCreateUser" />
+          <ScalarProperty Name="BCreateTime" ColumnName="BCreateTime" />
+          <ScalarProperty Name="BDesc" ColumnName="BDesc" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="DepartInfo">
       <EntityTypeMapping TypeName="OAModel.DepartInfo">
         <MappingFragment StoreEntitySet="DepartInfo">
@@ -80,7 +93,8 @@
           <ScalarProperty Name="UserId" ColumnName="UserId" />
           <ScalarProperty Name="SignTime" ColumnName="SignTime" />
           <ScalarProperty Name="SignDesc" ColumnName="SignDesc" />
-          <ScalarProperty Name="SignTag" ColumnName="SignTag" />
+          <ScalarProperty Name="SignText" ColumnName="SignText" />
+          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -176,6 +190,14 @@
           <ScalarProperty Name="ReadId" ColumnName="ReadId" />
           <ScalarProperty Name="MessageId" ColumnName="MessageId" />
           <ScalarProperty Name="UserId" ColumnName="UserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Remarks">
+      <EntityTypeMapping TypeName="OAModel.Remarks">
+        <MappingFragment StoreEntitySet="Remarks">
+          <ScalarProperty Name="RemarksID" ColumnName="RemarksID" />
+          <ScalarProperty Name="RemaName" ColumnName="RemaName" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

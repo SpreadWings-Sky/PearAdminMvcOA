@@ -27,6 +27,7 @@ namespace PearAdminMvcOA.Models
     
         public virtual DbSet<AccessoryFile> AccessoryFile { get; set; }
         public virtual DbSet<BranchInfo> BranchInfo { get; set; }
+        public virtual DbSet<BulletinInfo> BulletinInfo { get; set; }
         public virtual DbSet<DepartInfo> DepartInfo { get; set; }
         public virtual DbSet<FileInfo> FileInfo { get; set; }
         public virtual DbSet<FileTypeInfo> FileTypeInfo { get; set; }
@@ -41,6 +42,7 @@ namespace PearAdminMvcOA.Models
         public virtual DbSet<OperateLog> OperateLog { get; set; }
         public virtual DbSet<PreContract> PreContract { get; set; }
         public virtual DbSet<ReadCommonMessage> ReadCommonMessage { get; set; }
+        public virtual DbSet<Remarks> Remarks { get; set; }
         public virtual DbSet<RoleInfo> RoleInfo { get; set; }
         public virtual DbSet<Schedule> Schedule { get; set; }
         public virtual DbSet<UserInfo> UserInfo { get; set; }

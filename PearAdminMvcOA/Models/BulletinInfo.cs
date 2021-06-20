@@ -9,20 +9,21 @@
 
 namespace PearAdminMvcOA.Models
 {
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     
-    public partial class ManualSign
+    public partial class BulletinInfo
     {
-        public int SignId { get; set; }
-        public int UserId { get; set; }
-        public System.DateTime SignTime { get; set; }
-        public int SignDesc { get; set; }
-        public string SignText { get; set; }
-        public int RoleId { get; set; }
-    
+        public int BID { get; set; }
+        public string BTitle { get; set; }
+        public int BType { get; set; }
+        public int BState { get; set; }
+        public int BCreateUser { get; set; }
+        public System.DateTime BCreateTime { get; set; }
+        public string BDesc { get; set; }
+        [JsonIgnore]
+
         public virtual UserInfo UserInfo { get; set; }
-        public virtual Remarks Remarks { get; set; }
-        public virtual RoleInfo RoleInfo { get; set; }
     }
 }

@@ -22,6 +22,19 @@
     <Property Name="BranchName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="BranchShortName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
   </EntityType>
+  <EntityType Name="BulletinInfo">
+    <Key>
+      <PropertyRef Name="BID" />
+    </Key>
+    <Property Name="BID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="BTitle" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="BType" Type="Int32" Nullable="false" />
+    <Property Name="BState" Type="Int32" Nullable="false" />
+    <Property Name="BCreateUser" Type="Int32" Nullable="false" />
+    <Property Name="BCreateTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="BDesc" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="UserInfo" Relationship="Self.FK_BulletinInfo_UserInfo" FromRole="BulletinInfo" ToRole="UserInfo" />
+  </EntityType>
   <EntityType Name="DepartInfo">
     <Key>
       <PropertyRef Name="DepartId" />
@@ -81,9 +94,12 @@
     <Property Name="SignId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="UserId" Type="Int32" Nullable="false" />
     <Property Name="SignTime" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="SignDesc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="SignTag" Type="Int32" Nullable="false" />
+    <Property Name="SignDesc" Type="Int32" Nullable="false" />
+    <Property Name="SignText" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="RoleId" Type="Int32" Nullable="false" />
     <NavigationProperty Name="UserInfo" Relationship="Self.FK_ManualSign_ManualSign" FromRole="ManualSign" ToRole="UserInfo" />
+    <NavigationProperty Name="Remarks" Relationship="Self.FK_ManualSign_Remarks" FromRole="ManualSign" ToRole="Remarks" />
+    <NavigationProperty Name="RoleInfo" Relationship="Self.FK_ManualSign_RoleInfo" FromRole="ManualSign" ToRole="RoleInfo" />
   </EntityType>
   <EntityType Name="MeetingInfo">
     <Key>
@@ -185,6 +201,14 @@
     <NavigationProperty Name="Message" Relationship="Self.FK_ReadCommonMessage_Message" FromRole="ReadCommonMessage" ToRole="Message" />
     <NavigationProperty Name="UserInfo" Relationship="Self.FK_ReadCommonMessage_UserInfo" FromRole="ReadCommonMessage" ToRole="UserInfo" />
   </EntityType>
+  <EntityType Name="Remarks">
+    <Key>
+      <PropertyRef Name="RemarksID" />
+    </Key>
+    <Property Name="RemarksID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RemaName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="ManualSign" Relationship="Self.FK_ManualSign_Remarks" FromRole="Remarks" ToRole="ManualSign" />
+  </EntityType>
   <EntityType Name="RoleInfo">
     <Key>
       <PropertyRef Name="RoleId" />
@@ -192,6 +216,7 @@
     <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="RoleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="RoleDesc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="ManualSign" Relationship="Self.FK_ManualSign_RoleInfo" FromRole="RoleInfo" ToRole="ManualSign" />
   </EntityType>
   <EntityType Name="Schedule">
     <Key>
@@ -225,6 +250,7 @@
     <Property Name="CreateTime" Type="String" MaxLength="120" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="Avatar" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
     <Property Name="UserState" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="BulletinInfo" Relationship="Self.FK_BulletinInfo_UserInfo" FromRole="UserInfo" ToRole="BulletinInfo" />
     <NavigationProperty Name="DepartInfo" Relationship="Self.FK_DepartInfo_UserInfo" FromRole="UserInfo" ToRole="DepartInfo" />
     <NavigationProperty Name="LoginLog" Relationship="Self.FK_LoginLog_UserInfo" FromRole="UserInfo" ToRole="LoginLog" />
     <NavigationProperty Name="ManualSign" Relationship="Self.FK_ManualSign_ManualSign" FromRole="UserInfo" ToRole="ManualSign" />
@@ -263,6 +289,18 @@
       </Principal>
       <Dependent Role="AccessoryFile">
         <PropertyRef Name="AccessoryType" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BulletinInfo_UserInfo">
+    <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
+    <End Role="BulletinInfo" Type="Self.BulletinInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="BulletinInfo">
+        <PropertyRef Name="BCreateUser" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -311,6 +349,30 @@
       </Principal>
       <Dependent Role="ManualSign">
         <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ManualSign_Remarks">
+    <End Role="Remarks" Type="Self.Remarks" Multiplicity="1" />
+    <End Role="ManualSign" Type="Self.ManualSign" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Remarks">
+        <PropertyRef Name="RemarksID" />
+      </Principal>
+      <Dependent Role="ManualSign">
+        <PropertyRef Name="SignDesc" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ManualSign_RoleInfo">
+    <End Role="RoleInfo" Type="Self.RoleInfo" Multiplicity="1" />
+    <End Role="ManualSign" Type="Self.ManualSign" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RoleInfo">
+        <PropertyRef Name="RoleId" />
+      </Principal>
+      <Dependent Role="ManualSign">
+        <PropertyRef Name="RoleId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -437,6 +499,7 @@
   <EntityContainer Name="OAEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="AccessoryFile" EntityType="Self.AccessoryFile" />
     <EntitySet Name="BranchInfo" EntityType="Self.BranchInfo" />
+    <EntitySet Name="BulletinInfo" EntityType="Self.BulletinInfo" />
     <EntitySet Name="DepartInfo" EntityType="Self.DepartInfo" />
     <EntitySet Name="FileInfo" EntityType="Self.FileInfo" />
     <EntitySet Name="FileTypeInfo" EntityType="Self.FileTypeInfo" />
@@ -451,6 +514,7 @@
     <EntitySet Name="OperateLog" EntityType="Self.OperateLog" />
     <EntitySet Name="PreContract" EntityType="Self.PreContract" />
     <EntitySet Name="ReadCommonMessage" EntityType="Self.ReadCommonMessage" />
+    <EntitySet Name="Remarks" EntityType="Self.Remarks" />
     <EntitySet Name="RoleInfo" EntityType="Self.RoleInfo" />
     <EntitySet Name="Schedule" EntityType="Self.Schedule" />
     <EntitySet Name="UserInfo" EntityType="Self.UserInfo" />
@@ -462,6 +526,10 @@
     <AssociationSet Name="FK_AccessoryFile_FileTypeInfo" Association="Self.FK_AccessoryFile_FileTypeInfo">
       <End Role="FileTypeInfo" EntitySet="FileTypeInfo" />
       <End Role="AccessoryFile" EntitySet="AccessoryFile" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BulletinInfo_UserInfo" Association="Self.FK_BulletinInfo_UserInfo">
+      <End Role="UserInfo" EntitySet="UserInfo" />
+      <End Role="BulletinInfo" EntitySet="BulletinInfo" />
     </AssociationSet>
     <AssociationSet Name="FK_DepartInfo_UserInfo" Association="Self.FK_DepartInfo_UserInfo">
       <End Role="UserInfo" EntitySet="UserInfo" />
@@ -477,6 +545,14 @@
     </AssociationSet>
     <AssociationSet Name="FK_ManualSign_ManualSign" Association="Self.FK_ManualSign_ManualSign">
       <End Role="UserInfo" EntitySet="UserInfo" />
+      <End Role="ManualSign" EntitySet="ManualSign" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ManualSign_Remarks" Association="Self.FK_ManualSign_Remarks">
+      <End Role="Remarks" EntitySet="Remarks" />
+      <End Role="ManualSign" EntitySet="ManualSign" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ManualSign_RoleInfo" Association="Self.FK_ManualSign_RoleInfo">
+      <End Role="RoleInfo" EntitySet="RoleInfo" />
       <End Role="ManualSign" EntitySet="ManualSign" />
     </AssociationSet>
     <AssociationSet Name="FK_Schedule_MeetingInfo" Association="Self.FK_Schedule_MeetingInfo">

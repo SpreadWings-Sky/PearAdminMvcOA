@@ -534,8 +534,8 @@
     <Content Include="libs\Vue\vue.min.js" />
     <Content Include="Models\OA.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>OA.Context.cs</LastGenOutput>
       <DependentUpon>OA.edmx</DependentUpon>
+      <LastGenOutput>OA.Context.cs</LastGenOutput>
     </Content>
     <Content Include="Models\OA.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -548,6 +548,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BulletinController.cs" />
+    <Compile Include="Controllers\BulletinDataController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HRController.cs" />
     <Compile Include="Controllers\HRDataController.cs" />
@@ -559,6 +561,9 @@
       <DependentUpon>OA.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\BranchInfo.cs">
+      <DependentUpon>OA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BulletinInfo.cs">
       <DependentUpon>OA.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DepartInfo.cs">
@@ -616,6 +621,9 @@
       <DependentUpon>OA.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ReadCommonMessage.cs">
+      <DependentUpon>OA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Remarks.cs">
       <DependentUpon>OA.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\RoleInfo.cs">
@@ -700,6 +708,10 @@
     <Content Include="Views\HR\UserManger\Edit.cshtml" />
     <Content Include="Views\Shared\_Head.cshtml" />
     <Content Include="Views\Shared\_Jsp.cshtml" />
+    <Content Include="Views\Bulletin\Index.cshtml" />
+    <Content Include="Views\Bulletin\BullManager\Add.cshtml" />
+    <Content Include="Views\Bulletin\BullManager\Edit.cshtml" />
+    <Content Include="Views\Bulletin\BullManager\Detailed.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -12,17 +12,16 @@ namespace PearAdminMvcOA.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class RoleInfo
+    public partial class Remarks
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public RoleInfo()
+        public Remarks()
         {
             this.ManualSign = new HashSet<ManualSign>();
         }
     
-        public int RoleId { get; set; }
-        public string RoleName { get; set; }
-        public string RoleDesc { get; set; }
+        public int RemarksID { get; set; }
+        public string RemaName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ManualSign> ManualSign { get; set; }

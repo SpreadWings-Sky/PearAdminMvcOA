@@ -38,6 +38,10 @@ namespace PearAdminMvcOA.Controllers
                     if (us != null)
                     {
                         FormsAuthentication.SetAuthCookie(us.UserId.ToString(), false);
+                        HttpCookie cookie = new HttpCookie("UserId");
+                        cookie.Value = us.UserId.ToString();
+                        cookie.Expires = DateTime.Now.AddDays(2);
+                        Response.Cookies.Add(cookie);
                         return Json(new { code = 200  });
                     }
                     return Json(new { code = 500 });
