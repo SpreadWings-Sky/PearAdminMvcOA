@@ -1,0 +1,252 @@
+﻿
+
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>日程管理</title>
+    <link rel="stylesheet" href="/libs/component/pear/css/pear.css" />
+</head>
+<body class="pear-container">
+    <div class="layui-card">
+        <div class="layui-card-body">
+            <form class="layui-form" action="">
+                <div class="layui-form-item">
+                    <div class="layui-form-item layui-inline">
+                        <label class="layui-form-label">日程标题</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="realName" placeholder="" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item layui-inline">
+                        <button type="button" class="pear-btn pear-btn-md pear-btn-primary" lay-submit lay-filter="Note-query">
+                            <i class="layui-icon layui-icon-search"></i>
+                            查询
+                        </button>
+                        <button type="reset" class="pear-btn pear-btn-md">
+                            <i class="layui-icon layui-icon-refresh"></i>
+                            重置
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="layui-card">
+        <div class="layui-card-body">
+            <table id="Note-table" lay-filter="Note-table"></table>
+        </div>
+    </div>
+
+    <script type="text/html" id="Note-toolbar">
+        <button class="pear-btn pear-btn-primary pear-btn-md" lay-event="add">
+            <i class="layui-icon layui-icon-add-1"></i>
+            新增
+        </button>
+    </script>
+
+    <script type="text/html" id="Note-bar">
+        <button class="pear-btn pear-btn-primary pear-btn-sm" lay-event="edit"><i class="layui-icon layui-icon-edit"></i></button>
+        <button class="pear-btn pear-btn-danger pear-btn-sm" lay-event="remove"><i class="layui-icon layui-icon-delete"></i></button>
+    </script>
+
+    <script type="text/html" id="Note-createTime">
+        {{layui.util.toDateString(d.CreateTime, 'yyyy-MM-dd')}}
+    </script>
+
+    <script src="/libs/component/layui/layui.js"></script>
+    <script src="/libs/component/pear/pear.js"></script>
+    <script src="~/libs/jquery-3.5.1.js"></script>
+    <script>
+        layui.use(['table', 'form', 'jquery', 'common'], function () {
+            let table = layui.table;
+            let form = layui.form;
+            let $ = layui.jquery;
+            let common = layui.common;
+
+            let MODULE_PATH = "/PersonalNote/";
+
+            let cols = [
+                [
+                    {
+                        title: '标题',
+                        field: 'NoteTitle',
+                        align: 'center',
+                        width: 100
+                    },
+                    {
+                        title: '便签正文',
+                        field: 'NoteContent',
+                        align: 'center'
+                    },
+                    {
+                        title: '创建时间',
+                        field: 'CreateTime',
+                        align: 'center',
+                        width: 160,
+                    },
+                    {
+                        title: '创建用户',
+                        field: 'CreateUser',
+                        align: 'center',
+                    },
+                    {
+                        title: '操作',
+                        toolbar: '#Note-bar',
+                        align: 'center',
+                        width: 130
+                    }
+                ]
+            ]
+
+            table.render({
+                elem: '#Note-table',
+                url: '/api/PersonalNote/'+@((Session["User"] as PearAdminMvcOA.Models.UserInfo).UserId),
+                page: true,
+                cols: cols,
+                skin: 'line',
+                type: "get",
+                toolbar: '#Note-toolbar',
+                defaultToolbar: [{
+                    title: '刷新',
+                    layEvent: 'refresh',
+                    icon: 'layui-icon-refresh',
+                }, 'filter', 'print', 'exports']
+            });
+
+
+            table.on('tool(Note-table)', function (obj) {
+                if (obj.event === 'remove') {
+                    window.remove(obj);
+                } else if (obj.event === 'edit') {
+                    window.edit(obj);
+                }
+            });
+
+            table.on('toolbar(Note-table)', function (obj) {
+                if (obj.event === 'add') {
+                    window.add();
+                } else if (obj.event === 'refresh') {
+                    window.refresh();
+                } else if (obj.event === 'batchremove') {
+                    window.batchremove(obj);
+                }
+            });
+
+            form.on('submit(Note-query)', function (data) {
+                console.log(data.field)
+                table.reload('Note-table', {
+                    where: data.field
+                })
+                return false;
+            });
+
+            form.on('switch(Note-enable)', function (obj) {
+                layer.tips(this.value + ' ' + this.name + '：' + obj.elem.checked, obj.othis);
+            });
+
+            window.add = function () {
+                layer.open({
+                    type: 2,
+                    title: '新增',
+                    shade: 0.1,
+                    area: [common.isModile() ? '100%' : '500px', common.isModile() ? '100%' : '400px'],
+                    content: 'NoteAdd'
+                });
+            }
+
+            window.edit = function (obj) {
+                layer.open({
+                    type: 2,
+                    title: '修改',
+                    shade: 0.1,
+                    area: ['500px', '400px'],
+                    content: 'NoteEdit/' + obj.data.NoteId
+                });
+            }
+
+            window.remove = function (obj) {
+                layer.confirm('确定要删除该便签', {
+                    icon: 3,
+                    title: '提示'
+                }, function (index) {
+                    layer.close(index);
+                    let loading = layer.load();
+                    $.ajax({
+                        url: "/api/PersonalNote/" + obj.data['NoteId'],
+                        dataType: 'json',
+                        type: 'Post',
+                        success: function (result) {
+                            layer.close(loading);
+                            if (result.success) {
+                                layer.msg(result.msg, {
+                                    icon: 1,
+                                    time: 1000
+                                }, function () {
+                                    obj.del();
+                                });
+                            } else {
+                                layer.msg(result.msg, {
+                                    icon: 2,
+                                    time: 1000
+                                });
+                            }
+                        }
+                    })
+                });
+            }
+
+            window.batchRemove = function (obj) {
+
+                var checkIds = common.checkField(obj, 'NoteId');
+
+                if (checkIds === "") {
+                    layer.msg("未选中数据", {
+                        icon: 3,
+                        time: 1000
+                    });
+                    return false;
+                }
+
+                layer.confirm('确定要删除这些用户', {
+                    icon: 3,
+                    title: '提示'
+                }, function (index) {
+                    layer.close(index);
+                    let loading = layer.load();
+                    $.ajax({
+                        url: MODULE_PATH + "batchRemove/" + ids,
+                        dataType: 'json',
+                        type: 'post',
+                        success: function (result) {
+                            layer.close(loading);
+                            if (result.success) {
+                                layer.msg(result.msg, {
+                                    icon: 1,
+                                    time: 1000
+                                }, function () {
+                                    table.reload('Note-table');
+                                });
+                            } else {
+                                layer.msg(result.msg, {
+                                    icon: 2,
+                                    time: 1000
+                                });
+                            }
+                        }
+                    })
+                });
+            }
+
+            window.refresh = function (param) {
+                table.reload('Note-table');
+            }
+        })
+    </script>
+</body>
+</html>
+
+

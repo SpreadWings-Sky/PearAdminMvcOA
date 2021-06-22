@@ -13,7 +13,6 @@
         <EntityTypeShape EntityType="OAModel.FileTypeInfo" Width="1.5" PointX="8.75" PointY="3.375" IsExpanded="true" />
         <EntityTypeShape EntityType="OAModel.LoginLog" Width="1.5" PointX="3" PointY="14.25" IsExpanded="true" />
         <EntityTypeShape EntityType="OAModel.ManualSign" Width="1.5" PointX="6" PointY="12.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="OAModel.MeetingInfo" Width="1.5" PointX="1.5" PointY="30.875" IsExpanded="true" />
         <EntityTypeShape EntityType="OAModel.Menu" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="OAModel.Message" Width="1.5" PointX="3.75" PointY="3.125" IsExpanded="true" />
         <EntityTypeShape EntityType="OAModel.MessageToUser" Width="1.5" PointX="6" PointY="8.625" IsExpanded="true" />
@@ -36,7 +35,6 @@
         <AssociationConnector Association="OAModel.FK_ManualSign_ManualSign" ManuallyRouted="false" />
         <AssociationConnector Association="OAModel.FK_ManualSign_Remarks" ManuallyRouted="false" />
         <AssociationConnector Association="OAModel.FK_ManualSign_RoleInfo" ManuallyRouted="false" />
-        <AssociationConnector Association="OAModel.FK_Schedule_MeetingInfo" ManuallyRouted="false" />
         <AssociationConnector Association="OAModel.FK_Menu_Menu" ManuallyRouted="false" />
         <AssociationConnector Association="OAModel.FK_Message_MessageType" ManuallyRouted="false" />
         <AssociationConnector Association="OAModel.FK_MessageToUser_Message" ManuallyRouted="false" />
@@ -46,6 +44,9 @@
         <AssociationConnector Association="OAModel.FK_PreContract_Schedule" ManuallyRouted="false" />
         <AssociationConnector Association="OAModel.FK_PreContract_UserInfo" ManuallyRouted="false" />
         <AssociationConnector Association="OAModel.FK_ReadCommonMessage_UserInfo" ManuallyRouted="false" />
+        <AssociationConnector Association="OAModel.FK_Schedule_UserInfo" />
+        <EntityTypeShape EntityType="OAModel.ConferenceRoom" Width="1.5" PointX="8.375" PointY="10.75" />
+        <EntityTypeShape EntityType="OAModel.Operation" Width="1.5" PointX="10.375" PointY="10.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

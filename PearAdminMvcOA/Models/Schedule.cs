@@ -27,12 +27,12 @@ namespace PearAdminMvcOA.Models
         public System.DateTime BeginTime { get; set; }
         public System.DateTime EndTime { get; set; }
         public string SchContent { get; set; }
-        public string CreateUser { get; set; }
         public System.DateTime CreateTime { get; set; }
         public int IfPrivate { get; set; }
+        public int Userid { get; set; }
     
-        public virtual MeetingInfo MeetingInfo { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PreContract> PreContract { get; set; }
+        public virtual UserInfo UserInfo { get; set; }
     }
 }

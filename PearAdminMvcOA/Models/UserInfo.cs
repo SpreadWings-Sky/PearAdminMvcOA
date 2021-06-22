@@ -9,10 +9,9 @@
 
 namespace PearAdminMvcOA.Models
 {
-    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
-    
+    using Newtonsoft.Json;
     public partial class UserInfo
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -26,6 +25,7 @@ namespace PearAdminMvcOA.Models
             this.OperateLog = new HashSet<OperateLog>();
             this.PreContract = new HashSet<PreContract>();
             this.ReadCommonMessage = new HashSet<ReadCommonMessage>();
+            this.Schedule = new HashSet<Schedule>();
         }
     
         public int UserId { get; set; }
@@ -63,5 +63,8 @@ namespace PearAdminMvcOA.Models
         [JsonIgnore]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ReadCommonMessage> ReadCommonMessage { get; set; }
+        [JsonIgnore]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Schedule> Schedule { get; set; }
     }
 }

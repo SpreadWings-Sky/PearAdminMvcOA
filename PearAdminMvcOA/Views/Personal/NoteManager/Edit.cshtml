@@ -1,0 +1,115 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/libs/component/pear/css/pear.css" />
+    <link rel="stylesheet" href="~/libs/component/layui/css/layui.css" />
+    <link rel="stylesheet" href="~/libs/component/layui/css/layui.mobile.css" />
+</head>
+<body>
+    <form class="layui-form" action="/api/PersonalNote" method="post">
+        <div class="mainBox">
+            <div class="main-container">
+                <div class="main-container">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">标题</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="NoteTitle" lay-verify="title" autocomplete="off" placeholder="请输入标题" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">便签正文</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="NoteContent" lay-verify="title" autocomplete="off" placeholder="请输入地点" class="layui-input">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bottom">
+            <div class="button-container">
+                <button type="button" id="btn" class="pear-btn pear-btn-primary pear-btn-sm" lay-submit="" lay-filter="user-save">
+                    <i class="layui-icon layui-icon-ok"></i>
+                    提交
+                </button>
+                <button type="reset" id="Reset" class="pear-btn pear-btn-sm">
+                    <i class="layui-icon layui-icon-refresh"></i>
+                    重置
+                </button>
+            </div>
+        </div>
+    </form>
+    <script src="/libs/component/layui/layui.js"></script>
+    <script src="/libs/component/pear/pear.js"></script>
+    <script src="~/libs/jquery-3.5.1.js"></script>
+    <script>
+        loadDate()
+        $("#Reset").click(function () {
+            loadDate()
+        })
+        var time;
+        var userName;
+        //获取需要修改的值
+        function loadDate() {
+            $.ajax({
+                url: "/api/PersonalNote/@ViewBag.Noteid",
+                type: "get",
+                data: {
+
+                },
+                success: function (date) {
+                    console.log(date.data["NoteTitle"])
+                    $("[name='NoteTitle']").val(date.data["NoteTitle"])
+                    $("[name='NoteContent']").val(date.data["NoteContent"])
+                    time = date.data["CreateTime"]
+                    userName = date.data["CreateUser"];
+                },
+                error: function (date) {
+                    console.log(date)
+                }
+             })
+        }
+        //提交事件
+        $("#btn").click(function () {
+                $.ajax({
+                    url: "/api/PersonalNote",
+                    type: "put",
+                    data: {
+                        "NoteTitle": $("[name='NoteTitle']").val(),
+                        "NoteContent": $("[name='NoteContent']").val(),
+                        "CreateUser": userName,
+                        "CreateTime": time,
+                        "Noteid":@ViewBag.Noteid
+                    },
+                    success: function () {
+                        alert('修改成功')
+                        parent.layer.close(parent.layer.getFrameIndex(window.name));
+                        parent.layui.table.reload("Note-table");
+                    }
+                })
+        })
+        layui.use('laydate', function () {
+            var laydate = layui.laydate;
+            //执行一个laydate实例
+            laydate.render({
+                elem: '#BeginTime',//指定元素
+                type: 'datetime'
+            });
+        }); layui.use('laydate', function () {
+            var laydate = layui.laydate;
+            //执行一个laydate实例
+            laydate.render({
+                elem: '#EndTime',//指定元素
+                type: 'datetime'
+            });
+        });
+    </script>
+    <script>
+    </script>
+</body>
+</html>

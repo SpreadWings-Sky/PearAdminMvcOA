@@ -1,0 +1,109 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/libs/component/pear/css/pear.css" />
+    <link rel="stylesheet" href="~/libs/component/layui/css/layui.css" />
+    <link rel="stylesheet" href="~/libs/component/layui/css/layui.mobile.css" />
+</head>
+<body>
+    <form class="layui-form" action="/api/PersonalSchedule" method="post"> 
+        <div class="mainBox">
+            <div class="main-container">
+                <div class="main-container">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">标题</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="Title" lay-verify="title" autocomplete="off" placeholder="请输入标题" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">地点</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="Address" lay-verify="title" autocomplete="off" placeholder="请输入地点" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">开始时间</label>
+                        <div class="layui-input-block">
+                            <input type="text" class="layui-input" name="BeginTime" id="BeginTime" placeholder="请选择开始时间">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">结束时间</label>
+                        <div class="layui-input-block">
+                            <input type="text" class="layui-input" name="EndTime" id="EndTime" placeholder="请选择结束时间">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">日程内容</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="SchContent" lay-verify="title" autocomplete="off" placeholder="请输入日程内容" class="layui-input">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bottom">
+            <div class="button-container">
+                <button type="button" id="btn" class="pear-btn pear-btn-primary pear-btn-sm" lay-submit="" lay-filter="user-save">
+                    <i class="layui-icon layui-icon-ok"></i>
+                    提交
+                </button>
+                <button type="reset" class="pear-btn pear-btn-sm">
+                    <i class="layui-icon layui-icon-refresh"></i>
+                    重置
+                </button>
+            </div>
+        </div>
+    </form>
+    <script src="/libs/component/layui/layui.js"></script>
+    <script src="/libs/component/pear/pear.js"></script>
+    <script src="~/libs/jquery-3.5.1.js"></script>
+    <script>
+        //提交
+        $("#btn").click(function () {
+                $.ajax({
+                    url: "/api/PersonalSchedule",
+                    type: "post",
+                    data: {
+                        "Title": $("[name='Title']").val(),
+                        "Address": $("[name='Address']").val(),
+                        "BeginTime": $("[name='BeginTime']").val(),
+                        "EndTime": $("[name='EndTime']").val(),
+                        "SchContent": $("[name='SchContent']").val(),
+                        "Userid": @ViewBag.UserID,
+                        "CreateTime": "@(DateTime.Now)"
+                    },
+                    success: function () {
+                        alert('添加成功')
+                        parent.layer.close(parent.layer.getFrameIndex(window.name));
+                        parent.layui.table.reload("Schedule-table");
+                    }
+                })
+        })
+        layui.use('laydate', function () {
+            var laydate = layui.laydate;
+            //执行一个laydate实例
+            laydate.render({
+                elem: '#BeginTime',//指定元素
+                type: 'datetime'
+            });
+        }); layui.use('laydate', function () {
+            var laydate = layui.laydate;
+            //执行一个laydate实例
+            laydate.render({
+                elem: '#EndTime',//指定元素
+                type: 'datetime'
+            });
+        });
+    </script>
+    <script>
+    </script>
+</body>
+</html>

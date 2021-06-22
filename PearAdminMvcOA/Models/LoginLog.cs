@@ -20,6 +20,7 @@ namespace PearAdminMvcOA.Models
         public int IfSuccess { get; set; }
         public string LoginUserIp { get; set; }
         public string LoginDesc { get; set; }
+        public string Browser { get; set; }
     
         public virtual UserInfo UserInfo { get; set; }
     }

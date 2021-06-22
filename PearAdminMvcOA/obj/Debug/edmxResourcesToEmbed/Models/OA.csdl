@@ -86,6 +86,7 @@
     <Property Name="LoginUserIp" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="LoginDesc" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="UserInfo" Relationship="Self.FK_LoginLog_UserInfo" FromRole="LoginLog" ToRole="UserInfo" />
+    <Property Name="Browser" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="ManualSign">
     <Key>
@@ -100,14 +101,6 @@
     <NavigationProperty Name="UserInfo" Relationship="Self.FK_ManualSign_ManualSign" FromRole="ManualSign" ToRole="UserInfo" />
     <NavigationProperty Name="Remarks" Relationship="Self.FK_ManualSign_Remarks" FromRole="ManualSign" ToRole="Remarks" />
     <NavigationProperty Name="RoleInfo" Relationship="Self.FK_ManualSign_RoleInfo" FromRole="ManualSign" ToRole="RoleInfo" />
-  </EntityType>
-  <EntityType Name="MeetingInfo">
-    <Key>
-      <PropertyRef Name="MeetingId" />
-    </Key>
-    <Property Name="MeetingId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="MeetingName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-    <NavigationProperty Name="Schedule" Relationship="Self.FK_Schedule_MeetingInfo" FromRole="MeetingInfo" ToRole="Schedule" />
   </EntityType>
   <EntityType Name="Menu">
     <Key>
@@ -229,11 +222,11 @@
     <Property Name="BeginTime" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="EndTime" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="SchContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="CreateUser" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="IfPrivate" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="MeetingInfo" Relationship="Self.FK_Schedule_MeetingInfo" FromRole="Schedule" ToRole="MeetingInfo" />
     <NavigationProperty Name="PreContract" Relationship="Self.FK_PreContract_Schedule" FromRole="Schedule" ToRole="PreContract" />
+    <Property Name="Userid" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="UserInfo" Relationship="OAModel.FK_Schedule_UserInfo" FromRole="Schedule" ToRole="UserInfo" />
   </EntityType>
   <EntityType Name="UserInfo">
     <Key>
@@ -258,6 +251,7 @@
     <NavigationProperty Name="OperateLog" Relationship="Self.FK_OperateLog_UserInfo" FromRole="UserInfo" ToRole="OperateLog" />
     <NavigationProperty Name="PreContract" Relationship="Self.FK_PreContract_UserInfo" FromRole="UserInfo" ToRole="PreContract" />
     <NavigationProperty Name="ReadCommonMessage" Relationship="Self.FK_ReadCommonMessage_UserInfo" FromRole="UserInfo" ToRole="ReadCommonMessage" />
+    <NavigationProperty Name="Schedule" Relationship="OAModel.FK_Schedule_UserInfo" FromRole="UserInfo" ToRole="Schedule" />
   </EntityType>
   <EntityType Name="WorkTime">
     <Key>
@@ -373,18 +367,6 @@
       </Principal>
       <Dependent Role="ManualSign">
         <PropertyRef Name="RoleId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Schedule_MeetingInfo">
-    <End Role="MeetingInfo" Type="Self.MeetingInfo" Multiplicity="1" />
-    <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="MeetingInfo">
-        <PropertyRef Name="MeetingId" />
-      </Principal>
-      <Dependent Role="Schedule">
-        <PropertyRef Name="MeetingId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -505,7 +487,6 @@
     <EntitySet Name="FileTypeInfo" EntityType="Self.FileTypeInfo" />
     <EntitySet Name="LoginLog" EntityType="Self.LoginLog" />
     <EntitySet Name="ManualSign" EntityType="Self.ManualSign" />
-    <EntitySet Name="MeetingInfo" EntityType="Self.MeetingInfo" />
     <EntitySet Name="Menu" EntityType="Self.Menu" />
     <EntitySet Name="Message" EntityType="Self.Message" />
     <EntitySet Name="MessageToUser" EntityType="Self.MessageToUser" />
@@ -555,10 +536,6 @@
       <End Role="RoleInfo" EntitySet="RoleInfo" />
       <End Role="ManualSign" EntitySet="ManualSign" />
     </AssociationSet>
-    <AssociationSet Name="FK_Schedule_MeetingInfo" Association="Self.FK_Schedule_MeetingInfo">
-      <End Role="MeetingInfo" EntitySet="MeetingInfo" />
-      <End Role="Schedule" EntitySet="Schedule" />
-    </AssociationSet>
     <AssociationSet Name="FK_Menu_Menu" Association="Self.FK_Menu_Menu">
       <End Role="Menu" EntitySet="Menu" />
       <End Role="Menu1" EntitySet="Menu" />
@@ -595,5 +572,44 @@
       <End Role="UserInfo" EntitySet="UserInfo" />
       <End Role="ReadCommonMessage" EntitySet="ReadCommonMessage" />
     </AssociationSet>
+    <AssociationSet Name="FK_Schedule_UserInfo" Association="OAModel.FK_Schedule_UserInfo">
+      <End Role="UserInfo" EntitySet="UserInfo" />
+      <End Role="Schedule" EntitySet="Schedule" />
+    </AssociationSet>
+    <EntitySet Name="ConferenceRoom" EntityType="OAModel.ConferenceRoom" />
+    <EntitySet Name="Operation" EntityType="OAModel.Operation" />
   </EntityContainer>
+  <Association Name="FK_Schedule_UserInfo">
+    <End Type="OAModel.UserInfo" Role="UserInfo" Multiplicity="1" />
+    <End Type="OAModel.Schedule" Role="Schedule" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Schedule">
+        <PropertyRef Name="Userid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="ConferenceRoom">
+    <Key>
+      <PropertyRef Name="RoomId" />
+    </Key>
+    <Property Name="RoomId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RoomName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="RoomLocation" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Capacity" Type="Int32" Nullable="false" />
+    <Property Name="State" Type="Int32" Nullable="false" />
+    <Property Name="CreationTime" Type="DateTime" Nullable="false" Precision="3" />
+  </EntityType>
+  <EntityType Name="Operation">
+    <Key>
+      <PropertyRef Name="Logid" />
+    </Key>
+    <Property Name="Logid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="OperationContent" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Userid" Type="Int32" Nullable="false" />
+    <Property Name="host" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Operationtime" Type="DateTime" Nullable="false" Precision="3" />
+  </EntityType>
 </Schema>

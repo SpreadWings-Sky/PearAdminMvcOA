@@ -77,6 +77,7 @@
     <EntitySetMapping Name="LoginLog">
       <EntityTypeMapping TypeName="OAModel.LoginLog">
         <MappingFragment StoreEntitySet="LoginLog">
+          <ScalarProperty Name="Browser" ColumnName="Browser" />
           <ScalarProperty Name="LoginId" ColumnName="LoginId" />
           <ScalarProperty Name="UserId" ColumnName="UserId" />
           <ScalarProperty Name="LoginTime" ColumnName="LoginTime" />
@@ -95,14 +96,6 @@
           <ScalarProperty Name="SignDesc" ColumnName="SignDesc" />
           <ScalarProperty Name="SignText" ColumnName="SignText" />
           <ScalarProperty Name="RoleId" ColumnName="RoleId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="MeetingInfo">
-      <EntityTypeMapping TypeName="OAModel.MeetingInfo">
-        <MappingFragment StoreEntitySet="MeetingInfo">
-          <ScalarProperty Name="MeetingId" ColumnName="MeetingId" />
-          <ScalarProperty Name="MeetingName" ColumnName="MeetingName" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -213,6 +206,7 @@
     <EntitySetMapping Name="Schedule">
       <EntityTypeMapping TypeName="OAModel.Schedule">
         <MappingFragment StoreEntitySet="Schedule">
+          <ScalarProperty Name="Userid" ColumnName="Userid" />
           <ScalarProperty Name="ScheduleId" ColumnName="ScheduleId" />
           <ScalarProperty Name="Title" ColumnName="Title" />
           <ScalarProperty Name="Address" ColumnName="Address" />
@@ -220,7 +214,6 @@
           <ScalarProperty Name="BeginTime" ColumnName="BeginTime" />
           <ScalarProperty Name="EndTime" ColumnName="EndTime" />
           <ScalarProperty Name="SchContent" ColumnName="SchContent" />
-          <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
           <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
           <ScalarProperty Name="IfPrivate" ColumnName="IfPrivate" />
         </MappingFragment>
@@ -250,6 +243,29 @@
           <ScalarProperty Name="WordName" ColumnName="WordName" />
           <ScalarProperty Name="OnDutyTime" ColumnName="OnDutyTime" />
           <ScalarProperty Name="OffDutyTime" ColumnName="OffDutyTime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ConferenceRoom">
+      <EntityTypeMapping TypeName="OAModel.ConferenceRoom">
+        <MappingFragment StoreEntitySet="ConferenceRoom">
+          <ScalarProperty Name="CreationTime" ColumnName="CreationTime" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="Capacity" ColumnName="Capacity" />
+          <ScalarProperty Name="RoomLocation" ColumnName="RoomLocation" />
+          <ScalarProperty Name="RoomName" ColumnName="RoomName" />
+          <ScalarProperty Name="RoomId" ColumnName="RoomId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Operation">
+      <EntityTypeMapping TypeName="OAModel.Operation">
+        <MappingFragment StoreEntitySet="Operation">
+          <ScalarProperty Name="Operationtime" ColumnName="Operationtime" />
+          <ScalarProperty Name="host" ColumnName="host" />
+          <ScalarProperty Name="Userid" ColumnName="Userid" />
+          <ScalarProperty Name="OperationContent" ColumnName="OperationContent" />
+          <ScalarProperty Name="Logid" ColumnName="Logid" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

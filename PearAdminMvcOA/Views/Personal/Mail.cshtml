@@ -1,0 +1,144 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>部门管理</title>
+    <link rel="stylesheet" href="/libs/component/pear/css/pear.css" />
+    <link rel="stylesheet" href="/libs/admin/css/other/department.css" />
+    <style>
+        .layui-nav-item {
+            background-color: white;
+        }
+
+        .site-demo-active {
+            color: black !important;
+        }
+        #organization-table td{
+            padding:20px;
+        }
+    </style>
+</head>
+<body class="pear-container">
+    <div class="layui-card">
+        <div class="layui-card-body">
+                <div class="layui-form-item">
+                    <div class="layui-form-item layui-inline">
+                        <label class="layui-form-label">用户名</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="realName" placeholder="" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item layui-inline">
+                        <button  id="search"  class="pear-btn pear-btn-md pear-btn-primary" lay-submit>
+                            <i class="layui-icon layui-icon-search"></i>
+                            查询
+                        </button>
+                        <button type="reset" class="pear-btn pear-btn-md">
+                            <i class="layui-icon layui-icon-refresh"></i>
+                            重置
+                        </button>
+                    </div>
+                </div>
+        </div>
+    </div>
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md3">
+            <div class="layui-card">
+                <div class="layui-card-body">
+                    <div id="organizationTreeContent" style="overflow: auto">
+                        <ul id="organizationTree" class="dtree organizationTree" data-id="9527">
+                            <li>
+                                <blockquote class="layui-elem-quote"><a href="#">用户名称</a></blockquote>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-md9">
+            <div class="layui-card" style="height: calc(100vh - 110px) !important">
+                <div class="layui-card-body" style="height:100% !important">
+                    <table id="organization-table" lay-filter="organization-table">
+                        <tr>
+                            <td><img style="border-radius:50%" src="~/libs/admin/images/avatar.jpg" id="head" width="100" height="100" alt="Alternate Text" /></td>
+                        </tr>
+                        <tr>
+                            <td>工号：</td>
+                            <td><label id="WordId"></label></td>
+                        </tr>
+                        <tr>
+                            <td>名称：</td>
+                            <td><label id="UserName"></label></td>
+                        </tr>
+                        <tr>
+                            <td>手机号：</td>
+                            <td><label id="Phone"></label></td>
+                        </tr>
+                        <tr>
+                            <td>邮箱：</td>
+                            <td><label id="Email"></label></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/libs/component/layui/layui.js"></script>
+    <script src="/libs/component/pear/pear.js"></script>
+    <script src="~/libs/jquery-3.5.1.js"></script>
+    <script>
+
+        Detail(@((Session["User"] as PearAdminMvcOA.Models.UserInfo).UserId));
+        function Detail(val) {
+                $.ajax({
+                    url: "/api/PersonalUserInfo",
+                    type: "get",
+                    data: {
+                        id: val
+                    },
+                    success: function (date) {
+                        if (date.data["Avatar"] != null) {
+                            $("#head").attr("src", date.data["Avatar"])
+                        }
+                        else {
+                            $("#head").attr("src","/libs/admin/images/avatar.jpg")
+                        }
+                        $("#WordId").text(date.data["WordId"])
+                        $("#UserName").text(date.data["UserName"])
+                        $("#Phone").text(date.data["Phone"])
+                        $("#Email").text(date.data["Email"])
+                    }
+                })
+        }
+
+        $("#search").click(function () {
+            select($("[name='realName']").val());
+        })
+        select("");
+        function select(val) {
+            $.ajax({
+                url: "/api/PersonalUserInfo",
+                type: "get",
+                data: {
+                    realName: val
+                },
+                success: function (date) {
+                    $("#organizationTree").html("");
+                    var html = ""
+                    for (var i = 0; i < date.data.length; i++) {
+                        html += "<li><a href='#' onclick='Detail(" + date.data[i]["UserId"] + ")'><blockquote class='layui-elem-quote'>" + date.data[i]["UserName"] + "</blockquote></a></li>"
+                    }
+                    $("#organizationTree").html(html);
+                }
+            })
+        }
+        window.refresh = function (param) {
+            table.reload('organization-table');
+        }
+    </script>
+</body>
+</html>

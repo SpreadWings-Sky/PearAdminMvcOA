@@ -1,0 +1,99 @@
+﻿@model PearAdminMvcOA.Models.ConferenceRoom
+@using PearAdminMvcOA.Tools
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/libs/component/pear/css/pear.css" />
+</head>
+<body>
+    <form class="layui-form" action="">
+        <div class="mainBox">
+            <div class="main-container">
+                <div class="main-container">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">房间ID</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="RoomId" readonly="readonly" lay-verify="title" autocomplete="off" placeholder="请输入房间名称" value="@Model.RoomId" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">房间名称</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="RoomName" lay-verify="title" autocomplete="off" placeholder="请输入房间名称" value="@Model.RoomName" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">房间地点</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="RoomLocation" lay-verify="title" autocomplete="off" value="@Model.RoomLocation" placeholder="请输入房间地点" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">容纳人数</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="Capacity" lay-verify="title" autocomplete="off" placeholder="请输入容纳人数" value="@Model.Capacity" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">状态</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="State" lay-verify="title" autocomplete="off" placeholder="请输入状态" value="@Model.State" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">创建时间</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="CreationTime" lay-verify="title" autocomplete="off" value="@Model.CreationTime" placeholder="请输入创建时间" class="layui-input">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="bottom">
+            <div class="button-container">
+                <button type="submit" class="pear-btn pear-btn-primary pear-btn-sm" lay-submit="" lay-filter="user-save">
+                    <i class="layui-icon layui-icon-ok"></i>
+                    提交
+                </button>
+                <button type="reset" class="pear-btn pear-btn-sm">
+                    <i class="layui-icon layui-icon-refresh"></i>
+                    重置
+                </button>
+            </div>
+        </div>
+    </form>
+    <script src="~/libs/jquery-3.5.1.js"></script>
+    <script src="/libs/component/layui/layui.js"></script>
+    <script src="/libs/component/pear/pear.js"></script>
+    <script>layui.use(['form', 'jquery'], function () {
+            let form = layui.form;
+            let $ = layui.jquery;
+
+            form.on('submit(user-save)', function (data) {
+                console.log(data.field)
+                $.ajax({
+                    url: 'http://localhost:56794/api/ConferenceRoomData/RoomModify',
+                    data: JSON.stringify(data.field),
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    type: 'put',
+                    success: function (result) {
+                        if (result.success) {
+                            layer.msg(result.msg, { icon: 1, time: 1000 }, function () {
+                                parent.layer.close(parent.layer.getFrameIndex(window.name));//关闭当前页
+                                parent.layui.table.reload("role-table");
+                            });
+                        } else {
+                            layer.msg(result.msg, { icon: 2, time: 1000 });
+                        }
+                    }
+                })
+                return false;
+            });
+        })</script>
+    <script></script>
+</body>
+</html>

@@ -9,7 +9,6 @@
 
 namespace PearAdminMvcOA.Models
 {
-    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     
@@ -22,8 +21,7 @@ namespace PearAdminMvcOA.Models
         public int BCreateUser { get; set; }
         public System.DateTime BCreateTime { get; set; }
         public string BDesc { get; set; }
-        [JsonIgnore]
-
+    
         public virtual UserInfo UserInfo { get; set; }
     }
 }

@@ -552,9 +552,21 @@
     <Compile Include="Controllers\BulletinDataController.cs" />
     <Compile Include="Controllers\CheckController.cs" />
     <Compile Include="Controllers\CheckDataController.cs" />
+    <Compile Include="Controllers\ConferenceRoomController.cs" />
+    <Compile Include="Controllers\ConferenceRoomDataController.cs" />
+    <Compile Include="Controllers\DepartController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HRController.cs" />
     <Compile Include="Controllers\HRDataController.cs" />
+    <Compile Include="Controllers\LoginLogController.cs" />
+    <Compile Include="Controllers\LoginLogDataController.cs" />
+    <Compile Include="Controllers\OperationController.cs" />
+    <Compile Include="Controllers\OperationDataController.cs" />
+    <Compile Include="Controllers\PersonalController.cs" />
+    <Compile Include="Controllers\PersonalNoteController.cs" />
+    <Compile Include="Controllers\PersonalScheduleController.cs" />
+    <Compile Include="Controllers\PersonalSignController.cs" />
+    <Compile Include="Controllers\PersonalUserInfoController.cs" />
     <Compile Include="Controllers\SysSettingController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -566,6 +578,9 @@
       <DependentUpon>OA.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\BulletinInfo.cs">
+      <DependentUpon>OA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ConferenceRoom.cs">
       <DependentUpon>OA.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DepartInfo.cs">
@@ -581,9 +596,6 @@
       <DependentUpon>OA.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ManualSign.cs">
-      <DependentUpon>OA.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\MeetingInfo.cs">
       <DependentUpon>OA.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Menu.cs">
@@ -617,6 +629,9 @@
       <DependentUpon>OA.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\OperateLog.cs">
+      <DependentUpon>OA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Operation.cs">
       <DependentUpon>OA.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PreContract.cs">
@@ -717,6 +732,23 @@
     <Content Include="Views\Check\Check.cshtml" />
     <Content Include="Views\Check\Edit.cshtml" />
     <Content Include="Views\Check\UserCheck.cshtml" />
+    <Content Include="Views\Personal\Leave.cshtml" />
+    <Content Include="Views\Personal\LeaveManager\Add.cshtml" />
+    <Content Include="Views\Personal\LeaveManager\Edit.cshtml" />
+    <Content Include="Views\Personal\Mail.cshtml" />
+    <Content Include="Views\Personal\MailManager\Add.cshtml" />
+    <Content Include="Views\Personal\MailManager\Edit.cshtml" />
+    <Content Include="Views\Personal\Note.cshtml" />
+    <Content Include="Views\Personal\NoteManager\Add.cshtml" />
+    <Content Include="Views\Personal\NoteManager\Edit.cshtml" />
+    <Content Include="Views\Personal\Schedule.cshtml" />
+    <Content Include="Views\Personal\ScheduleManager\Add.cshtml" />
+    <Content Include="Views\Personal\ScheduleManager\Edit.cshtml" />
+    <Content Include="Views\ConferenceRoom\Room.cshtml" />
+    <Content Include="Views\ConferenceRoom\RoomAdd.cshtml" />
+    <Content Include="Views\ConferenceRoom\RoomModify.cshtml" />
+    <Content Include="Views\LoginLog\Index.cshtml" />
+    <Content Include="Views\Operation\OperationInfo.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -33,7 +33,6 @@ namespace PearAdminMvcOA.Models
         public virtual DbSet<FileTypeInfo> FileTypeInfo { get; set; }
         public virtual DbSet<LoginLog> LoginLog { get; set; }
         public virtual DbSet<ManualSign> ManualSign { get; set; }
-        public virtual DbSet<MeetingInfo> MeetingInfo { get; set; }
         public virtual DbSet<Menu> Menu { get; set; }
         public virtual DbSet<Message> Message { get; set; }
         public virtual DbSet<MessageToUser> MessageToUser { get; set; }
@@ -47,5 +46,7 @@ namespace PearAdminMvcOA.Models
         public virtual DbSet<Schedule> Schedule { get; set; }
         public virtual DbSet<UserInfo> UserInfo { get; set; }
         public virtual DbSet<WorkTime> WorkTime { get; set; }
+        public virtual DbSet<ConferenceRoom> ConferenceRoom { get; set; }
+        public virtual DbSet<Operation> Operation { get; set; }
     }
 }
