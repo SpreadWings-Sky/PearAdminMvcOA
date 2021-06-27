@@ -460,6 +460,17 @@
     <Content Include="libs\component\pear\pear.all.js" />
     <Content Include="libs\component\pear\pear.js" />
     <Content Include="libs\config\pear.config.txt" />
+    <Content Include="libs\FileIcon\apk.png" />
+    <Content Include="libs\FileIcon\doc.png" />
+    <Content Include="libs\FileIcon\ecel.png" />
+    <Content Include="libs\FileIcon\file.png" />
+    <Content Include="libs\FileIcon\mov.png" />
+    <Content Include="libs\FileIcon\music.png" />
+    <Content Include="libs\FileIcon\pdf.png" />
+    <Content Include="libs\FileIcon\pic.png" />
+    <Content Include="libs\FileIcon\ppt.png" />
+    <Content Include="libs\FileIcon\rar.png" />
+    <Content Include="libs\FileIcon\zip.png" />
     <Content Include="libs\index.html" />
     <Content Include="libs\jquery-3.5.1.js" />
     <Content Include="libs\login.html" />
@@ -548,6 +559,10 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ApplyController.cs" />
+    <Compile Include="Controllers\ApplyDataController.cs" />
+    <Compile Include="Controllers\ApprovalStatusController.cs" />
+    <Compile Include="Controllers\ApprovalStatusDataController.cs" />
     <Compile Include="Controllers\BulletinController.cs" />
     <Compile Include="Controllers\BulletinDataController.cs" />
     <Compile Include="Controllers\CheckController.cs" />
@@ -555,6 +570,8 @@
     <Compile Include="Controllers\ConferenceRoomController.cs" />
     <Compile Include="Controllers\ConferenceRoomDataController.cs" />
     <Compile Include="Controllers\DepartController.cs" />
+    <Compile Include="Controllers\FileController.cs" />
+    <Compile Include="Controllers\FileUpDataController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HRController.cs" />
     <Compile Include="Controllers\HRDataController.cs" />
@@ -572,6 +589,12 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccessoryFile.cs">
+      <DependentUpon>OA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Apply.cs">
+      <DependentUpon>OA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ApprovalStatus.cs">
       <DependentUpon>OA.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\BranchInfo.cs">
@@ -729,9 +752,6 @@
     <Content Include="Views\Bulletin\BullManager\Add.cshtml" />
     <Content Include="Views\Bulletin\BullManager\Edit.cshtml" />
     <Content Include="Views\Bulletin\BullManager\Detailed.cshtml" />
-    <Content Include="Views\Check\Check.cshtml" />
-    <Content Include="Views\Check\Edit.cshtml" />
-    <Content Include="Views\Check\UserCheck.cshtml" />
     <Content Include="Views\Personal\Leave.cshtml" />
     <Content Include="Views\Personal\LeaveManager\Add.cshtml" />
     <Content Include="Views\Personal\LeaveManager\Edit.cshtml" />
@@ -749,6 +769,13 @@
     <Content Include="Views\ConferenceRoom\RoomModify.cshtml" />
     <Content Include="Views\LoginLog\Index.cshtml" />
     <Content Include="Views\Operation\OperationInfo.cshtml" />
+    <Content Include="Views\Check\Check.cshtml" />
+    <Content Include="Views\Check\ConutCheck.cshtml" />
+    <Content Include="Views\Check\Edit.cshtml" />
+    <Content Include="Views\File\Index.cshtml" />
+    <Content Include="Views\File\FileList.cshtml" />
+    <Content Include="Views\Apply\ApplyList.cshtml" />
+    <Content Include="Views\ApprovalStatus\ApprovalStatusList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -758,6 +785,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="UserFile\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

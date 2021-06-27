@@ -38,7 +38,7 @@
                     <div class="layui-form-item">
                         <label class="layui-form-label">情况</label>
                         <div class="layui-input-block">
-                            <select name="SignDesc" class="Desc" lay-verify="" lay-event="sel">
+                            <select name="SignDesc" lay-verify="" value="@ViewBag.SignDesc" lay-event="sel">
                                 <option value="">全部</option>
                                 <option value="1">已签到</option>
                                 <option value="2">未签到</option>
@@ -82,8 +82,7 @@
         layui.use(['form', 'jquery'], function () {
             let form = layui.form;
             let $ = layui.jquery;
-            $(".Desc").val(@ViewBag.SignDesc)
-            layui.form.render("select");
+
             form.on('submit(user-save)', function (data) {
                 //let roleIds = "";
                 //$('input[type=checkbox]:checked').each(function () {

@@ -24,14 +24,15 @@ namespace PearAdminMvcOA.Models
         public string FileName { get; set; }
         public int FileType { get; set; }
         public string Remark { get; set; }
-        public string FileOwner { get; set; }
+        public int FileOwner { get; set; }
         public System.DateTime CreateDate { get; set; }
-        public int ParentId { get; set; }
+        public Nullable<int> ParentId { get; set; }
         public string FilePath { get; set; }
         public int IfDelete { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AccessoryFile> AccessoryFile { get; set; }
+        public virtual UserInfo UserInfo { get; set; }
         public virtual FileTypeInfo FileTypeInfo { get; set; }
     }
 }

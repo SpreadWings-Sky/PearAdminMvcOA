@@ -14,9 +14,8 @@ namespace PearAdminMvcOA.Controllers
         {
             return View();
         }
-        public ActionResult UserCheck()
+        public ActionResult ConutCheck()
         {
-            ViewBag.Time = DateTime.Now;
             return View();
         }
         public ActionResult Edit(int? SignId)
@@ -26,7 +25,7 @@ namespace PearAdminMvcOA.Controllers
                 var user = db.ManualSign.Select(p => new
                 {
                     SignId = p.SignId,
-                    UserId = db.UserInfo.FirstOrDefault(u => u.UserId == p.UserId).UserName,
+                    UserId = p.UserId,
                     SignTime = p.SignTime,
                     SignDesc = p.SignDesc,//db.Remarks.FirstOrDefault(e => e.RemarksID == p.SignDesc).RemaName,
                     SignText = p.SignText,

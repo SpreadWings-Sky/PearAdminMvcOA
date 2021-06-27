@@ -9,6 +9,7 @@
 
 namespace PearAdminMvcOA.Models
 {
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     
@@ -27,12 +28,13 @@ namespace PearAdminMvcOA.Models
         public System.DateTime BeginTime { get; set; }
         public System.DateTime EndTime { get; set; }
         public string SchContent { get; set; }
+        public int Userid { get; set; }
         public System.DateTime CreateTime { get; set; }
         public int IfPrivate { get; set; }
-        public int Userid { get; set; }
-    
+        [JsonIgnore]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PreContract> PreContract { get; set; }
+        [JsonIgnore]
         public virtual UserInfo UserInfo { get; set; }
     }
 }

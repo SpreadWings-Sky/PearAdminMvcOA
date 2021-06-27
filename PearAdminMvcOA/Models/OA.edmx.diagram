@@ -4,32 +4,38 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="c68f8c562f10472e8f2c4b6116c96e22" Name="Diagram1">
-        <EntityTypeShape EntityType="OAModel.AccessoryFile" Width="1.5" PointX="13.25" PointY="5" IsExpanded="true" />
-        <EntityTypeShape EntityType="OAModel.BranchInfo" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="OAModel.BulletinInfo" Width="1.5" PointX="3" PointY="7.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="OAModel.DepartInfo" Width="1.5" PointX="3" PointY="11" IsExpanded="true" />
-        <EntityTypeShape EntityType="OAModel.FileInfo" Width="1.5" PointX="11" PointY="6.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="OAModel.FileTypeInfo" Width="1.5" PointX="8.75" PointY="3.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="OAModel.LoginLog" Width="1.5" PointX="3" PointY="14.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="OAModel.ManualSign" Width="1.5" PointX="6" PointY="12.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="OAModel.Menu" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="OAModel.Message" Width="1.5" PointX="3.75" PointY="3.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="OAModel.MessageToUser" Width="1.5" PointX="6" PointY="8.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="OAModel.MessageType" Width="1.5" PointX="1.5" PointY="3.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="OAModel.MyNote" Width="1.5" PointX="5.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="OAModel.OperateLog" Width="1.5" PointX="3" PointY="23.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="OAModel.PreContract" Width="1.5" PointX="6" PointY="16.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="OAModel.ReadCommonMessage" Width="1.5" PointX="3" PointY="17.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="OAModel.Remarks" Width="1.5" PointX="3.75" PointY="20.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="OAModel.RoleInfo" Width="1.5" PointX="3.75" PointY="27" IsExpanded="true" />
-        <EntityTypeShape EntityType="OAModel.Schedule" Width="1.5" PointX="3.75" PointY="30.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="OAModel.UserInfo" Width="1.5" PointX="0.75" PointY="11.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="OAModel.WorkTime" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+      <Diagram DiagramId="c0dce5c45e1748d7b156261fda7a73d5" Name="Diagram1">
+        <EntityTypeShape EntityType="OAModel.AccessoryFile" Width="1.5" PointX="8.25" PointY="18.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="OAModel.Apply" Width="1.5" PointX="5.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OAModel.ApprovalStatus" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OAModel.BranchInfo" Width="1.5" PointX="7.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OAModel.BulletinInfo" Width="1.5" PointX="3" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="OAModel.ConferenceRoom" Width="1.5" PointX="7.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OAModel.DepartInfo" Width="1.5" PointX="3" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OAModel.FileInfo" Width="1.5" PointX="6" PointY="18" IsExpanded="true" />
+        <EntityTypeShape EntityType="OAModel.FileTypeInfo" Width="1.5" PointX="3.75" PointY="28.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="OAModel.LoginLog" Width="1.5" PointX="3" PointY="19.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="OAModel.ManualSign" Width="1.5" PointX="5.25" PointY="13.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="OAModel.Menu" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OAModel.Message" Width="1.5" PointX="5.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="OAModel.MessageToUser" Width="1.5" PointX="3" PointY="15.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="OAModel.MessageType" Width="1.5" PointX="3.5" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OAModel.MyNote" Width="1.5" PointX="9.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OAModel.OperateLog" Width="1.5" PointX="3" PointY="25.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="OAModel.Operation" Width="1.5" PointX="9.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OAModel.PreContract" Width="1.5" PointX="5.25" PointY="24.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="OAModel.ReadCommonMessage" Width="1.5" PointX="8" PointY="14.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="OAModel.Remarks" Width="1.5" PointX="3" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="OAModel.RoleInfo" Width="1.5" PointX="3" PointY="22.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="OAModel.Schedule" Width="1.5" PointX="3" PointY="33.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="OAModel.UserInfo" Width="1.5" PointX="0.75" PointY="14.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="OAModel.WorkTime" Width="1.5" PointX="5.75" PointY="9.75" IsExpanded="true" />
         <AssociationConnector Association="OAModel.FK_AccessoryFile_FileInfo" ManuallyRouted="false" />
         <AssociationConnector Association="OAModel.FK_AccessoryFile_FileTypeInfo" ManuallyRouted="false" />
         <AssociationConnector Association="OAModel.FK_BulletinInfo_UserInfo" ManuallyRouted="false" />
         <AssociationConnector Association="OAModel.FK_DepartInfo_UserInfo" ManuallyRouted="false" />
+        <AssociationConnector Association="OAModel.FK_ManualSign_DepartInfo" ManuallyRouted="false" />
+        <AssociationConnector Association="OAModel.FK_FileInfo_FileInfo" ManuallyRouted="false" />
         <AssociationConnector Association="OAModel.FK_FileInfo_FileTypeInfo" ManuallyRouted="false" />
         <AssociationConnector Association="OAModel.FK_LoginLog_UserInfo" ManuallyRouted="false" />
         <AssociationConnector Association="OAModel.FK_ManualSign_ManualSign" ManuallyRouted="false" />
@@ -44,9 +50,7 @@
         <AssociationConnector Association="OAModel.FK_PreContract_Schedule" ManuallyRouted="false" />
         <AssociationConnector Association="OAModel.FK_PreContract_UserInfo" ManuallyRouted="false" />
         <AssociationConnector Association="OAModel.FK_ReadCommonMessage_UserInfo" ManuallyRouted="false" />
-        <AssociationConnector Association="OAModel.FK_Schedule_UserInfo" />
-        <EntityTypeShape EntityType="OAModel.ConferenceRoom" Width="1.5" PointX="8.375" PointY="10.75" />
-        <EntityTypeShape EntityType="OAModel.Operation" Width="1.5" PointX="10.375" PointY="10.75" />
+        <AssociationConnector Association="OAModel.FK_Schedule_UserInfo" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

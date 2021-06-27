@@ -9,6 +9,7 @@
 
 namespace PearAdminMvcOA.Models
 {
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     
@@ -20,9 +21,14 @@ namespace PearAdminMvcOA.Models
         public int SignDesc { get; set; }
         public string SignText { get; set; }
         public int RoleId { get; set; }
-    
+        public int DepartId { get; set; }
+        [JsonIgnore]
+        public virtual DepartInfo DepartInfo { get; set; }
+        [JsonIgnore]
         public virtual UserInfo UserInfo { get; set; }
+        [JsonIgnore]
         public virtual Remarks Remarks { get; set; }
+        [JsonIgnore]
         public virtual RoleInfo RoleInfo { get; set; }
     }
 }

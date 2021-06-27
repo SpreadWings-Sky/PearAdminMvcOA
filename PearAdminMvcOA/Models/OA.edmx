@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="OAModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="OAModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AccessoryFile">
           <Key>
             <PropertyRef Name="AccessoryId" />
@@ -16,6 +16,26 @@
           <Property Name="AccessoryType" Type="int" Nullable="false" />
           <Property Name="CreateDate" Type="datetime" Nullable="false" />
           <Property Name="AccessoryPath" Type="text" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Apply">
+          <Key>
+            <PropertyRef Name="ApplyID" />
+          </Key>
+          <Property Name="ApplyID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userid" Type="int" Nullable="false" />
+          <Property Name="ApplicationContent" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ApplicationTime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ApprovalStatus">
+          <Key>
+            <PropertyRef Name="ApprovalID" />
+          </Key>
+          <Property Name="ApprovalID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ApplicantUserid" Type="int" Nullable="false" />
+          <Property Name="Userid" Type="int" Nullable="false" />
+          <Property Name="Approvaltime" Type="datetime" Nullable="false" />
+          <Property Name="Approvalcontent" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Approvalstatus" Type="nchar" MaxLength="10" Nullable="false" />
         </EntityType>
         <EntityType Name="BranchInfo">
           <Key>
@@ -65,13 +85,13 @@
             <PropertyRef Name="FileId" />
           </Key>
           <Property Name="FileId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="FileName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="FileName" Type="nvarchar" MaxLength="260" Nullable="false" />
           <Property Name="FileType" Type="int" Nullable="false" />
-          <Property Name="Remark" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="FileOwner" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Remark" Type="nvarchar" MaxLength="50" />
+          <Property Name="FileOwner" Type="int" Nullable="false" />
           <Property Name="CreateDate" Type="datetime" Nullable="false" />
-          <Property Name="ParentId" Type="int" Nullable="false" />
-          <Property Name="FilePath" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ParentId" Type="int" />
+          <Property Name="FilePath" Type="text" Nullable="false" />
           <Property Name="IfDelete" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="FileTypeInfo">
@@ -105,6 +125,7 @@
           <Property Name="SignDesc" Type="int" Nullable="false" />
           <Property Name="SignText" Type="nvarchar" MaxLength="200" />
           <Property Name="RoleId" Type="int" Nullable="false" />
+          <Property Name="DepartId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Menu">
           <Key>
@@ -298,6 +319,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_FileInfo_FileInfo">
+          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
+          <End Role="FileInfo" Type="Self.FileInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="FileInfo">
+              <PropertyRef Name="FileOwner" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_FileInfo_FileTypeInfo">
           <End Role="FileTypeInfo" Type="Self.FileTypeInfo" Multiplicity="1" />
           <End Role="FileInfo" Type="Self.FileInfo" Multiplicity="*" />
@@ -319,6 +352,18 @@
             </Principal>
             <Dependent Role="LoginLog">
               <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ManualSign_DepartInfo">
+          <End Role="DepartInfo" Type="Self.DepartInfo" Multiplicity="1" />
+          <End Role="ManualSign" Type="Self.ManualSign" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DepartInfo">
+              <PropertyRef Name="DepartId" />
+            </Principal>
+            <Dependent Role="ManualSign">
+              <PropertyRef Name="DepartId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -480,6 +525,8 @@
         </Association>
         <EntityContainer Name="OAModelStoreContainer">
           <EntitySet Name="AccessoryFile" EntityType="Self.AccessoryFile" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Apply" EntityType="Self.Apply" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ApprovalStatus" EntityType="Self.ApprovalStatus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BranchInfo" EntityType="Self.BranchInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BulletinInfo" EntityType="Self.BulletinInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ConferenceRoom" EntityType="Self.ConferenceRoom" Schema="dbo" store:Type="Tables" />
@@ -518,6 +565,10 @@
             <End Role="UserInfo" EntitySet="UserInfo" />
             <End Role="DepartInfo" EntitySet="DepartInfo" />
           </AssociationSet>
+          <AssociationSet Name="FK_FileInfo_FileInfo" Association="Self.FK_FileInfo_FileInfo">
+            <End Role="UserInfo" EntitySet="UserInfo" />
+            <End Role="FileInfo" EntitySet="FileInfo" />
+          </AssociationSet>
           <AssociationSet Name="FK_FileInfo_FileTypeInfo" Association="Self.FK_FileInfo_FileTypeInfo">
             <End Role="FileTypeInfo" EntitySet="FileTypeInfo" />
             <End Role="FileInfo" EntitySet="FileInfo" />
@@ -525,6 +576,10 @@
           <AssociationSet Name="FK_LoginLog_UserInfo" Association="Self.FK_LoginLog_UserInfo">
             <End Role="UserInfo" EntitySet="UserInfo" />
             <End Role="LoginLog" EntitySet="LoginLog" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ManualSign_DepartInfo" Association="Self.FK_ManualSign_DepartInfo">
+            <End Role="DepartInfo" EntitySet="DepartInfo" />
+            <End Role="ManualSign" EntitySet="ManualSign" />
           </AssociationSet>
           <AssociationSet Name="FK_ManualSign_ManualSign" Association="Self.FK_ManualSign_ManualSign">
             <End Role="UserInfo" EntitySet="UserInfo" />
@@ -579,7 +634,8 @@
             <End Role="Schedule" EntitySet="Schedule" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="OAModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -596,6 +652,26 @@
           <Property Name="AccessoryPath" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="FileInfo" Relationship="Self.FK_AccessoryFile_FileInfo" FromRole="AccessoryFile" ToRole="FileInfo" />
           <NavigationProperty Name="FileTypeInfo" Relationship="Self.FK_AccessoryFile_FileTypeInfo" FromRole="AccessoryFile" ToRole="FileTypeInfo" />
+        </EntityType>
+        <EntityType Name="Apply">
+          <Key>
+            <PropertyRef Name="ApplyID" />
+          </Key>
+          <Property Name="ApplyID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userid" Type="Int32" Nullable="false" />
+          <Property Name="ApplicationContent" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ApplicationTime" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="ApprovalStatus">
+          <Key>
+            <PropertyRef Name="ApprovalID" />
+          </Key>
+          <Property Name="ApprovalID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ApplicantUserid" Type="Int32" Nullable="false" />
+          <Property Name="Userid" Type="Int32" Nullable="false" />
+          <Property Name="Approvaltime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Approvalcontent" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Approvalstatus1" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
         </EntityType>
         <EntityType Name="BranchInfo">
           <Key>
@@ -618,6 +694,17 @@
           <Property Name="BDesc" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="UserInfo" Relationship="Self.FK_BulletinInfo_UserInfo" FromRole="BulletinInfo" ToRole="UserInfo" />
         </EntityType>
+        <EntityType Name="ConferenceRoom">
+          <Key>
+            <PropertyRef Name="RoomId" />
+          </Key>
+          <Property Name="RoomId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoomName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RoomLocation" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Capacity" Type="Int32" Nullable="false" />
+          <Property Name="State" Type="Int32" Nullable="false" />
+          <Property Name="CreationTime" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
         <EntityType Name="DepartInfo">
           <Key>
             <PropertyRef Name="DepartId" />
@@ -630,21 +717,23 @@
           <Property Name="Faxes" Type="Int64" />
           <Property Name="BranchId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="UserInfo" Relationship="Self.FK_DepartInfo_UserInfo" FromRole="DepartInfo" ToRole="UserInfo" />
+          <NavigationProperty Name="ManualSign" Relationship="Self.FK_ManualSign_DepartInfo" FromRole="DepartInfo" ToRole="ManualSign" />
         </EntityType>
         <EntityType Name="FileInfo">
           <Key>
             <PropertyRef Name="FileId" />
           </Key>
           <Property Name="FileId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FileName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FileName" Type="String" MaxLength="260" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="FileType" Type="Int32" Nullable="false" />
-          <Property Name="Remark" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="FileOwner" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Remark" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FileOwner" Type="Int32" Nullable="false" />
           <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ParentId" Type="Int32" Nullable="false" />
-          <Property Name="FilePath" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ParentId" Type="Int32" />
+          <Property Name="FilePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="IfDelete" Type="Int32" Nullable="false" />
           <NavigationProperty Name="AccessoryFile" Relationship="Self.FK_AccessoryFile_FileInfo" FromRole="FileInfo" ToRole="AccessoryFile" />
+          <NavigationProperty Name="UserInfo" Relationship="Self.FK_FileInfo_FileInfo" FromRole="FileInfo" ToRole="UserInfo" />
           <NavigationProperty Name="FileTypeInfo" Relationship="Self.FK_FileInfo_FileTypeInfo" FromRole="FileInfo" ToRole="FileTypeInfo" />
         </EntityType>
         <EntityType Name="FileTypeInfo">
@@ -668,8 +757,8 @@
           <Property Name="IfSuccess" Type="Int32" Nullable="false" />
           <Property Name="LoginUserIp" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="LoginDesc" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="UserInfo" Relationship="Self.FK_LoginLog_UserInfo" FromRole="LoginLog" ToRole="UserInfo" />
           <Property Name="Browser" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="UserInfo" Relationship="Self.FK_LoginLog_UserInfo" FromRole="LoginLog" ToRole="UserInfo" />
         </EntityType>
         <EntityType Name="ManualSign">
           <Key>
@@ -681,6 +770,8 @@
           <Property Name="SignDesc" Type="Int32" Nullable="false" />
           <Property Name="SignText" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="RoleId" Type="Int32" Nullable="false" />
+          <Property Name="DepartId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="DepartInfo" Relationship="Self.FK_ManualSign_DepartInfo" FromRole="ManualSign" ToRole="DepartInfo" />
           <NavigationProperty Name="UserInfo" Relationship="Self.FK_ManualSign_ManualSign" FromRole="ManualSign" ToRole="UserInfo" />
           <NavigationProperty Name="Remarks" Relationship="Self.FK_ManualSign_Remarks" FromRole="ManualSign" ToRole="Remarks" />
           <NavigationProperty Name="RoleInfo" Relationship="Self.FK_ManualSign_RoleInfo" FromRole="ManualSign" ToRole="RoleInfo" />
@@ -757,6 +848,16 @@
           <Property Name="OperateTime" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="UserInfo" Relationship="Self.FK_OperateLog_UserInfo" FromRole="OperateLog" ToRole="UserInfo" />
         </EntityType>
+        <EntityType Name="Operation">
+          <Key>
+            <PropertyRef Name="Logid" />
+          </Key>
+          <Property Name="Logid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OperationContent" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Userid" Type="Int32" Nullable="false" />
+          <Property Name="host" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Operationtime" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
         <EntityType Name="PreContract">
           <Key>
             <PropertyRef Name="PreContractId" />
@@ -805,11 +906,11 @@
           <Property Name="BeginTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="EndTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="SchContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Userid" Type="Int32" Nullable="false" />
           <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="IfPrivate" Type="Int32" Nullable="false" />
           <NavigationProperty Name="PreContract" Relationship="Self.FK_PreContract_Schedule" FromRole="Schedule" ToRole="PreContract" />
-          <Property Name="Userid" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="UserInfo" Relationship="OAModel.FK_Schedule_UserInfo" FromRole="Schedule" ToRole="UserInfo" />
+          <NavigationProperty Name="UserInfo" Relationship="Self.FK_Schedule_UserInfo" FromRole="Schedule" ToRole="UserInfo" />
         </EntityType>
         <EntityType Name="UserInfo">
           <Key>
@@ -828,13 +929,14 @@
           <Property Name="UserState" Type="Int32" Nullable="false" />
           <NavigationProperty Name="BulletinInfo" Relationship="Self.FK_BulletinInfo_UserInfo" FromRole="UserInfo" ToRole="BulletinInfo" />
           <NavigationProperty Name="DepartInfo" Relationship="Self.FK_DepartInfo_UserInfo" FromRole="UserInfo" ToRole="DepartInfo" />
+          <NavigationProperty Name="FileInfo" Relationship="Self.FK_FileInfo_FileInfo" FromRole="UserInfo" ToRole="FileInfo" />
           <NavigationProperty Name="LoginLog" Relationship="Self.FK_LoginLog_UserInfo" FromRole="UserInfo" ToRole="LoginLog" />
           <NavigationProperty Name="ManualSign" Relationship="Self.FK_ManualSign_ManualSign" FromRole="UserInfo" ToRole="ManualSign" />
           <NavigationProperty Name="MessageToUser" Relationship="Self.FK_MessageToUser_UserInfo" FromRole="UserInfo" ToRole="MessageToUser" />
           <NavigationProperty Name="OperateLog" Relationship="Self.FK_OperateLog_UserInfo" FromRole="UserInfo" ToRole="OperateLog" />
           <NavigationProperty Name="PreContract" Relationship="Self.FK_PreContract_UserInfo" FromRole="UserInfo" ToRole="PreContract" />
           <NavigationProperty Name="ReadCommonMessage" Relationship="Self.FK_ReadCommonMessage_UserInfo" FromRole="UserInfo" ToRole="ReadCommonMessage" />
-          <NavigationProperty Name="Schedule" Relationship="OAModel.FK_Schedule_UserInfo" FromRole="UserInfo" ToRole="Schedule" />
+          <NavigationProperty Name="Schedule" Relationship="Self.FK_Schedule_UserInfo" FromRole="UserInfo" ToRole="Schedule" />
         </EntityType>
         <EntityType Name="WorkTime">
           <Key>
@@ -890,6 +992,30 @@
             </Principal>
             <Dependent Role="DepartInfo">
               <PropertyRef Name="PrincipalUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ManualSign_DepartInfo">
+          <End Role="DepartInfo" Type="Self.DepartInfo" Multiplicity="1" />
+          <End Role="ManualSign" Type="Self.ManualSign" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DepartInfo">
+              <PropertyRef Name="DepartId" />
+            </Principal>
+            <Dependent Role="ManualSign">
+              <PropertyRef Name="DepartId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FileInfo_FileInfo">
+          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
+          <End Role="FileInfo" Type="Self.FileInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="FileInfo">
+              <PropertyRef Name="FileOwner" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1061,10 +1187,25 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Schedule_UserInfo">
+          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
+          <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Schedule">
+              <PropertyRef Name="Userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="OAEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AccessoryFile" EntityType="Self.AccessoryFile" />
+          <EntitySet Name="Apply" EntityType="Self.Apply" />
+          <EntitySet Name="ApprovalStatus" EntityType="Self.ApprovalStatus" />
           <EntitySet Name="BranchInfo" EntityType="Self.BranchInfo" />
           <EntitySet Name="BulletinInfo" EntityType="Self.BulletinInfo" />
+          <EntitySet Name="ConferenceRoom" EntityType="Self.ConferenceRoom" />
           <EntitySet Name="DepartInfo" EntityType="Self.DepartInfo" />
           <EntitySet Name="FileInfo" EntityType="Self.FileInfo" />
           <EntitySet Name="FileTypeInfo" EntityType="Self.FileTypeInfo" />
@@ -1076,6 +1217,7 @@
           <EntitySet Name="MessageType" EntityType="Self.MessageType" />
           <EntitySet Name="MyNote" EntityType="Self.MyNote" />
           <EntitySet Name="OperateLog" EntityType="Self.OperateLog" />
+          <EntitySet Name="Operation" EntityType="Self.Operation" />
           <EntitySet Name="PreContract" EntityType="Self.PreContract" />
           <EntitySet Name="ReadCommonMessage" EntityType="Self.ReadCommonMessage" />
           <EntitySet Name="Remarks" EntityType="Self.Remarks" />
@@ -1098,6 +1240,14 @@
           <AssociationSet Name="FK_DepartInfo_UserInfo" Association="Self.FK_DepartInfo_UserInfo">
             <End Role="UserInfo" EntitySet="UserInfo" />
             <End Role="DepartInfo" EntitySet="DepartInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ManualSign_DepartInfo" Association="Self.FK_ManualSign_DepartInfo">
+            <End Role="DepartInfo" EntitySet="DepartInfo" />
+            <End Role="ManualSign" EntitySet="ManualSign" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FileInfo_FileInfo" Association="Self.FK_FileInfo_FileInfo">
+            <End Role="UserInfo" EntitySet="UserInfo" />
+            <End Role="FileInfo" EntitySet="FileInfo" />
           </AssociationSet>
           <AssociationSet Name="FK_FileInfo_FileTypeInfo" Association="Self.FK_FileInfo_FileTypeInfo">
             <End Role="FileTypeInfo" EntitySet="FileTypeInfo" />
@@ -1155,46 +1305,11 @@
             <End Role="UserInfo" EntitySet="UserInfo" />
             <End Role="ReadCommonMessage" EntitySet="ReadCommonMessage" />
           </AssociationSet>
-          <AssociationSet Name="FK_Schedule_UserInfo" Association="OAModel.FK_Schedule_UserInfo">
+          <AssociationSet Name="FK_Schedule_UserInfo" Association="Self.FK_Schedule_UserInfo">
             <End Role="UserInfo" EntitySet="UserInfo" />
             <End Role="Schedule" EntitySet="Schedule" />
           </AssociationSet>
-          <EntitySet Name="ConferenceRoom" EntityType="OAModel.ConferenceRoom" />
-          <EntitySet Name="Operation" EntityType="OAModel.Operation" />
         </EntityContainer>
-        <Association Name="FK_Schedule_UserInfo">
-          <End Type="OAModel.UserInfo" Role="UserInfo" Multiplicity="1" />
-          <End Type="OAModel.Schedule" Role="Schedule" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="UserInfo">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="Schedule">
-              <PropertyRef Name="Userid" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="ConferenceRoom">
-          <Key>
-            <PropertyRef Name="RoomId" />
-          </Key>
-          <Property Name="RoomId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="RoomName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="RoomLocation" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Capacity" Type="Int32" Nullable="false" />
-          <Property Name="State" Type="Int32" Nullable="false" />
-          <Property Name="CreationTime" Type="DateTime" Nullable="false" Precision="3" />
-        </EntityType>
-        <EntityType Name="Operation">
-          <Key>
-            <PropertyRef Name="Logid" />
-          </Key>
-          <Property Name="Logid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="OperationContent" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Userid" Type="Int32" Nullable="false" />
-          <Property Name="host" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Operationtime" Type="DateTime" Nullable="false" Precision="3" />
-        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1211,6 +1326,28 @@
                 <ScalarProperty Name="AccessoryType" ColumnName="AccessoryType" />
                 <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
                 <ScalarProperty Name="AccessoryPath" ColumnName="AccessoryPath" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Apply">
+            <EntityTypeMapping TypeName="OAModel.Apply">
+              <MappingFragment StoreEntitySet="Apply">
+                <ScalarProperty Name="ApplyID" ColumnName="ApplyID" />
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="ApplicationContent" ColumnName="ApplicationContent" />
+                <ScalarProperty Name="ApplicationTime" ColumnName="ApplicationTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ApprovalStatus">
+            <EntityTypeMapping TypeName="OAModel.ApprovalStatus">
+              <MappingFragment StoreEntitySet="ApprovalStatus">
+                <ScalarProperty Name="ApprovalID" ColumnName="ApprovalID" />
+                <ScalarProperty Name="ApplicantUserid" ColumnName="ApplicantUserid" />
+                <ScalarProperty Name="Userid" ColumnName="Userid" />
+                <ScalarProperty Name="Approvaltime" ColumnName="Approvaltime" />
+                <ScalarProperty Name="Approvalcontent" ColumnName="Approvalcontent" />
+                <ScalarProperty Name="Approvalstatus1" ColumnName="Approvalstatus" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1233,6 +1370,18 @@
                 <ScalarProperty Name="BCreateUser" ColumnName="BCreateUser" />
                 <ScalarProperty Name="BCreateTime" ColumnName="BCreateTime" />
                 <ScalarProperty Name="BDesc" ColumnName="BDesc" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ConferenceRoom">
+            <EntityTypeMapping TypeName="OAModel.ConferenceRoom">
+              <MappingFragment StoreEntitySet="ConferenceRoom">
+                <ScalarProperty Name="RoomId" ColumnName="RoomId" />
+                <ScalarProperty Name="RoomName" ColumnName="RoomName" />
+                <ScalarProperty Name="RoomLocation" ColumnName="RoomLocation" />
+                <ScalarProperty Name="Capacity" ColumnName="Capacity" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="CreationTime" ColumnName="CreationTime" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1277,13 +1426,13 @@
           <EntitySetMapping Name="LoginLog">
             <EntityTypeMapping TypeName="OAModel.LoginLog">
               <MappingFragment StoreEntitySet="LoginLog">
-                <ScalarProperty Name="Browser" ColumnName="Browser" />
                 <ScalarProperty Name="LoginId" ColumnName="LoginId" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="LoginTime" ColumnName="LoginTime" />
                 <ScalarProperty Name="IfSuccess" ColumnName="IfSuccess" />
                 <ScalarProperty Name="LoginUserIp" ColumnName="LoginUserIp" />
                 <ScalarProperty Name="LoginDesc" ColumnName="LoginDesc" />
+                <ScalarProperty Name="Browser" ColumnName="Browser" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1296,6 +1445,7 @@
                 <ScalarProperty Name="SignDesc" ColumnName="SignDesc" />
                 <ScalarProperty Name="SignText" ColumnName="SignText" />
                 <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="DepartId" ColumnName="DepartId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1368,6 +1518,17 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Operation">
+            <EntityTypeMapping TypeName="OAModel.Operation">
+              <MappingFragment StoreEntitySet="Operation">
+                <ScalarProperty Name="Logid" ColumnName="Logid" />
+                <ScalarProperty Name="OperationContent" ColumnName="OperationContent" />
+                <ScalarProperty Name="Userid" ColumnName="Userid" />
+                <ScalarProperty Name="host" ColumnName="host" />
+                <ScalarProperty Name="Operationtime" ColumnName="Operationtime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="PreContract">
             <EntityTypeMapping TypeName="OAModel.PreContract">
               <MappingFragment StoreEntitySet="PreContract">
@@ -1406,7 +1567,6 @@
           <EntitySetMapping Name="Schedule">
             <EntityTypeMapping TypeName="OAModel.Schedule">
               <MappingFragment StoreEntitySet="Schedule">
-                <ScalarProperty Name="Userid" ColumnName="Userid" />
                 <ScalarProperty Name="ScheduleId" ColumnName="ScheduleId" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="Address" ColumnName="Address" />
@@ -1414,6 +1574,7 @@
                 <ScalarProperty Name="BeginTime" ColumnName="BeginTime" />
                 <ScalarProperty Name="EndTime" ColumnName="EndTime" />
                 <ScalarProperty Name="SchContent" ColumnName="SchContent" />
+                <ScalarProperty Name="Userid" ColumnName="Userid" />
                 <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
                 <ScalarProperty Name="IfPrivate" ColumnName="IfPrivate" />
               </MappingFragment>
@@ -1443,29 +1604,6 @@
                 <ScalarProperty Name="WordName" ColumnName="WordName" />
                 <ScalarProperty Name="OnDutyTime" ColumnName="OnDutyTime" />
                 <ScalarProperty Name="OffDutyTime" ColumnName="OffDutyTime" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ConferenceRoom">
-            <EntityTypeMapping TypeName="OAModel.ConferenceRoom">
-              <MappingFragment StoreEntitySet="ConferenceRoom">
-                <ScalarProperty Name="CreationTime" ColumnName="CreationTime" />
-                <ScalarProperty Name="State" ColumnName="State" />
-                <ScalarProperty Name="Capacity" ColumnName="Capacity" />
-                <ScalarProperty Name="RoomLocation" ColumnName="RoomLocation" />
-                <ScalarProperty Name="RoomName" ColumnName="RoomName" />
-                <ScalarProperty Name="RoomId" ColumnName="RoomId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Operation">
-            <EntityTypeMapping TypeName="OAModel.Operation">
-              <MappingFragment StoreEntitySet="Operation">
-                <ScalarProperty Name="Operationtime" ColumnName="Operationtime" />
-                <ScalarProperty Name="host" ColumnName="host" />
-                <ScalarProperty Name="Userid" ColumnName="Userid" />
-                <ScalarProperty Name="OperationContent" ColumnName="OperationContent" />
-                <ScalarProperty Name="Logid" ColumnName="Logid" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

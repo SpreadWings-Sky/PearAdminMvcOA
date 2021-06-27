@@ -19,6 +19,7 @@ namespace PearAdminMvcOA.Models
         {
             this.BulletinInfo = new HashSet<BulletinInfo>();
             this.DepartInfo = new HashSet<DepartInfo>();
+            this.FileInfo = new HashSet<FileInfo>();
             this.LoginLog = new HashSet<LoginLog>();
             this.ManualSign = new HashSet<ManualSign>();
             this.MessageToUser = new HashSet<MessageToUser>();
@@ -45,6 +46,9 @@ namespace PearAdminMvcOA.Models
         [JsonIgnore]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DepartInfo> DepartInfo { get; set; }
+        [JsonIgnore]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<FileInfo> FileInfo { get; set; }
         [JsonIgnore]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LoginLog> LoginLog { get; set; }

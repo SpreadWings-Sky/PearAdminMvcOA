@@ -14,6 +14,28 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Apply">
+      <EntityTypeMapping TypeName="OAModel.Apply">
+        <MappingFragment StoreEntitySet="Apply">
+          <ScalarProperty Name="ApplyID" ColumnName="ApplyID" />
+          <ScalarProperty Name="userid" ColumnName="userid" />
+          <ScalarProperty Name="ApplicationContent" ColumnName="ApplicationContent" />
+          <ScalarProperty Name="ApplicationTime" ColumnName="ApplicationTime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ApprovalStatus">
+      <EntityTypeMapping TypeName="OAModel.ApprovalStatus">
+        <MappingFragment StoreEntitySet="ApprovalStatus">
+          <ScalarProperty Name="ApprovalID" ColumnName="ApprovalID" />
+          <ScalarProperty Name="ApplicantUserid" ColumnName="ApplicantUserid" />
+          <ScalarProperty Name="Userid" ColumnName="Userid" />
+          <ScalarProperty Name="Approvaltime" ColumnName="Approvaltime" />
+          <ScalarProperty Name="Approvalcontent" ColumnName="Approvalcontent" />
+          <ScalarProperty Name="Approvalstatus1" ColumnName="Approvalstatus" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="BranchInfo">
       <EntityTypeMapping TypeName="OAModel.BranchInfo">
         <MappingFragment StoreEntitySet="BranchInfo">
@@ -33,6 +55,18 @@
           <ScalarProperty Name="BCreateUser" ColumnName="BCreateUser" />
           <ScalarProperty Name="BCreateTime" ColumnName="BCreateTime" />
           <ScalarProperty Name="BDesc" ColumnName="BDesc" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ConferenceRoom">
+      <EntityTypeMapping TypeName="OAModel.ConferenceRoom">
+        <MappingFragment StoreEntitySet="ConferenceRoom">
+          <ScalarProperty Name="RoomId" ColumnName="RoomId" />
+          <ScalarProperty Name="RoomName" ColumnName="RoomName" />
+          <ScalarProperty Name="RoomLocation" ColumnName="RoomLocation" />
+          <ScalarProperty Name="Capacity" ColumnName="Capacity" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="CreationTime" ColumnName="CreationTime" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -77,13 +111,13 @@
     <EntitySetMapping Name="LoginLog">
       <EntityTypeMapping TypeName="OAModel.LoginLog">
         <MappingFragment StoreEntitySet="LoginLog">
-          <ScalarProperty Name="Browser" ColumnName="Browser" />
           <ScalarProperty Name="LoginId" ColumnName="LoginId" />
           <ScalarProperty Name="UserId" ColumnName="UserId" />
           <ScalarProperty Name="LoginTime" ColumnName="LoginTime" />
           <ScalarProperty Name="IfSuccess" ColumnName="IfSuccess" />
           <ScalarProperty Name="LoginUserIp" ColumnName="LoginUserIp" />
           <ScalarProperty Name="LoginDesc" ColumnName="LoginDesc" />
+          <ScalarProperty Name="Browser" ColumnName="Browser" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -96,6 +130,7 @@
           <ScalarProperty Name="SignDesc" ColumnName="SignDesc" />
           <ScalarProperty Name="SignText" ColumnName="SignText" />
           <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+          <ScalarProperty Name="DepartId" ColumnName="DepartId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -168,6 +203,17 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Operation">
+      <EntityTypeMapping TypeName="OAModel.Operation">
+        <MappingFragment StoreEntitySet="Operation">
+          <ScalarProperty Name="Logid" ColumnName="Logid" />
+          <ScalarProperty Name="OperationContent" ColumnName="OperationContent" />
+          <ScalarProperty Name="Userid" ColumnName="Userid" />
+          <ScalarProperty Name="host" ColumnName="host" />
+          <ScalarProperty Name="Operationtime" ColumnName="Operationtime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="PreContract">
       <EntityTypeMapping TypeName="OAModel.PreContract">
         <MappingFragment StoreEntitySet="PreContract">
@@ -206,7 +252,6 @@
     <EntitySetMapping Name="Schedule">
       <EntityTypeMapping TypeName="OAModel.Schedule">
         <MappingFragment StoreEntitySet="Schedule">
-          <ScalarProperty Name="Userid" ColumnName="Userid" />
           <ScalarProperty Name="ScheduleId" ColumnName="ScheduleId" />
           <ScalarProperty Name="Title" ColumnName="Title" />
           <ScalarProperty Name="Address" ColumnName="Address" />
@@ -214,6 +259,7 @@
           <ScalarProperty Name="BeginTime" ColumnName="BeginTime" />
           <ScalarProperty Name="EndTime" ColumnName="EndTime" />
           <ScalarProperty Name="SchContent" ColumnName="SchContent" />
+          <ScalarProperty Name="Userid" ColumnName="Userid" />
           <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
           <ScalarProperty Name="IfPrivate" ColumnName="IfPrivate" />
         </MappingFragment>
@@ -243,29 +289,6 @@
           <ScalarProperty Name="WordName" ColumnName="WordName" />
           <ScalarProperty Name="OnDutyTime" ColumnName="OnDutyTime" />
           <ScalarProperty Name="OffDutyTime" ColumnName="OffDutyTime" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="ConferenceRoom">
-      <EntityTypeMapping TypeName="OAModel.ConferenceRoom">
-        <MappingFragment StoreEntitySet="ConferenceRoom">
-          <ScalarProperty Name="CreationTime" ColumnName="CreationTime" />
-          <ScalarProperty Name="State" ColumnName="State" />
-          <ScalarProperty Name="Capacity" ColumnName="Capacity" />
-          <ScalarProperty Name="RoomLocation" ColumnName="RoomLocation" />
-          <ScalarProperty Name="RoomName" ColumnName="RoomName" />
-          <ScalarProperty Name="RoomId" ColumnName="RoomId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Operation">
-      <EntityTypeMapping TypeName="OAModel.Operation">
-        <MappingFragment StoreEntitySet="Operation">
-          <ScalarProperty Name="Operationtime" ColumnName="Operationtime" />
-          <ScalarProperty Name="host" ColumnName="host" />
-          <ScalarProperty Name="Userid" ColumnName="Userid" />
-          <ScalarProperty Name="OperationContent" ColumnName="OperationContent" />
-          <ScalarProperty Name="Logid" ColumnName="Logid" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
