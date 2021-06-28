@@ -12,16 +12,17 @@ namespace PearAdminMvcOA.Models
     using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
-    public partial class ConferenceRoom
+    
+    public partial class LeaveMessage
     {
-        public int RoomId { get; set; }
-        public string RoomName { get; set; }
-        public string RoomLocation { get; set; }
-        public int Capacity { get; set; }
-        public int State { get; set; }
-        public System.DateTime CreationTime { get; set; }
+        public int Lid { get; set; }
+        public int userid { get; set; }
+        public int Luserid { get; set; }
+        public string LeaveText { get; set; }
+        public Nullable<System.DateTime> CreateTime { get; set; }
         [JsonIgnore]
-
-        public virtual ConSta ConSta { get; set; }
+        public virtual UserInfo UserInfo { get; set; }
+        [JsonIgnore]
+        public virtual UserInfo UserInfo1 { get; set; }
     }
 }

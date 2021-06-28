@@ -50,5 +50,7 @@ namespace PearAdminMvcOA.Models
         public virtual DbSet<Schedule> Schedule { get; set; }
         public virtual DbSet<UserInfo> UserInfo { get; set; }
         public virtual DbSet<WorkTime> WorkTime { get; set; }
+        public virtual DbSet<ConSta> ConSta { get; set; }
+        public virtual DbSet<LeaveMessage> LeaveMessage { get; set; }
     }
 }

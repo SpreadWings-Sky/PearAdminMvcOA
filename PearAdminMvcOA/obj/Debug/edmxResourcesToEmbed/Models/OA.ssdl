@@ -63,6 +63,13 @@
     <Property Name="State" Type="int" Nullable="false" />
     <Property Name="CreationTime" Type="datetime" Nullable="false" />
   </EntityType>
+  <EntityType Name="ConSta">
+    <Key>
+      <PropertyRef Name="ConStaId" />
+    </Key>
+    <Property Name="ConStaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ConStaName" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
   <EntityType Name="DepartInfo">
     <Key>
       <PropertyRef Name="DepartId" />
@@ -97,6 +104,16 @@
     <Property Name="FileTypeName" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="FileTypeImage" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="FileTypeSuffix" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="LeaveMessage">
+    <Key>
+      <PropertyRef Name="Lid" />
+    </Key>
+    <Property Name="Lid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="userid" Type="int" Nullable="false" />
+    <Property Name="Luserid" Type="int" Nullable="false" />
+    <Property Name="LeaveText" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="CreateTime" Type="date" />
   </EntityType>
   <EntityType Name="LoginLog">
     <Key>
@@ -302,6 +319,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_ConferenceRoom_ConSta">
+    <End Role="ConSta" Type="Self.ConSta" Multiplicity="1" />
+    <End Role="ConferenceRoom" Type="Self.ConferenceRoom" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ConSta">
+        <PropertyRef Name="ConStaId" />
+      </Principal>
+      <Dependent Role="ConferenceRoom">
+        <PropertyRef Name="State" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_DepartInfo_UserInfo">
     <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
     <End Role="DepartInfo" Type="Self.DepartInfo" Multiplicity="*" />
@@ -335,6 +364,30 @@
       </Principal>
       <Dependent Role="FileInfo">
         <PropertyRef Name="FileType" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_LeaveMessage_UserInfo">
+    <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
+    <End Role="LeaveMessage" Type="Self.LeaveMessage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="LeaveMessage">
+        <PropertyRef Name="userid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_LeaveMessage_UserInfo1">
+    <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
+    <End Role="LeaveMessage" Type="Self.LeaveMessage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="LeaveMessage">
+        <PropertyRef Name="Luserid" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -525,9 +578,11 @@
     <EntitySet Name="BranchInfo" EntityType="Self.BranchInfo" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BulletinInfo" EntityType="Self.BulletinInfo" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ConferenceRoom" EntityType="Self.ConferenceRoom" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ConSta" EntityType="Self.ConSta" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="DepartInfo" EntityType="Self.DepartInfo" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="FileInfo" EntityType="Self.FileInfo" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="FileTypeInfo" EntityType="Self.FileTypeInfo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="LeaveMessage" EntityType="Self.LeaveMessage" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="LoginLog" EntityType="Self.LoginLog" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ManualSign" EntityType="Self.ManualSign" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Menu" EntityType="Self.Menu" Schema="dbo" store:Type="Tables" />
@@ -556,6 +611,10 @@
       <End Role="UserInfo" EntitySet="UserInfo" />
       <End Role="BulletinInfo" EntitySet="BulletinInfo" />
     </AssociationSet>
+    <AssociationSet Name="FK_ConferenceRoom_ConSta" Association="Self.FK_ConferenceRoom_ConSta">
+      <End Role="ConSta" EntitySet="ConSta" />
+      <End Role="ConferenceRoom" EntitySet="ConferenceRoom" />
+    </AssociationSet>
     <AssociationSet Name="FK_DepartInfo_UserInfo" Association="Self.FK_DepartInfo_UserInfo">
       <End Role="UserInfo" EntitySet="UserInfo" />
       <End Role="DepartInfo" EntitySet="DepartInfo" />
@@ -567,6 +626,14 @@
     <AssociationSet Name="FK_FileInfo_FileTypeInfo" Association="Self.FK_FileInfo_FileTypeInfo">
       <End Role="FileTypeInfo" EntitySet="FileTypeInfo" />
       <End Role="FileInfo" EntitySet="FileInfo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_LeaveMessage_UserInfo" Association="Self.FK_LeaveMessage_UserInfo">
+      <End Role="UserInfo" EntitySet="UserInfo" />
+      <End Role="LeaveMessage" EntitySet="LeaveMessage" />
+    </AssociationSet>
+    <AssociationSet Name="FK_LeaveMessage_UserInfo1" Association="Self.FK_LeaveMessage_UserInfo1">
+      <End Role="UserInfo" EntitySet="UserInfo" />
+      <End Role="LeaveMessage" EntitySet="LeaveMessage" />
     </AssociationSet>
     <AssociationSet Name="FK_LoginLog_UserInfo" Association="Self.FK_LoginLog_UserInfo">
       <End Role="UserInfo" EntitySet="UserInfo" />

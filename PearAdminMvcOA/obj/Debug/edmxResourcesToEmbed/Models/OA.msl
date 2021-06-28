@@ -292,5 +292,24 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="ConSta">
+      <EntityTypeMapping TypeName="OAModel.ConSta">
+        <MappingFragment StoreEntitySet="ConSta">
+          <ScalarProperty Name="ConStaName" ColumnName="ConStaName" />
+          <ScalarProperty Name="ConStaId" ColumnName="ConStaId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LeaveMessage">
+      <EntityTypeMapping TypeName="OAModel.LeaveMessage">
+        <MappingFragment StoreEntitySet="LeaveMessage">
+          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+          <ScalarProperty Name="LeaveText" ColumnName="LeaveText" />
+          <ScalarProperty Name="Luserid" ColumnName="Luserid" />
+          <ScalarProperty Name="userid" ColumnName="userid" />
+          <ScalarProperty Name="Lid" ColumnName="Lid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

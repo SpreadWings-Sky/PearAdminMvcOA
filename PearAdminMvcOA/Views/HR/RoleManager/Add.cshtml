@@ -1,0 +1,87 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/libs/component/pear/css/pear.css" />
+    <link rel="stylesheet" href="~/libs/component/layui/css/layui.css" />
+    <link rel="stylesheet" href="~/libs/component/layui/css/layui.mobile.css" />
+</head>
+<body>
+    <form class="layui-form" action="/api/HRRole" method="post"> 
+        <div class="mainBox">
+            <div class="main-container">
+                <div class="main-container">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">角色名称</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="RoleName" lay-verify="title" autocomplete="off" placeholder="请输入标题" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">角色详情</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="RoleDesc" lay-verify="title" autocomplete="off" placeholder="请输入地点" class="layui-input">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bottom">
+            <div class="button-container">
+                <button type="button" id="btn" class="pear-btn pear-btn-primary pear-btn-sm" lay-submit="" lay-filter="user-save">
+                    <i class="layui-icon layui-icon-ok"></i>
+                    提交
+                </button>
+                <button type="reset" class="pear-btn pear-btn-sm">
+                    <i class="layui-icon layui-icon-refresh"></i>
+                    重置
+                </button>
+            </div>
+        </div>
+    </form>
+    <script src="/libs/component/layui/layui.js"></script>
+    <script src="/libs/component/pear/pear.js"></script>
+    <script src="~/libs/jquery-3.5.1.js"></script>
+    <script>
+        //提交
+        $("#btn").click(function () {
+                $.ajax({
+                    url: "/api/HRRole",
+                    type: "post",
+                    data: {
+                        "RoleName": $("[name='RoleName']").val(),
+                        "RoleDesc": $("[name='RoleDesc']").val(),
+                    },
+                    success: function () {
+                        layer.msg("添加成功", { icon: 1, time: 1000 }, function () {
+                            parent.layer.close(parent.layer.getFrameIndex(window.name));
+                            parent.layui.table.reload("Role-table");
+                        });//关闭当前页})
+                    }
+                })
+        })
+        layui.use('laydate', function () {
+            var laydate = layui.laydate;
+            //执行一个laydate实例
+            laydate.render({
+                elem: '#BeginTime',//指定元素
+                type: 'datetime'
+            });
+        }); layui.use('laydate', function () {
+            var laydate = layui.laydate;
+            //执行一个laydate实例
+            laydate.render({
+                elem: '#EndTime',//指定元素
+                type: 'datetime'
+            });
+        });
+    </script>
+    <script>
+    </script>
+</body>
+</html>

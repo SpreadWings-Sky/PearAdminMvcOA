@@ -16,6 +16,21 @@ namespace PearAdminMvcOA.Controllers
         {
             return View();
         }
+        public ActionResult RoleAdd()
+        {
+            ViewBag.UserID = (Session["User"] as UserInfo).UserId;
+            return View("~/Views/HR/RoleManager/Add.cshtml");
+        }
+        public ActionResult RoleEdit(int? id)
+        {
+            ViewBag.Roleid = id;
+            return View("~/Views/HR/RoleManager/Edit.cshtml");
+        }
+        //角色管理界面
+        public ActionResult Role()
+        {
+            return View();
+        }
         //用户修改界面
         public ActionResult Edit(long? UserId)
         {
@@ -33,6 +48,27 @@ namespace PearAdminMvcOA.Controllers
         public ActionResult Add()
         {
             return View("~/Views/HR/UserManger/Add.cshtml");
+        }
+
+        //用户添加界面
+        public ActionResult Department()
+        {
+            return View();
+        }
+        public ActionResult DepartmentAdd()
+        {
+            return View();
+        }
+
+        //修改查询页面
+        public ActionResult DepartmentModify(int? DepartId)
+        {
+            using (OAEntities db = new OAEntities())
+            {
+                DepartInfo d = db.DepartInfo.Where(p => p.DepartId == DepartId).FirstOrDefault();
+                ViewData["id"] = d;
+                return View("~/Views/HR/DepartmentModify.cshtml", d);
+            }
         }
     }
 }

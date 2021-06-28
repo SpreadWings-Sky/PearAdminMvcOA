@@ -569,17 +569,21 @@
     <Compile Include="Controllers\CheckDataController.cs" />
     <Compile Include="Controllers\ConferenceRoomController.cs" />
     <Compile Include="Controllers\ConferenceRoomDataController.cs" />
+    <Compile Include="Controllers\ConRoomController.cs" />
+    <Compile Include="Controllers\ConRoomDataController.cs" />
     <Compile Include="Controllers\DepartController.cs" />
     <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Controllers\FileUpDataController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HRController.cs" />
     <Compile Include="Controllers\HRDataController.cs" />
+    <Compile Include="Controllers\HRRoleController.cs" />
     <Compile Include="Controllers\LoginLogController.cs" />
     <Compile Include="Controllers\LoginLogDataController.cs" />
     <Compile Include="Controllers\OperationController.cs" />
     <Compile Include="Controllers\OperationDataController.cs" />
     <Compile Include="Controllers\PersonalController.cs" />
+    <Compile Include="Controllers\PersonalLeaveController.cs" />
     <Compile Include="Controllers\PersonalNoteController.cs" />
     <Compile Include="Controllers\PersonalScheduleController.cs" />
     <Compile Include="Controllers\PersonalSignController.cs" />
@@ -606,6 +610,9 @@
     <Compile Include="Models\ConferenceRoom.cs">
       <DependentUpon>OA.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ConSta.cs">
+      <DependentUpon>OA.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\DepartInfo.cs">
       <DependentUpon>OA.tt</DependentUpon>
     </Compile>
@@ -613,6 +620,9 @@
       <DependentUpon>OA.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\FileTypeInfo.cs">
+      <DependentUpon>OA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LeaveMessage.cs">
       <DependentUpon>OA.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\LoginLog.cs">
@@ -752,18 +762,6 @@
     <Content Include="Views\Bulletin\BullManager\Add.cshtml" />
     <Content Include="Views\Bulletin\BullManager\Edit.cshtml" />
     <Content Include="Views\Bulletin\BullManager\Detailed.cshtml" />
-    <Content Include="Views\Personal\Leave.cshtml" />
-    <Content Include="Views\Personal\LeaveManager\Add.cshtml" />
-    <Content Include="Views\Personal\LeaveManager\Edit.cshtml" />
-    <Content Include="Views\Personal\Mail.cshtml" />
-    <Content Include="Views\Personal\MailManager\Add.cshtml" />
-    <Content Include="Views\Personal\MailManager\Edit.cshtml" />
-    <Content Include="Views\Personal\Note.cshtml" />
-    <Content Include="Views\Personal\NoteManager\Add.cshtml" />
-    <Content Include="Views\Personal\NoteManager\Edit.cshtml" />
-    <Content Include="Views\Personal\Schedule.cshtml" />
-    <Content Include="Views\Personal\ScheduleManager\Add.cshtml" />
-    <Content Include="Views\Personal\ScheduleManager\Edit.cshtml" />
     <Content Include="Views\ConferenceRoom\Room.cshtml" />
     <Content Include="Views\ConferenceRoom\RoomAdd.cshtml" />
     <Content Include="Views\ConferenceRoom\RoomModify.cshtml" />
@@ -776,6 +774,25 @@
     <Content Include="Views\File\FileList.cshtml" />
     <Content Include="Views\Apply\ApplyList.cshtml" />
     <Content Include="Views\ApprovalStatus\ApprovalStatusList.cshtml" />
+    <Content Include="Views\ConRoom\ConfeRoom.cshtml" />
+    <Content Include="Views\HR\Role.cshtml" />
+    <Content Include="Views\HR\RoleManager\Add.cshtml" />
+    <Content Include="Views\HR\RoleManager\Edit.cshtml" />
+    <Content Include="Views\Personal\Leave.cshtml" />
+    <Content Include="Views\Personal\LeaveManager\Add.cshtml" />
+    <Content Include="Views\Personal\LeaveManager\Edit.cshtml" />
+    <Content Include="Views\Personal\Mail.cshtml" />
+    <Content Include="Views\Personal\MailManager\Add.cshtml" />
+    <Content Include="Views\Personal\MailManager\Edit.cshtml" />
+    <Content Include="Views\Personal\Note.cshtml" />
+    <Content Include="Views\Personal\NoteManager\Add.cshtml" />
+    <Content Include="Views\Personal\NoteManager\Edit.cshtml" />
+    <Content Include="Views\Personal\Schedule.cshtml" />
+    <Content Include="Views\Personal\ScheduleManager\Add.cshtml" />
+    <Content Include="Views\Personal\ScheduleManager\Edit.cshtml" />
+    <Content Include="Views\HR\Department.cshtml" />
+    <Content Include="Views\HR\DepartmentAdd.cshtml" />
+    <Content Include="Views\HR\DepartmentModify.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

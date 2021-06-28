@@ -65,6 +65,7 @@
     <Property Name="Capacity" Type="Int32" Nullable="false" />
     <Property Name="State" Type="Int32" Nullable="false" />
     <Property Name="CreationTime" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="ConSta" Relationship="OAModel.FK_ConferenceRoom_ConSta" FromRole="ConferenceRoom" ToRole="ConSta" />
   </EntityType>
   <EntityType Name="DepartInfo">
     <Key>
@@ -298,6 +299,8 @@
     <NavigationProperty Name="PreContract" Relationship="Self.FK_PreContract_UserInfo" FromRole="UserInfo" ToRole="PreContract" />
     <NavigationProperty Name="ReadCommonMessage" Relationship="Self.FK_ReadCommonMessage_UserInfo" FromRole="UserInfo" ToRole="ReadCommonMessage" />
     <NavigationProperty Name="Schedule" Relationship="Self.FK_Schedule_UserInfo" FromRole="UserInfo" ToRole="Schedule" />
+    <NavigationProperty Name="LeaveMessage" Relationship="OAModel.FK_LeaveMessage_UserInfo" FromRole="UserInfo" ToRole="LeaveMessage" />
+    <NavigationProperty Name="LeaveMessage1" Relationship="OAModel.FK_LeaveMessage_UserInfo1" FromRole="UserInfo" ToRole="LeaveMessage" />
   </EntityType>
   <EntityType Name="WorkTime">
     <Key>
@@ -670,5 +673,75 @@
       <End Role="UserInfo" EntitySet="UserInfo" />
       <End Role="Schedule" EntitySet="Schedule" />
     </AssociationSet>
+    <EntitySet Name="ConSta" EntityType="OAModel.ConSta" />
+    <AssociationSet Name="FK_ConferenceRoom_ConSta" Association="OAModel.FK_ConferenceRoom_ConSta">
+      <End Role="ConSta" EntitySet="ConSta" />
+      <End Role="ConferenceRoom" EntitySet="ConferenceRoom" />
+    </AssociationSet>
+    <EntitySet Name="LeaveMessage" EntityType="OAModel.LeaveMessage" />
+    <AssociationSet Name="FK_LeaveMessage_UserInfo" Association="OAModel.FK_LeaveMessage_UserInfo">
+      <End Role="UserInfo" EntitySet="UserInfo" />
+      <End Role="LeaveMessage" EntitySet="LeaveMessage" />
+    </AssociationSet>
+    <AssociationSet Name="FK_LeaveMessage_UserInfo1" Association="OAModel.FK_LeaveMessage_UserInfo1">
+      <End Role="UserInfo" EntitySet="UserInfo" />
+      <End Role="LeaveMessage" EntitySet="LeaveMessage" />
+    </AssociationSet>
   </EntityContainer>
+  <EntityType Name="ConSta">
+    <Key>
+      <PropertyRef Name="ConStaId" />
+    </Key>
+    <Property Name="ConStaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ConStaName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="ConferenceRoom" Relationship="OAModel.FK_ConferenceRoom_ConSta" FromRole="ConSta" ToRole="ConferenceRoom" />
+  </EntityType>
+  <Association Name="FK_ConferenceRoom_ConSta">
+    <End Type="OAModel.ConSta" Role="ConSta" Multiplicity="1" />
+    <End Type="OAModel.ConferenceRoom" Role="ConferenceRoom" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ConSta">
+        <PropertyRef Name="ConStaId" />
+      </Principal>
+      <Dependent Role="ConferenceRoom">
+        <PropertyRef Name="State" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="LeaveMessage">
+    <Key>
+      <PropertyRef Name="Lid" />
+    </Key>
+    <Property Name="Lid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="userid" Type="Int32" Nullable="false" />
+    <Property Name="Luserid" Type="Int32" Nullable="false" />
+    <Property Name="LeaveText" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CreateTime" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="UserInfo" Relationship="OAModel.FK_LeaveMessage_UserInfo" FromRole="LeaveMessage" ToRole="UserInfo" />
+    <NavigationProperty Name="UserInfo1" Relationship="OAModel.FK_LeaveMessage_UserInfo1" FromRole="LeaveMessage" ToRole="UserInfo" />
+  </EntityType>
+  <Association Name="FK_LeaveMessage_UserInfo">
+    <End Type="OAModel.UserInfo" Role="UserInfo" Multiplicity="1" />
+    <End Type="OAModel.LeaveMessage" Role="LeaveMessage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="LeaveMessage">
+        <PropertyRef Name="userid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_LeaveMessage_UserInfo1">
+    <End Type="OAModel.UserInfo" Role="UserInfo" Multiplicity="1" />
+    <End Type="OAModel.LeaveMessage" Role="LeaveMessage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="LeaveMessage">
+        <PropertyRef Name="Luserid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

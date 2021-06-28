@@ -9,23 +9,21 @@
 
 namespace PearAdminMvcOA.Models
 {
-    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     
-    public partial class RoleInfo
+    public partial class ConSta
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public RoleInfo()
+        public ConSta()
         {
-            this.ManualSign = new HashSet<ManualSign>();
+            this.ConferenceRoom = new HashSet<ConferenceRoom>();
         }
     
-        public int RoleId { get; set; }
-        public string RoleName { get; set; }
-        public string RoleDesc { get; set; }
-        [JsonIgnore]
+        public int ConStaId { get; set; }
+        public string ConStaName { get; set; }
+    
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ManualSign> ManualSign { get; set; }
+        public virtual ICollection<ConferenceRoom> ConferenceRoom { get; set; }
     }
 }

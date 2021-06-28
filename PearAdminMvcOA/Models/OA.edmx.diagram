@@ -51,6 +51,11 @@
         <AssociationConnector Association="OAModel.FK_PreContract_UserInfo" ManuallyRouted="false" />
         <AssociationConnector Association="OAModel.FK_ReadCommonMessage_UserInfo" ManuallyRouted="false" />
         <AssociationConnector Association="OAModel.FK_Schedule_UserInfo" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="OAModel.ConSta" Width="1.5" PointX="5.5" PointY="22.125" />
+        <AssociationConnector Association="OAModel.FK_ConferenceRoom_ConSta" />
+        <EntityTypeShape EntityType="OAModel.LeaveMessage" Width="1.5" PointX="3" PointY="37.625" />
+        <AssociationConnector Association="OAModel.FK_LeaveMessage_UserInfo" />
+        <AssociationConnector Association="OAModel.FK_LeaveMessage_UserInfo1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

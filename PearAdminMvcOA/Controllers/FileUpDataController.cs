@@ -36,7 +36,7 @@ namespace PearAdminMvcOA.Controllers
                             FileName = Name,
                             FileType = db.FileTypeInfo.FirstOrDefault(n => n.FileTypeSuffix.Contains(fileExtension.ToLower())).FileTypeId,
                             FileOwner = HttpContext.Current.Request.Cookies["UserId"].Value[0],
-                            CreateDate = DateTime.Now,
+                            CreateDate = DateTime.Now, 
                             FilePath = filePath,
                             IfDelete = 0
                         };
@@ -65,12 +65,12 @@ namespace PearAdminMvcOA.Controllers
         {
             using (OAEntities db = new OAEntities())
             {
-                var FileList = db.FileInfo.Include("FileTypeInfo").Include("UserInfo").Select(n => new {
+                var FileList = db.FileInfo.Include("FileTypeInfo").Include("UserInfo").Where(n=>n.IfDelete==0).Select(n => new {
                     id=n.FileId,
-                    image=n.FileTypeInfo.FileTypeImage,
-                    remark = n.UserInfo.UserName,
-                    time = n.CreateDate, 
-                    title= n.FileName
+                    icon = n.FileTypeInfo.FileTypeImage,
+                    FileOwner = n.UserInfo.UserName,
+                    createTime = n.CreateDate,
+                    FileName = n.FileName
                 }).ToList();
                 return Json(new { code = 0, count = FileList.Count(), data = FileList });
             }

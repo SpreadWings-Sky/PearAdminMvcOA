@@ -12,11 +12,11 @@ namespace PearAdminMvcOA.Controllers
     {
         //用户列表
         [HttpGet]
-        public IHttpActionResult List()
+        public IHttpActionResult List(int userid,string type)
         {
             using (OAEntities db = new OAEntities())
             {
-                var list = db.UserInfo.OrderBy(n => n.UserId).ToList();
+                var list = db.UserInfo.OrderByDescending(n => n.UserId== userid).ToList();
                 return Json(new { code = 0, msg = "", data = list });
             }
         }
@@ -30,15 +30,15 @@ namespace PearAdminMvcOA.Controllers
             }
         }
         [HttpGet]
-        public IHttpActionResult ScheduleList(string realName)
+        public IHttpActionResult ScheduleList(int userid, string type,string realName)
         {
             if (realName == null)
             {
-                return List();
+                return List(userid,type);
             }
             using (OAEntities db = new OAEntities())
             {
-                var list = db.UserInfo.Where(p => p.UserName.Contains(realName)).OrderBy(n => n.UserId).ToList();
+                var list = db.UserInfo.Where(p => p.UserName.Contains(realName)).OrderByDescending(n => n.UserId==userid).ToList();
                 var Count = db.Schedule.Count();
                 return Json(new { code = 0, msg = "", count = Count, data = list });
             }
