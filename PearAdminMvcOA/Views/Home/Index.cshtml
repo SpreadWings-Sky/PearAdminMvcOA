@@ -1,4 +1,5 @@
-﻿@{
+﻿@using PearAdminMvcOA.Models;
+@{
     Layout = null;
 }
 <!DOCTYPE html>
@@ -33,7 +34,7 @@
                 <li class="layui-nav-item user">
                     <!-- 头 像 -->
                     <a href="javascript:;">
-                        <img src="/libs/admin/images/avatar.jpg" class="layui-nav-img">
+                        <img src="@((Session["User"] as UserInfo).Avatar)" class="layui-nav-img">
                     </a>
                     <!-- 功 能 菜 单 -->
                     <dl class="layui-nav-child">
@@ -87,7 +88,7 @@
             var popup = layui.popup;
 
             // 初始化顶部用户信息
-            admin.setAvatar("/libs/admin/images/avatar.jpg", "观棋");
+            admin.setAvatar("@((Session["User"] as UserInfo).Avatar)", "@((Session["User"] as UserInfo).UserName)");
 
             // 根目录下 pear.config.yml 文件为初始化配置
             // 你可以通过 admin.setConfigPath 方法修改配置文件位置

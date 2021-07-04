@@ -50,6 +50,14 @@ namespace PearAdminMvcOA.Controllers
             }
             else return Json(new { code = 500 });
         }
-        
+        //用户退出
+        public ActionResult UserExit()
+        {
+            Session.Clear();
+            FormsAuthentication.SignOut();
+            return View("~/Views/Account/Login.cshtml");
+        }
+
+
     }
 }

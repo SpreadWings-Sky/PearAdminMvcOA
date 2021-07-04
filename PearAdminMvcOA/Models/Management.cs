@@ -12,15 +12,17 @@ namespace PearAdminMvcOA.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class LeaveMessage
+    public partial class Management
     {
-        public int Lid { get; set; }
-        public int userid { get; set; }
-        public int Luserid { get; set; }
-        public string LeaveText { get; set; }
-        public Nullable<System.DateTime> CreateTime { get; set; }
+        public int ManId { get; set; }
+        public string ManRoom { get; set; }
+        public string ManTitle { get; set; }
+        public string ManComm { get; set; }
+        public System.DateTime StateTime { get; set; }
+        public System.DateTime EndTime { get; set; }
+        public int UserId { get; set; }
+        public System.DateTime CreaTime { get; set; }
     
         public virtual UserInfo UserInfo { get; set; }
-        public virtual UserInfo UserInfo1 { get; set; }
     }
 }

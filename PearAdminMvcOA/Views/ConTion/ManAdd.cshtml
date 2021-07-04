@@ -1,0 +1,127 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>添加预约</title>
+    @Html.Partial("_Head")
+    @*<link rel="stylesheet" href="/libs/component/pear/css/pear.css" />*@
+</head>
+<body>
+    <form class="layui-form" action="">
+        <div class="mainBox">
+            <div class="main-container">
+                <div class="main-container">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">预约人</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="UserName" lay-verify="title" autocomplete="off" placeholder="请输入预约人名称" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">房间名称</label>
+                        <div class="layui-input-inline">
+                            <select name="RoomName" lay-verify="">
+                                <option value="">请选择</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">会议标题</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="ManTitle" lay-verify="title" autocomplete="off" placeholder="请输入会议标题" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">会议内容</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="ManComm" lay-verify="title" autocomplete="off" placeholder="请输入会议内容" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">开始时间</label>
+                        <div class="layui-input-block">
+                            <input type="datetime-local" name="StateTime" lay-verify="title" autocomplete="off" placeholder="请输入开始时间" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">结束时间</label>
+                        <div class="layui-input-block">
+                            <input type="datetime-local" name="EndTime" lay-verify="title" autocomplete="off" placeholder="请输入结束时间" class="layui-input">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bottom">
+            <div class="button-container">
+                <button type="button" id="btn" class="pear-btn pear-btn-primary pear-btn-sm" lay-submit="" lay-filter="user-save">
+                    <i class="layui-icon layui-icon-ok"></i>
+                    提交
+                </button>
+                <button type="reset" class="pear-btn pear-btn-sm">
+                    <i class="layui-icon layui-icon-refresh"></i>
+                    重置
+                </button>
+            </div>
+        </div>
+    </form>
+    <script src="/libs/jquery-3.5.1.js"></script>
+    <script src="/libs/component/layui/layui.js"></script>
+    <script src="/libs/component/pear/pear.js"></script>
+    <script>
+
+        layui.use(['table', 'form', 'jquery', 'laydate', 'common'], function () {
+            let table = layui.table;
+            let form = layui.form;
+            let $ = layui.jquery;
+            let laydate = layui.laydate;
+            let common = layui.common;
+
+            $("#btn").click(function () {
+                $.ajax({
+                    url: 'http://localhost:56794/api/ConTionData/ManAdd',
+                    type: "post",
+                    data: {
+                        ManRoom: $("[name='RoomName']").val(),
+                        ManTitle: $("[name='ManTitle']").val(),
+                        ManComm: $("[name='ManComm']").val(),
+                        StateTime: $("[name='StateTime']").val(),
+                        EndTime: $("[name='EndTime']").val(),
+                        UserId: $("[name='UserName']").val(),
+                    },
+                    success: function (data) {
+                        if (data.success) {
+                            layer.msg(data.msg, { icon: 1, time: 1000 }, function () {
+                                parent.layer.close(parent.layer.getFrameIndex(window.name));
+                                parent.layui.table.reload("ConTion-table");
+                            });
+                        }
+                    },
+
+                    error: function (data) {
+                        console.log(data);
+                        alert("错误");
+                    }
+                });
+            })
+            
+                $.ajax({
+                    type: "get",
+                    async: false,
+                    url: "/api/ConTionData/RoomName",
+                    dataType: "json",
+                    data: {
+                        warehouse: $("[name=RoomName]").val(),
+                    },
+                    success: function (rdata) {
+                        for (var i = 0; i < rdata.data.length; i++) {
+                            $("[name=RoomName]").append("<option value='" + rdata.data[i].RoomName + "' >" + rdata.data[i].RoomName + "</option>");
+                        }
+                        layui.form.render("select");
+                    }
+                });
+            
+        });
+    </script>
+</body>
+</html>

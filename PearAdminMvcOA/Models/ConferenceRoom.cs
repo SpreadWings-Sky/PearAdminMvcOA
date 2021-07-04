@@ -9,9 +9,10 @@
 
 namespace PearAdminMvcOA.Models
 {
-    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
+    using Newtonsoft.Json;
+    
     public partial class ConferenceRoom
     {
         public int RoomId { get; set; }
@@ -20,8 +21,8 @@ namespace PearAdminMvcOA.Models
         public int Capacity { get; set; }
         public int State { get; set; }
         public System.DateTime CreationTime { get; set; }
+    
         [JsonIgnore]
-
         public virtual ConSta ConSta { get; set; }
     }
 }

@@ -1,0 +1,36 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Qrjs</title>
+    <script src="/libs/qrjs2.min.js"></script>
+    <style>
+        div{
+            width:100%;
+        }
+    </style>
+</head>
+<body>
+    <script>
+       var url = '@(new HtmlString(ViewBag.Url))';
+
+        var htmlTable = document.createElement("div"),
+            u = url,
+            s = QRCode.generateHTML(u, {
+                ecclevel: "M",
+                fillcolor: "#FFFFFF",
+                textcolor: "#373737",
+                margin: 3,
+                modulesize: 9
+            });
+        htmlTable.appendChild(s);
+        document.body.appendChild(htmlTable);       
+    </script>
+</body>
+</html>

@@ -19,5 +19,11 @@ namespace PearAdminMvcOA.Controllers
         {
             return View();
         }
+        //文件分享
+        public ActionResult Qrjs(string Url)
+        {
+            ViewBag.Url = Url;
+            return View();
+        }
     }
 }

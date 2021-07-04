@@ -311,5 +311,33 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Management">
+      <EntityTypeMapping TypeName="OAModel.Management">
+        <MappingFragment StoreEntitySet="Management">
+          <ScalarProperty Name="CreaTime" ColumnName="CreaTime" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+          <ScalarProperty Name="StateTime" ColumnName="StateTime" />
+          <ScalarProperty Name="ManComm" ColumnName="ManComm" />
+          <ScalarProperty Name="ManTitle" ColumnName="ManTitle" />
+          <ScalarProperty Name="ManRoom" ColumnName="ManRoom" />
+          <ScalarProperty Name="ManId" ColumnName="ManId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ManRe">
+      <EntityTypeMapping TypeName="OAModel.ManRe">
+        <MappingFragment StoreEntitySet="ManRe">
+          <ScalarProperty Name="CreaTime" ColumnName="CreaTime" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+          <ScalarProperty Name="StateTime" ColumnName="StateTime" />
+          <ScalarProperty Name="ManComm" ColumnName="ManComm" />
+          <ScalarProperty Name="ManTitle" ColumnName="ManTitle" />
+          <ScalarProperty Name="ManRoom" ColumnName="ManRoom" />
+          <ScalarProperty Name="ManId" ColumnName="ManId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

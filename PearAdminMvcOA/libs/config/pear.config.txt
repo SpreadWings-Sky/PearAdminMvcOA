@@ -57,13 +57,7 @@ colors:
 ## 主题面板的链接列表配置
 links: 
 - icon: "layui-icon layui-icon-website"
-  title: "我的网站"
-  href: "http://www.baidu.com" 
-- icon: "layui-icon layui-icon-website"
-  title: "我的网站"
-  href: "http://www.baidu.com" 
-- icon: "layui-icon layui-icon-website"
-  title: "我的网站"
+  title: "百度搜索"
   href: "http://www.baidu.com" 
 ## 其他配置
 other: 

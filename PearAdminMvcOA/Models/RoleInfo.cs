@@ -9,7 +9,6 @@
 
 namespace PearAdminMvcOA.Models
 {
-    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     
@@ -24,7 +23,7 @@ namespace PearAdminMvcOA.Models
         public int RoleId { get; set; }
         public string RoleName { get; set; }
         public string RoleDesc { get; set; }
-        [JsonIgnore]
+    
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ManualSign> ManualSign { get; set; }
     }

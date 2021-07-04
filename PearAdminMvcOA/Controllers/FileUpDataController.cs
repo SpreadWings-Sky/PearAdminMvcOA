@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Reflection;
 using System.Web;
 using System.Web.Http;
@@ -28,6 +29,8 @@ namespace PearAdminMvcOA.Controllers
                     string fileName = Guid.NewGuid().ToString() + fileExtension;// 名称
                     //服务器端要保存的路径
                     string filePath = HttpContext.Current.Server.MapPath("~/UserFile/") + fileName;
+                    //获取用户ID
+                    int UserID = int.Parse(HttpContext.Current.Request.Cookies["UserId"].Value[0].ToString());
                     //存储信息到数据库
                     using (OAEntities db = new OAEntities())
                     {
@@ -35,9 +38,9 @@ namespace PearAdminMvcOA.Controllers
                         {
                             FileName = Name,
                             FileType = db.FileTypeInfo.FirstOrDefault(n => n.FileTypeSuffix.Contains(fileExtension.ToLower())).FileTypeId,
-                            FileOwner = HttpContext.Current.Request.Cookies["UserId"].Value[0],
-                            CreateDate = DateTime.Now, 
-                            FilePath = filePath,
+                            FileOwner = UserID,
+                            CreateDate = DateTime.Now,
+                            FilePath = @"~/UserFile/" + fileName,
                             IfDelete = 0
                         };
                         db.FileInfo.Add(info);
@@ -48,7 +51,7 @@ namespace PearAdminMvcOA.Controllers
                     }
                     file.SaveAs(filePath);
                     //返回结果
-                    return Json( new { code = 0} );
+                    return Json(new { code = 0 });
                 }
                 catch (Exception ex)
                 {
@@ -61,18 +64,67 @@ namespace PearAdminMvcOA.Controllers
             }
         }
         [HttpGet]
-        public IHttpActionResult GetFileList(int page = 1, int limit = 10)
+        public IHttpActionResult GetFileList(int pare = 0)
         {
             using (OAEntities db = new OAEntities())
             {
-                var FileList = db.FileInfo.Include("FileTypeInfo").Include("UserInfo").Where(n=>n.IfDelete==0).Select(n => new {
-                    id=n.FileId,
+                var FileList = db.FileInfo.Include("FileTypeInfo").Include("UserInfo").Where(n => n.IfDelete == 0).OrderByDescending(n => n.FileType).Select(n => new
+                {
+                    id = n.FileId,
                     icon = n.FileTypeInfo.FileTypeImage,
                     FileOwner = n.UserInfo.UserName,
                     createTime = n.CreateDate,
-                    FileName = n.FileName
+                    FileName = n.FileName,
+                    FileType = n.FileType,
+                    fileId = n.FileId
                 }).ToList();
-                return Json(new { code = 0, count = FileList.Count(), data = FileList });
+                return Json(new { code = 0, data = FileList });
+            }
+        }
+        [HttpGet]
+        public HttpResponseMessage DownFile(int FileID)
+        {
+            using (OAEntities db = new OAEntities())
+            {
+                FileInfo file = db.FileInfo.Find(FileID);
+
+                var FilePath = System.Web.Hosting.HostingEnvironment.MapPath(file.FilePath);
+                var stream = new FileStream(FilePath, FileMode.Open);
+                HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
+                response.Content = new StreamContent(stream);
+                response.Content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
+                response.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
+                {
+                    FileName = file.FileName
+                };
+                return response;
+            }
+        }
+
+        [HttpPut]
+        public IHttpActionResult DeleteFile(int Fielid)
+        {
+            using (OAEntities db = new OAEntities())
+            {
+                int UserID = int.Parse(HttpContext.Current.Request.Cookies["UserId"].Value[0].ToString());
+                if(db.UserInfo.Find(UserID)==null)
+                {
+                    return Json(new { success = false, msg = "请先登录" });
+                }
+                FileInfo file = db.FileInfo.Find(Fielid);
+                if(file.FileOwner != UserID)
+                {
+                    return Json(new { success = false, msg = "不能删除他人文件" });
+                }
+                file.IfDelete = 1;
+                if (db.SaveChanges() > 0)
+                {
+                    return Json(new { success = true, msg = "删除成功,已进入回收站" });
+                }
+                else
+                {
+                    return Json(new { success = false, msg = "删除失败" });
+                }
             }
         }
     }

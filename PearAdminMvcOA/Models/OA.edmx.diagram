@@ -56,6 +56,10 @@
         <EntityTypeShape EntityType="OAModel.LeaveMessage" Width="1.5" PointX="3" PointY="37.625" />
         <AssociationConnector Association="OAModel.FK_LeaveMessage_UserInfo" />
         <AssociationConnector Association="OAModel.FK_LeaveMessage_UserInfo1" />
+        <EntityTypeShape EntityType="OAModel.Management" Width="1.5" PointX="3" PointY="44.25" />
+        <EntityTypeShape EntityType="OAModel.ManRe" Width="1.5" PointX="3" PointY="40.875" />
+        <AssociationConnector Association="OAModel.FK_Management_UserInfo" />
+        <AssociationConnector Association="OAModel.FK_ManRe_UserInfo" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

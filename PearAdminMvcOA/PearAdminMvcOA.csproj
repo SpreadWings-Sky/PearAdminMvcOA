@@ -156,6 +156,7 @@
     <Content Include="libs\admin\images\captcha.gif" />
     <Content Include="libs\admin\images\logo.png" />
     <Content Include="libs\admin\images\show.png" />
+    <Content Include="libs\Avatar\1.jpg" />
     <Content Include="libs\component\code\css\style.css" />
     <Content Include="libs\component\code\index.html" />
     <Content Include="libs\component\layui\css\layui.css" />
@@ -474,6 +475,7 @@
     <Content Include="libs\index.html" />
     <Content Include="libs\jquery-3.5.1.js" />
     <Content Include="libs\login.html" />
+    <Content Include="libs\qrjs2.min.js" />
     <Content Include="libs\readmes\1.jpg" />
     <Content Include="libs\readmes\10.jpg" />
     <Content Include="libs\readmes\11.jpg" />
@@ -567,10 +569,12 @@
     <Compile Include="Controllers\BulletinDataController.cs" />
     <Compile Include="Controllers\CheckController.cs" />
     <Compile Include="Controllers\CheckDataController.cs" />
-    <Compile Include="Controllers\ConferenceRoomController.cs" />
-    <Compile Include="Controllers\ConferenceRoomDataController.cs" />
+    <Compile Include="Controllers\ConReController.cs" />
+    <Compile Include="Controllers\ConReDataController.cs" />
     <Compile Include="Controllers\ConRoomController.cs" />
     <Compile Include="Controllers\ConRoomDataController.cs" />
+    <Compile Include="Controllers\ConTionController.cs" />
+    <Compile Include="Controllers\ConTionDataController.cs" />
     <Compile Include="Controllers\DepartController.cs" />
     <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Controllers\FileUpDataController.cs" />
@@ -626,6 +630,12 @@
       <DependentUpon>OA.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\LoginLog.cs">
+      <DependentUpon>OA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Management.cs">
+      <DependentUpon>OA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ManRe.cs">
       <DependentUpon>OA.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ManualSign.cs">
@@ -793,6 +803,11 @@
     <Content Include="Views\HR\Department.cshtml" />
     <Content Include="Views\HR\DepartmentAdd.cshtml" />
     <Content Include="Views\HR\DepartmentModify.cshtml" />
+    <Content Include="Views\File\Qrjs.cshtml" />
+    <Content Include="Views\ConTion\ManAdd.cshtml" />
+    <Content Include="Views\ConTion\Management.cshtml" />
+    <Content Include="Views\ConTion\ManModify.cshtml" />
+    <Content Include="Views\ConRe\ConReIndex.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

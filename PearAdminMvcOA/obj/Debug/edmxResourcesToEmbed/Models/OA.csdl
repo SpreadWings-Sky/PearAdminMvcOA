@@ -301,6 +301,8 @@
     <NavigationProperty Name="Schedule" Relationship="Self.FK_Schedule_UserInfo" FromRole="UserInfo" ToRole="Schedule" />
     <NavigationProperty Name="LeaveMessage" Relationship="OAModel.FK_LeaveMessage_UserInfo" FromRole="UserInfo" ToRole="LeaveMessage" />
     <NavigationProperty Name="LeaveMessage1" Relationship="OAModel.FK_LeaveMessage_UserInfo1" FromRole="UserInfo" ToRole="LeaveMessage" />
+    <NavigationProperty Name="Management" Relationship="OAModel.FK_Management_UserInfo" FromRole="UserInfo" ToRole="Management" />
+    <NavigationProperty Name="ManRe" Relationship="OAModel.FK_ManRe_UserInfo" FromRole="UserInfo" ToRole="ManRe" />
   </EntityType>
   <EntityType Name="WorkTime">
     <Key>
@@ -687,6 +689,16 @@
       <End Role="UserInfo" EntitySet="UserInfo" />
       <End Role="LeaveMessage" EntitySet="LeaveMessage" />
     </AssociationSet>
+    <EntitySet Name="Management" EntityType="OAModel.Management" />
+    <EntitySet Name="ManRe" EntityType="OAModel.ManRe" />
+    <AssociationSet Name="FK_Management_UserInfo" Association="OAModel.FK_Management_UserInfo">
+      <End Role="UserInfo" EntitySet="UserInfo" />
+      <End Role="Management" EntitySet="Management" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ManRe_UserInfo" Association="OAModel.FK_ManRe_UserInfo">
+      <End Role="UserInfo" EntitySet="UserInfo" />
+      <End Role="ManRe" EntitySet="ManRe" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="ConSta">
     <Key>
@@ -741,6 +753,58 @@
       </Principal>
       <Dependent Role="LeaveMessage">
         <PropertyRef Name="Luserid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Management">
+    <Key>
+      <PropertyRef Name="ManId" />
+    </Key>
+    <Property Name="ManId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ManRoom" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ManTitle" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ManComm" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="StateTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="EndTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="CreaTime" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="UserInfo" Relationship="OAModel.FK_Management_UserInfo" FromRole="Management" ToRole="UserInfo" />
+  </EntityType>
+  <EntityType Name="ManRe">
+    <Key>
+      <PropertyRef Name="ManId" />
+    </Key>
+    <Property Name="ManId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ManRoom" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ManTitle" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ManComm" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="StateTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="EndTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="CreaTime" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="UserInfo" Relationship="OAModel.FK_ManRe_UserInfo" FromRole="ManRe" ToRole="UserInfo" />
+  </EntityType>
+  <Association Name="FK_Management_UserInfo">
+    <End Type="OAModel.UserInfo" Role="UserInfo" Multiplicity="1" />
+    <End Type="OAModel.Management" Role="Management" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Management">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ManRe_UserInfo">
+    <End Type="OAModel.UserInfo" Role="UserInfo" Multiplicity="1" />
+    <End Type="OAModel.ManRe" Role="ManRe" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="ManRe">
+        <PropertyRef Name="UserId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

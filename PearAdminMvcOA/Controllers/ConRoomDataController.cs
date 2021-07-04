@@ -89,7 +89,7 @@ namespace PearAdminMvcOA.Controllers
                         var Count1 = db.ManualSign.Count();
                         return Json(new { code = 0, msg = "", count = Count1, data = list1.ToList() });
                     }
-                    //情况+名字筛选
+                    //状态+名字筛选
                     if (State != null && Time == null && RoomName != null)
                     {
                         var list1 = list.Where(p => p.State == State && p.RoomName.Contains(RoomName)).Select(p => new
