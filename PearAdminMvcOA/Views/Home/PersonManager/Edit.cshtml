@@ -1,0 +1,130 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/libs/component/pear/css/pear.css" />
+</head>
+<body>
+    <form class="layui-form" action="">
+        <div class="mainBox" id="app">
+            <div class="main-container">
+                <div class="main-container">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">姓名</label>
+                        <div class="layui-input-block">
+                            <input type="hidden" name="UserId" :value=userInfo.UserId />
+                            <input type="text" name="UserName" :value=userInfo.UserName lay-verify="title" autocomplete="off" placeholder="请输入标题" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">邮箱</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="Email" :value=userInfo.Email lay-verify="title" autocomplete="off" placeholder="请输入标题" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">电话</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="Phone" :value=userInfo.Phone lay-verify="title" autocomplete="off" placeholder="请输入标题" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">性别</label>
+                        <div class="layui-input-block">
+                            <input type="radio" id="sex0" name="Gender" value="0" title="男">
+                            <input type="radio" id="sex1" name="Gender" value="1" title="女">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bottom">
+            <div class="button-container">
+                <button type="submit" class="pear-btn pear-btn-primary pear-btn-sm" lay-submit="" lay-filter="user-save">
+                    <i class="layui-icon layui-icon-ok"></i>
+                    提交
+                </button>
+                <button id="reset" type="reset" class="pear-btn pear-btn-sm">
+                    <i class="layui-icon layui-icon-refresh"></i>
+                    重置
+                </button>
+            </div>
+        </div>
+    </form>
+    <script src="/libs/component/layui/layui.js"></script>
+    <script src="/libs/component/pear/pear.js"></script>
+    <script src="~/libs/jquery-3.5.1.js"></script>
+    <script src="~/libs/Vue/vue.min.js"></script>
+    <script>
+        var id='@((Session["User"] as PearAdminMvcOA.Models.UserInfo).UserId)';
+        var vm = new Vue({
+            el: "#app",//挂载对象
+            data: {
+                userInfo: [],
+            }
+        })
+        $("#reset").click(function () {
+            load();
+        })
+        load();
+        function load() {
+            $.ajax({
+                url: "/api/PersonalUserInfo",
+                type: "get",
+                data: {
+                    id: id
+                },
+                success: function (date) {
+                    vm.userInfo = date.data;
+
+                    if (date.data.Gender == 0) {
+                        $("#sex0").prop("checked", true);
+                    }
+                    else {
+                        $("#sex1").prop("checked", true);
+                    }
+                }
+            })
+        }
+        layui.use(['form','jquery'],function(){
+            let form = layui.form;
+            let $ = layui.jquery;
+
+            form.on('submit(user-save)', function(data){
+                let roleIds = "";
+                $('input[type=checkbox]:checked').each(function() {
+                    roleIds += $(this).val()+",";
+                });
+                roleIds = roleIds.substr(0,roleIds.length-1);
+                data.field.roleIds = roleIds;
+
+                $.ajax({
+                    url:'/api/PersonalUserInfo/',
+                    data:JSON.stringify(data.field),
+                    dataType:'json',
+                    contentType:'application/json',
+                    type:'post',
+                    success:function(result){
+                        if(result.success){
+                            layer.msg(result.msg,{icon:1,time:1000},function(){
+                                parent.layer.close(parent.layer.getFrameIndex(window.name));//关闭当前页
+                            });
+                        }else{
+                            layer.msg(result.msg,{icon:2,time:1000});
+                        }
+                    }
+                })
+                return false;
+            });
+        })
+    </script>
+    <script>
+    </script>
+</body>
+</html>

@@ -9,6 +9,7 @@
 
 namespace PearAdminMvcOA.Models
 {
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     
@@ -30,10 +31,12 @@ namespace PearAdminMvcOA.Models
         public string FromUserId { get; set; }
         public int IfPublish { get; set; }
         public System.DateTime RecordTime { get; set; }
-    
+        [JsonIgnore]
         public virtual MessageType MessageType { get; set; }
+        [JsonIgnore]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MessageToUser> MessageToUser { get; set; }
+        [JsonIgnore]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ReadCommonMessage> ReadCommonMessage { get; set; }
     }

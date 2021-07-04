@@ -9,6 +9,7 @@
 
 namespace PearAdminMvcOA.Models
 {
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     
@@ -22,7 +23,8 @@ namespace PearAdminMvcOA.Models
     
         public int ConStaId { get; set; }
         public string ConStaName { get; set; }
-    
+        [JsonIgnore]
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ConferenceRoom> ConferenceRoom { get; set; }
     }

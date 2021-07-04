@@ -12,11 +12,11 @@ namespace PearAdminMvcOA.Controllers
     {
         //查询
         [HttpGet]
-        public IHttpActionResult LoginLoginfo()
+        public IHttpActionResult LoginLoginfo(int page,int limit)
         {
             using (OAEntities db = new OAEntities())
             {
-                var List = db.LoginLog.Select(n => new
+                var List = db.LoginLog.OrderBy(n => n.LoginId).Skip((page - 1) * limit).Take(limit).Select(n => new
                 {
                     UserId = db.UserInfo.Where(p=>p.UserId==n.UserId).FirstOrDefault().UserName,
                     LoginTime = n.LoginTime,
@@ -25,28 +25,34 @@ namespace PearAdminMvcOA.Controllers
                     LoginDesc = n.LoginDesc,
                     Browser = n.Browser
                 }).ToList();
-                return Json(new { code = 0, msg = "", data = List });
+                var Count = db.LoginLog.Count();
+                return Json(new { code = 0, msg = "", count = Count, data = List });
             }
         }
 
-        ////查询
-        //[HttpPut]
-        //public IHttpActionResult OperateLoginfo()
-        //{
-        //    using (OAEntities db = new OAEntities())
-        //    {
-        //        var List = db.OperateLog.Select(n => new
-        //        {
-        //            OperateId = n.OperateId,
-        //            UserId = db.UserInfo.Where(p=>p.UserId==n.UserId).FirstOrDefault().UserName,
-        //            OperateName = n.OperateName,
-        //            host = n.host,
-        //            OperateDesc = n.OperateDesc,
-        //            OperateTime = n.OperateTime
-        //        }).ToList();
-        //        return Json(new { code = 0, msg = "", data = List });
-        //    }
-        //}
+        [HttpGet]
+        public IHttpActionResult LoginLogkeyword(string UserName,int page, int limit)
+        {
+            if (UserName == null)
+            {
+                UserName = "";
+            }
+            using (OAEntities db = new OAEntities())
+            {
+                
+                var List = db.LoginLog.Include("UserInfo").Where(p=>p.UserInfo.UserName.Contains(UserName) ).OrderBy(n => n.LoginId).Skip((page - 1) * limit).Take(limit).Select(n => new
+                {
+                    UserId = db.UserInfo.Where(p => p.UserId == n.UserId).FirstOrDefault().UserName,
+                    LoginTime = n.LoginTime,
+                    IfSuccess = n.IfSuccess,
+                    LoginUserIp = n.LoginUserIp,
+                    LoginDesc = n.LoginDesc,
+                    Browser = n.Browser
+                }).ToList();
+                var Count = db.LoginLog.Count();
+                return Json(new { code = 0, msg = "", count = Count, data = List });
+            }
+        }
 
 
         //删除

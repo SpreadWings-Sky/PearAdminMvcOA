@@ -12,11 +12,11 @@ namespace PearAdminMvcOA.Controllers
     {
         //查询
         [HttpGet]
-        public IHttpActionResult Departinfo()
+        public IHttpActionResult Departinfo(int page,int limit)
         {
             using (OAEntities db = new OAEntities())
             {
-                var List = db.DepartInfo.Select(n => new
+                var List = db.DepartInfo.OrderBy(n => n.DepartId).Skip((page - 1) * limit).Take(limit).Select(n => new
                 {
                     DepartId = n.DepartId,
                     DepartName = n.DepartName,
@@ -26,8 +26,33 @@ namespace PearAdminMvcOA.Controllers
                     Faxes = n.Faxes,
                     BranchName = db.BranchInfo.FirstOrDefault(p => p.BranchId == n.BranchId).BranchName
                 }).ToList();
-                return Json(new { code = 0, msg = "", data = List });
+                var Count = db.DepartInfo.Count();
+                return Json(new { code = 0, msg = "", count = Count, data = List });
 
+            }
+        }
+
+        [HttpGet]
+        public IHttpActionResult DepartList(string DepartName,int page, int limit)
+        {
+            if(DepartName==null)
+            {
+                DepartName = "";
+            }
+            using (OAEntities db = new OAEntities())
+            {
+                var List = db.DepartInfo.OrderBy(n => n.DepartId).Skip((page - 1) * limit).Take(limit).Select(n => new
+                {
+                    DepartId = n.DepartId,
+                    DepartName = n.DepartName,
+                    UserName = db.UserInfo.FirstOrDefault(p => p.UserId == n.PrincipalUser).UserName,
+                    ConnectTelNo = n.ConnectTelNo,
+                    ConnectMobileTelNo = n.ConnectMobileTelNo,
+                    Faxes = n.Faxes,
+                    BranchName = db.BranchInfo.FirstOrDefault(p => p.BranchId == n.BranchId).BranchName
+                }).Where(p=>p.DepartName.Contains(DepartName)).ToList();
+                var Count = db.DepartInfo.Where(p => p.DepartName.Contains(DepartName)).Count();
+                return Json(new { code = 0, msg = "", count = Count, data = List });
             }
         }
         //修改

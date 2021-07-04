@@ -338,6 +338,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Apply_UserInfo">
+          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
+          <End Role="Apply" Type="Self.Apply" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Apply">
+              <PropertyRef Name="userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ApprovalStatus_UserInfo">
+          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
+          <End Role="ApprovalStatus" Type="Self.ApprovalStatus" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="ApprovalStatus">
+              <PropertyRef Name="Userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_BulletinInfo_UserInfo">
           <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
           <End Role="BulletinInfo" Type="Self.BulletinInfo" Multiplicity="*" />
@@ -566,6 +590,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Operation_UserInfo">
+          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
+          <End Role="Operation" Type="Self.Operation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Operation">
+              <PropertyRef Name="Userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_PreContract_Schedule">
           <End Role="Schedule" Type="Self.Schedule" Multiplicity="1" />
           <End Role="PreContract" Type="Self.PreContract" Multiplicity="*" />
@@ -664,6 +700,14 @@
             <End Role="FileTypeInfo" EntitySet="FileTypeInfo" />
             <End Role="AccessoryFile" EntitySet="AccessoryFile" />
           </AssociationSet>
+          <AssociationSet Name="FK_Apply_UserInfo" Association="Self.FK_Apply_UserInfo">
+            <End Role="UserInfo" EntitySet="UserInfo" />
+            <End Role="Apply" EntitySet="Apply" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ApprovalStatus_UserInfo" Association="Self.FK_ApprovalStatus_UserInfo">
+            <End Role="UserInfo" EntitySet="UserInfo" />
+            <End Role="ApprovalStatus" EntitySet="ApprovalStatus" />
+          </AssociationSet>
           <AssociationSet Name="FK_BulletinInfo_UserInfo" Association="Self.FK_BulletinInfo_UserInfo">
             <End Role="UserInfo" EntitySet="UserInfo" />
             <End Role="BulletinInfo" EntitySet="BulletinInfo" />
@@ -740,6 +784,10 @@
             <End Role="UserInfo" EntitySet="UserInfo" />
             <End Role="OperateLog" EntitySet="OperateLog" />
           </AssociationSet>
+          <AssociationSet Name="FK_Operation_UserInfo" Association="Self.FK_Operation_UserInfo">
+            <End Role="UserInfo" EntitySet="UserInfo" />
+            <End Role="Operation" EntitySet="Operation" />
+          </AssociationSet>
           <AssociationSet Name="FK_PreContract_Schedule" Association="Self.FK_PreContract_Schedule">
             <End Role="Schedule" EntitySet="Schedule" />
             <End Role="PreContract" EntitySet="PreContract" />
@@ -787,6 +835,7 @@
           <Property Name="userid" Type="Int32" Nullable="false" />
           <Property Name="ApplicationContent" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ApplicationTime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="UserInfo" Relationship="OAModel.FK_Apply_UserInfo" FromRole="Apply" ToRole="UserInfo" />
         </EntityType>
         <EntityType Name="ApprovalStatus">
           <Key>
@@ -798,6 +847,7 @@
           <Property Name="Approvaltime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Approvalcontent" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Approvalstatus1" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="UserInfo" Relationship="OAModel.FK_ApprovalStatus_UserInfo" FromRole="ApprovalStatus" ToRole="UserInfo" />
         </EntityType>
         <EntityType Name="BranchInfo">
           <Key>
@@ -984,6 +1034,7 @@
           <Property Name="Userid" Type="Int32" Nullable="false" />
           <Property Name="host" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Operationtime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="UserInfo" Relationship="OAModel.FK_Operation_UserInfo" FromRole="Operation" ToRole="UserInfo" />
         </EntityType>
         <EntityType Name="PreContract">
           <Key>
@@ -1068,6 +1119,9 @@
           <NavigationProperty Name="LeaveMessage1" Relationship="OAModel.FK_LeaveMessage_UserInfo1" FromRole="UserInfo" ToRole="LeaveMessage" />
           <NavigationProperty Name="Management" Relationship="OAModel.FK_Management_UserInfo" FromRole="UserInfo" ToRole="Management" />
           <NavigationProperty Name="ManRe" Relationship="OAModel.FK_ManRe_UserInfo" FromRole="UserInfo" ToRole="ManRe" />
+          <NavigationProperty Name="Apply" Relationship="OAModel.FK_Apply_UserInfo" FromRole="UserInfo" ToRole="Apply" />
+          <NavigationProperty Name="ApprovalStatus" Relationship="OAModel.FK_ApprovalStatus_UserInfo" FromRole="UserInfo" ToRole="ApprovalStatus" />
+          <NavigationProperty Name="Operation" Relationship="OAModel.FK_Operation_UserInfo" FromRole="UserInfo" ToRole="Operation" />
         </EntityType>
         <EntityType Name="WorkTime">
           <Key>
@@ -1464,6 +1518,18 @@
             <End Role="UserInfo" EntitySet="UserInfo" />
             <End Role="ManRe" EntitySet="ManRe" />
           </AssociationSet>
+          <AssociationSet Name="FK_Apply_UserInfo" Association="OAModel.FK_Apply_UserInfo">
+            <End Role="UserInfo" EntitySet="UserInfo" />
+            <End Role="Apply" EntitySet="Apply" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ApprovalStatus_UserInfo" Association="OAModel.FK_ApprovalStatus_UserInfo">
+            <End Role="UserInfo" EntitySet="UserInfo" />
+            <End Role="ApprovalStatus" EntitySet="ApprovalStatus" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Operation_UserInfo" Association="OAModel.FK_Operation_UserInfo">
+            <End Role="UserInfo" EntitySet="UserInfo" />
+            <End Role="Operation" EntitySet="Operation" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="ConSta">
           <Key>
@@ -1570,6 +1636,42 @@
             </Principal>
             <Dependent Role="ManRe">
               <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Apply_UserInfo">
+          <End Type="OAModel.UserInfo" Role="UserInfo" Multiplicity="1" />
+          <End Type="OAModel.Apply" Role="Apply" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Apply">
+              <PropertyRef Name="userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ApprovalStatus_UserInfo">
+          <End Type="OAModel.UserInfo" Role="UserInfo" Multiplicity="1" />
+          <End Type="OAModel.ApprovalStatus" Role="ApprovalStatus" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="ApprovalStatus">
+              <PropertyRef Name="Userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Operation_UserInfo">
+          <End Type="OAModel.UserInfo" Role="UserInfo" Multiplicity="1" />
+          <End Type="OAModel.Operation" Role="Operation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Operation">
+              <PropertyRef Name="Userid" />
             </Dependent>
           </ReferentialConstraint>
         </Association>

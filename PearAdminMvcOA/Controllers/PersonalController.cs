@@ -46,5 +46,10 @@ namespace PearAdminMvcOA.Controllers
         {
             return View();
         }
+
+        public ActionResult ApplyLeave()
+        {
+            return View();
+        }
     }
 }

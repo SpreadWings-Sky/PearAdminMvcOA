@@ -43,5 +43,25 @@ namespace PearAdminMvcOA.Controllers
                 return Json(new { code = 0, msg = "", count = Count, data = list });
             }
         }
+        [HttpPost]
+        public IHttpActionResult Edit(UserInfo u)
+        {
+            using (OAEntities db = new OAEntities())
+            {
+                UserInfo us = db.UserInfo.FirstOrDefault(p => p.UserId == u.UserId);
+                us.UserName = u.UserName;
+                us.Phone = u.Phone;
+                us.Email = u.Email;
+                us.Gender = u.Gender;
+                if (db.SaveChanges() > 0)
+                {
+                    return Json(new { success = true, code = 0, msg = "成功" });
+                }
+                else
+                {
+                    return Json(new { success = false, code = 1, msg = "失败" });
+                }
+            }
+        }
     }
 }

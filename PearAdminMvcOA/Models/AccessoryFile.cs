@@ -9,6 +9,7 @@
 
 namespace PearAdminMvcOA.Models
 {
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     
@@ -21,8 +22,9 @@ namespace PearAdminMvcOA.Models
         public int AccessoryType { get; set; }
         public System.DateTime CreateDate { get; set; }
         public string AccessoryPath { get; set; }
-    
+        [JsonIgnore]
         public virtual FileInfo FileInfo { get; set; }
+        [JsonIgnore]
         public virtual FileTypeInfo FileTypeInfo { get; set; }
     }
 }

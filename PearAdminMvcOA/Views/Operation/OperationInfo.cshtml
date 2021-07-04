@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -6,11 +7,33 @@
     <link rel="stylesheet" href="/libs/component/pear/css/pear.css" />
 </head>
 <body class="pear-container">
+
     <div class="layui-card">
         <div class="layui-card-body">
+            <form class="layui-form" action="">
+                <div class="layui-form-item">
+                    <div class="layui-form-item layui-inline">
+                        <label class="layui-form-label">员工查询</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="UserName" placeholder="" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item layui-inline">
+                        <button type="submit" id="btn" class="pear-btn pear-btn-md pear-btn-primary" lay-submit lay-filter="organization-query">
+                            <i class="layui-icon layui-icon-search"></i>
+                            查询
+                        </button>
+                        <button type="reset" class="pear-btn pear-btn-md">
+                            <i class="layui-icon layui-icon-refresh"></i>
+                            重置
+                        </button>
+                    </div>
+                </div>
+            </form>
             <div class="layui-tab layui-tab-card">
                 <ul class="layui-tab-title">
-                    <li class="layui-this">操作日志</li>
+                    <li class="layui-this">登录日志</li>
+                    <li>操作日志</li>
                 </ul>
                 <div class="layui-tab-content">
                     <div class="layui-tab-item layui-show">
@@ -23,6 +46,7 @@
             </div>
         </div>
     </div>
+
 </body>
 
 <script type="text/html" id="log-bar">
@@ -45,7 +69,8 @@
 
 <script src="/libs/component/layui/layui.js"></script>
 <script src="/libs/component/pear/pear.js"></script>
-<script>layui.use(['table', 'form', 'jquery', 'element'], function () {
+<script>
+    layui.use(['table', 'form', 'jquery', 'element'], function () {
         let table = layui.table;
         let form = layui.form;
         let element = layui.element;
@@ -59,20 +84,9 @@
                 { title: '操作人员', field: 'Userid', align: 'center' },
                 { title: '主机', field: 'host', align: 'center' },
                 { title: '操作时间', field: 'Operationtime', templet: '#log-createTime', align: 'center' }
-                /*{ title: '访问状态', field: 'IfSuccess', toolbar: '#log-bar', align: 'center', width: 150 }*/
+
             ]
         ]
-
-
-
-        //table.render({
-        //    elem: '#log-operate-table',
-        //    url: '/api/LoginLogData/OperateLoginfo',
-        //    page: true,
-        //    cols: cols1,
-        //    skin: 'line',
-        //    toolbar: false
-        //});
 
         table.render({
             elem: '#log-login-table',
@@ -84,7 +98,14 @@
         });
 
         form.on('submit(dict-type-query)', function (data) {
-            table.reload('dict-type-table', { where: data.field })
+            table.reload('log-login-table', { where: data.field })
+            return false;
+        });
+
+        form.on('submit(organization-query)', function (data) {
+            table.reload('log-login-table', {
+                where: data.field
+            })
             return false;
         });
 
@@ -99,3 +120,7 @@
         }
     })</script>
 </html>
+
+
+
+

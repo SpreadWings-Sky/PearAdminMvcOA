@@ -8,6 +8,26 @@
 <body class="pear-container">
     <div class="layui-card">
         <div class="layui-card-body">
+            <form class="layui-form" action="">
+                <div class="layui-form-item">
+                    <div class="layui-form-item layui-inline">
+                        <label class="layui-form-label">员工查询</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="UserName" placeholder="" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item layui-inline">
+                        <button type="submit" id="btn" class="pear-btn pear-btn-md pear-btn-primary" lay-submit lay-filter="organization-query">
+                            <i class="layui-icon layui-icon-search"></i>
+                            查询
+                        </button>
+                        <button type="reset" class="pear-btn pear-btn-md">
+                            <i class="layui-icon layui-icon-refresh"></i>
+                            重置
+                        </button>
+                    </div>
+                </div>
+            </form>
             <div class="layui-tab layui-tab-card">
                 <ul class="layui-tab-title">
                     <li class="layui-this">审批记录</li>
@@ -82,7 +102,14 @@
         });
 
         form.on('submit(dict-type-query)', function (data) {
-            table.reload('dict-type-table', { where: data.field })
+            table.reload('log-login-table', { where: data.field })
+            return false;
+        });
+
+        form.on('submit(organization-query)', function (data) {
+            table.reload('log-login-table', {
+                where: data.field
+            })
             return false;
         });
 

@@ -9,6 +9,7 @@
 
 namespace PearAdminMvcOA.Models
 {
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     
@@ -20,5 +21,7 @@ namespace PearAdminMvcOA.Models
         public System.DateTime Approvaltime { get; set; }
         public string Approvalcontent { get; set; }
         public string Approvalstatus1 { get; set; }
+        [JsonIgnore]
+        public virtual UserInfo UserInfo { get; set; }
     }
 }

@@ -18,7 +18,7 @@
                         </div>
                     </div>
                     <div class="layui-form-item layui-inline">
-                        <button type="button" id="btn" class="pear-btn pear-btn-md pear-btn-primary" lay-submit lay-filter="user-query">
+                        <button type="submit" id="btn" class="pear-btn pear-btn-md pear-btn-primary" lay-submit lay-filter="organization-query">
                             <i class="layui-icon layui-icon-search"></i>
                             查询
                         </button>
@@ -55,10 +55,7 @@
             <i class="layui-icon layui-icon-add-1"></i>
             新增
         </button>
-        <button class="pear-btn pear-btn-danger pear-btn-md" lay-event="batchRemove">
-            <i class="layui-icon layui-icon-delete"></i>
-            删除
-        </button>
+       
     </script>
 
     <script type="text/html" id="organization-bar">
@@ -86,9 +83,7 @@
             let MODULE_PATH = "operate/";
 
             let cols = [
-                [{
-                    type: 'checkbox'
-                },
+                [
                 {
                     title: '部门id',
                     field: 'DepartId',
@@ -146,35 +141,7 @@
             });
 
 
-            //$("#btn").click(function () {
-            //    $.ajax({
-            //        url: 'http://localhost:56794/api/HRData/Departinfo',
-            //        type: "get",
-            //        data: {
-            //            DepartName: $("[name='DepartName']").val()
-            //        },
-            //        success: function (data) {
-            //            table.render({
-            //                elem: '#organization-table',
-            //                url: '/api/HRData/Departinfo',
-            //                height: 'full-150',
-            //                page: true,
-            //                cols: cols,
-            //                skin: 'line',
-            //                toolbar: '#organization-toolbar',
-            //                defaultToolbar: [{
-            //                    title: '刷新',
-            //                    layEvent: 'refresh',
-            //                    icon: 'layui-icon-refresh',
-            //                }, 'filter', 'print', 'exports']
-            //            });
-            //        },
-            //        error: function (data) {
-            //            console.log(data);
-            //            alert("错误");
-            //        }
-            //    });
-            //});
+            
 
 
 

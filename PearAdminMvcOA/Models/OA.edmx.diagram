@@ -60,6 +60,9 @@
         <EntityTypeShape EntityType="OAModel.ManRe" Width="1.5" PointX="3" PointY="40.875" />
         <AssociationConnector Association="OAModel.FK_Management_UserInfo" />
         <AssociationConnector Association="OAModel.FK_ManRe_UserInfo" />
+        <AssociationConnector Association="OAModel.FK_Apply_UserInfo" />
+        <AssociationConnector Association="OAModel.FK_ApprovalStatus_UserInfo" />
+        <AssociationConnector Association="OAModel.FK_Operation_UserInfo" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -9,6 +9,7 @@
 
 namespace PearAdminMvcOA.Models
 {
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     
@@ -17,8 +18,9 @@ namespace PearAdminMvcOA.Models
         public int PreContractId { get; set; }
         public int ScheduleId { get; set; }
         public int UserId { get; set; }
-    
+        [JsonIgnore]
         public virtual Schedule Schedule { get; set; }
+        [JsonIgnore]
         public virtual UserInfo UserInfo { get; set; }
     }
 }

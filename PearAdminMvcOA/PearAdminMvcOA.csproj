@@ -808,6 +808,9 @@
     <Content Include="Views\ConTion\Management.cshtml" />
     <Content Include="Views\ConTion\ManModify.cshtml" />
     <Content Include="Views\ConRe\ConReIndex.cshtml" />
+    <Content Include="Views\Home\Person.cshtml" />
+    <Content Include="Views\Home\PersonManager\Edit.cshtml" />
+    <Content Include="Views\Personal\ApplyLeave.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

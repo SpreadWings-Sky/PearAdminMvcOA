@@ -10,12 +10,14 @@ namespace PearAdminMvcOA.Controllers
 {
     public class ApprovalStatusDataController : ApiController
     {
+
+        //查询
         [HttpGet]
-        public IHttpActionResult ApprovalStatusInfo()
+        public IHttpActionResult ApprovalStatusInfo(int page, int limit)
         {
             using (OAEntities db = new OAEntities())
             {
-                var List = db.ApprovalStatus.Select(n => new
+                var List = db.ApprovalStatus.OrderBy(n => n.ApprovalID).Skip((page - 1) * limit).Take(limit).Select(n => new
                 {
                     ApplicantUserid = db.UserInfo.FirstOrDefault(p=>p.UserId==n.ApplicantUserid).UserName,
                     Userid = db.UserInfo.FirstOrDefault(p => p.UserId == n.Userid).UserName,
@@ -23,14 +25,39 @@ namespace PearAdminMvcOA.Controllers
                     Approvalcontent = n.Approvalcontent,
                     Approvalstatus = n.Approvalstatus1 == "1" ? "通过" : "未通过",
                 }).ToList();
-                return Json(new { code = 0, msg = "", data = List });
+                var Count = db.ApprovalStatus.Count();
+                return Json(new { code = 0, msg = "", count = Count, data = List });
+
+            }
+        }
+
+        [HttpGet]
+        public IHttpActionResult ApprovalStatusList(string UserName, int page, int limit)
+        {
+            if (UserName == null)
+            {
+                UserName = "";
+            }
+            using (OAEntities db = new OAEntities())
+            {
+                var List = db.ApprovalStatus.Include("UserInfo").Where(p=>p.UserInfo.UserName.Contains(UserName)).OrderBy(n => n.ApprovalID).Skip((page - 1) * limit).Take(limit).Select(n => new
+                {
+                    ApplicantUserid = db.UserInfo.FirstOrDefault(p => p.UserId == n.ApplicantUserid).UserName,
+                    Userid = db.UserInfo.FirstOrDefault(p => p.UserId == n.Userid).UserName,
+                    Approvaltime = n.Approvaltime,
+                    Approvalcontent = n.Approvalcontent,
+                    Approvalstatus = n.Approvalstatus1 == "1" ? "通过" : "未通过",
+                }).ToList();
+                var Count = db.ApprovalStatus.Count();
+                return Json(new { code = 0, msg = "", count = Count, data = List });
 
             }
         }
 
 
+        //申请页面的申请通过
         [HttpPut]
-        public IHttpActionResult Apply_1(int id)
+        public IHttpActionResult Apply_1(int id/*,int userid*/)
         {
             using (OAEntities db = new OAEntities())
             {
@@ -55,6 +82,8 @@ namespace PearAdminMvcOA.Controllers
             }
         }
 
+
+        //申请页面的申请通过
         [HttpPost]
         public IHttpActionResult Apply_2(int id)
         {

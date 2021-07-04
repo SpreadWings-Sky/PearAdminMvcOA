@@ -20,5 +20,14 @@ namespace PearAdminMvcOA.Controllers
         {
             return View();
         }
+        public ActionResult Person()
+        {
+            return View();
+        }
+        public ActionResult Edit(int? id)
+        {
+            ViewBag.userid = id;
+            return View("~/Views/Home/PersonManager/Edit.cshtml");
+        }
     }
 }

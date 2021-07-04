@@ -9,6 +9,7 @@
 
 namespace PearAdminMvcOA.Models
 {
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     
@@ -17,8 +18,9 @@ namespace PearAdminMvcOA.Models
         public int ReadId { get; set; }
         public Nullable<int> MessageId { get; set; }
         public Nullable<int> UserId { get; set; }
-    
+        [JsonIgnore]
         public virtual Message Message { get; set; }
+        [JsonIgnore]
         public virtual UserInfo UserInfo { get; set; }
     }
 }

@@ -40,6 +40,17 @@ namespace PearAdminMvcOA.Controllers
                         FormsAuthentication.SetAuthCookie(us.UserId.ToString(), false);
                         HttpCookie cookie = new HttpCookie("UserId");
                         Session["User"] = us;
+                        LoginLog lg = new LoginLog()
+                        {
+                            UserId = us.UserId,
+                            LoginTime = DateTime.Now,
+                            IfSuccess = 1,
+                            LoginUserIp = Request.UserHostAddress,
+                            LoginDesc = "post",
+                            Browser = Request.Browser.Browser
+                        };
+                        db.LoginLog.Add(lg);
+                        db.SaveChanges();
                         cookie.Value = us.UserId.ToString();
                         cookie.Expires = DateTime.Now.AddDays(2);
                         Response.Cookies.Add(cookie);

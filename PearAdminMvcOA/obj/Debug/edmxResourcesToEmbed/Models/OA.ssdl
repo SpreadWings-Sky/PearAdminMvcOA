@@ -333,6 +333,30 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Apply_UserInfo">
+    <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
+    <End Role="Apply" Type="Self.Apply" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Apply">
+        <PropertyRef Name="userid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ApprovalStatus_UserInfo">
+    <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
+    <End Role="ApprovalStatus" Type="Self.ApprovalStatus" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="ApprovalStatus">
+        <PropertyRef Name="Userid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_BulletinInfo_UserInfo">
     <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
     <End Role="BulletinInfo" Type="Self.BulletinInfo" Multiplicity="*" />
@@ -561,6 +585,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Operation_UserInfo">
+    <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
+    <End Role="Operation" Type="Self.Operation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Operation">
+        <PropertyRef Name="Userid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_PreContract_Schedule">
     <End Role="Schedule" Type="Self.Schedule" Multiplicity="1" />
     <End Role="PreContract" Type="Self.PreContract" Multiplicity="*" />
@@ -659,6 +695,14 @@
       <End Role="FileTypeInfo" EntitySet="FileTypeInfo" />
       <End Role="AccessoryFile" EntitySet="AccessoryFile" />
     </AssociationSet>
+    <AssociationSet Name="FK_Apply_UserInfo" Association="Self.FK_Apply_UserInfo">
+      <End Role="UserInfo" EntitySet="UserInfo" />
+      <End Role="Apply" EntitySet="Apply" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ApprovalStatus_UserInfo" Association="Self.FK_ApprovalStatus_UserInfo">
+      <End Role="UserInfo" EntitySet="UserInfo" />
+      <End Role="ApprovalStatus" EntitySet="ApprovalStatus" />
+    </AssociationSet>
     <AssociationSet Name="FK_BulletinInfo_UserInfo" Association="Self.FK_BulletinInfo_UserInfo">
       <End Role="UserInfo" EntitySet="UserInfo" />
       <End Role="BulletinInfo" EntitySet="BulletinInfo" />
@@ -734,6 +778,10 @@
     <AssociationSet Name="FK_OperateLog_UserInfo" Association="Self.FK_OperateLog_UserInfo">
       <End Role="UserInfo" EntitySet="UserInfo" />
       <End Role="OperateLog" EntitySet="OperateLog" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Operation_UserInfo" Association="Self.FK_Operation_UserInfo">
+      <End Role="UserInfo" EntitySet="UserInfo" />
+      <End Role="Operation" EntitySet="Operation" />
     </AssociationSet>
     <AssociationSet Name="FK_PreContract_Schedule" Association="Self.FK_PreContract_Schedule">
       <End Role="Schedule" EntitySet="Schedule" />

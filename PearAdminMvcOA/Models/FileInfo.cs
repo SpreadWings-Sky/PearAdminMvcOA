@@ -9,6 +9,7 @@
 
 namespace PearAdminMvcOA.Models
 {
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     
@@ -29,10 +30,12 @@ namespace PearAdminMvcOA.Models
         public Nullable<int> ParentId { get; set; }
         public string FilePath { get; set; }
         public int IfDelete { get; set; }
-    
+        [JsonIgnore]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AccessoryFile> AccessoryFile { get; set; }
+        [JsonIgnore]
         public virtual UserInfo UserInfo { get; set; }
+        [JsonIgnore]
         public virtual FileTypeInfo FileTypeInfo { get; set; }
     }
 }
